@@ -1,0 +1,374 @@
+# 
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+# 
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+# 
+#    Developers do not need to manually edit POT or PO files.
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: courier 0.59.0-1.1\n"
+"Report-Msgid-Bugs-To: courier@packages.debian.org\n"
+"POT-Creation-Date: 2017-08-10 00:25+0200\n"
+"PO-Revision-Date: 2008-05-08 23:40+0900\n"
+"Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid "Create directories for web-based administration?"
+msgstr "web ベースでの管理のためにディレクトリを作成しますか?"
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"Courier uses several configuration files in /etc/courier. Some of these "
+"files can be replaced by a subdirectory whose contents are concatenated and "
+"treated as a single, consolidated, configuration file."
+msgstr ""
+"Courier は /etc/courier にある複数の設定ファイルを使用します。設定ファイルの"
+"うち幾つかは、サブディレクトリと置き換えることができます。サブディレクトリ"
+"は、含んでいるファイルの内容を繋げて１つの統合された設定ファイルと見なされま"
+"す。"
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"The web-based administration provided by the courier-webadmin package relies "
+"on configuration directories instead of configuration files.  If you agree, "
+"any directories needed for the web-based administration tool will be created "
+"unless there is already a plain file in place."
+msgstr ""
+"courier-webadmin によって提供される web ベースの管理は、設定ファイルではなく"
+"設定ディレクトリに依存します。もし同意すれば、すでにファイルが存在していない"
+"場合 web ベースの管理ツールに必要なディレクトリが作成されます。"
+
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid "Path to Maildir directory:"
+msgstr "Maildir ディレクトリへのパス:"
+
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid ""
+"Please give the relative path name from each user's home directory to the "
+"Maildir directory where the Courier servers store and access the user's "
+"email. Please refer to the maildir.courier(5) manual page if you are "
+"unfamiliar with the mail storage format used by Courier."
+msgstr ""
+"各ユーザのホームディレクトリから Courier サーバがユーザのメールを保存・アクセ"
+"スする Maildir ディレクトリへの相対パス名を指定してください。Courier によって"
+"利用されるメール保存形式についてあまり詳しくないという場合は maildir."
+"courier(5) マニュアルページを参照してください。"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid "Obsolete setting of MAILDIR"
+msgstr "無効となる MAILDIR 設定"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid ""
+"The name of the Maildir directory is now recognized through the variable "
+"MAILDIRPATH in Courier configuration files. The MAILDIR setting in /etc/"
+"default/courier is therefore obsolete and will be not recognized."
+msgstr ""
+"Maildir ディレクトリ名は Courier の設定ファイル中の MAILDIRPATH 変数を通して"
+"参照されるようになりました。そのため、/etc/default/courier での MAILDIR 設定"
+"は無効となり、認識されません。"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid "SSL certificate required"
+msgstr "SSL 証明書が必要です"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"POP and IMAP over SSL requires a valid, signed, X.509 certificate. During "
+"the installation of courier-pop or courier-imap, a self-signed X.509 "
+"certificate will be generated if necessary."
+msgstr ""
+"POP/IMAP over SSL には有効な、署名された X.509 証明書が必要となります。"
+"courier-pop/courier-imap のインストールの間、必要であれば自己署名 X.509 証明"
+"書が生成されます。"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"For production use, the X.509 certificate must be signed by a recognized "
+"certificate authority, in order for mail clients to accept the certificate. "
+"The default location for this certificate is /etc/courier/pop3d.pem or /etc/"
+"courier/imapd.pem."
+msgstr ""
+"実務での使用に際しては、メールクライアントが証明書を受け入れる為に X.509 証明"
+"書に対して認証済みの証明局による署名が必要です。この証明書の標準の場所は /"
+"etc/courier/pop3d.pem または /etc/courier/imapd.pem です。"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid "Courier MTA under courier user"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The Courier MTA packaging has been extensively rewritten and major changes "
+"had been done to the default setup of Courier MTA."
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The default user and group for Courier MTA has been changed to courier:"
+"courier.  The package tries hard to make all files belong to correct user:"
+"group and the permissions on those files are correct, but if you have a non-"
+"default setup, you will have to make sure that:"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+" + All file owners and file in /etc/courier and /var/lib/courier\n"
+"   are correctly set.\n"
+" + MAILUSER and MAILGROUP settings in /etc/courier/esmtpd is set to\n"
+"   correct user and group, both has to be set to `courier'."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid "Default domain:"
+msgstr "デフォルトドメイン名:"
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid ""
+"Please specify a valid email domain. Most header rewriting functions will "
+"append this domain to all email addresses which do not specify a domain, "
+"such as local accounts."
+msgstr ""
+"正しいメールドメイン名を指定してください。ヘッダ書き換え機能では、殆どがロー"
+"カルアカウントのようなドメイン名が指定されていない全てのメールアドレスに対し"
+"てこのドメイン名を付加するなどを行います。"
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid "\"From\" header for delivery notifications:"
+msgstr "配送状況通知 (Delivery Notification) に利用する \"From\"ヘッダ:"
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid ""
+"Please specify a valid value for the \"From\" header for mail delivery "
+"notifications. These notifications cannot be sent without that setting."
+msgstr ""
+"メール配送状況通知の際に \"From\" ヘッダに使用する有効な値を指定してくださ"
+"い。指定を行わなかった場合は、配送状況通知は送れません。"
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid "Activate CGI program?"
+msgstr "CGI プログラムを有効にしますか?"
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"To allow courier-webadmin to work out of the box, the CGI program /usr/lib/"
+"courier/courier/webmail/webadmin needs to be installed as /usr/lib/cgi-bin/"
+"courierwebadmin with the SUID bit set."
+msgstr ""
+"courier-webadmin に手を加えなくて良いようにするには、CGI プログラムである /"
+"usr/lib/courier/courier/webmail/webadmin を /usr/lib/cgi-bin/courierwebadmin "
+"にコピーして SUID ビットを設定する必要があります。"
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"This may have serious security implications, because courierwebadmin runs as "
+"root. Moreover, that solution is not guaranteed to work, depending on the "
+"web server software and its configuration."
+msgstr ""
+"courierwebadmin は root として動作するので、これには重大なセキュリティ上の問"
+"題を起こす可能性があります。何よりも web サーバソフトとその設定に依存するの"
+"で、動作が保証されません。"
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"If you choose this option and the web server setup is policy-compliant, you "
+"can access the administration frontend through http://localhost/cgi-bin/"
+"courierwebadmin."
+msgstr ""
+"ここで「はい」を選び、web サーバの設定が Debian ポリシーに適合している場合、"
+"http://localhost/cgi-bin/courierwebadmin から管理用のフロントエンドへアクセス"
+"できます。"
+
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid "Password for Courier administration:"
+msgstr "Courier 管理用パスワード:"
+
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid ""
+"A password is needed to protect access to the Courier administration web "
+"interface. Please choose one now."
+msgstr ""
+"Courier の管理 web 画面へのアクセス制限を行うため、パスワードが必要となりま"
+"す。ここでパスワードを決めてください。"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "local"
+msgstr "ローカル"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "net"
+msgstr "ネットワーク"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "disabled"
+msgstr "無効にする"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid "Calendaring mode:"
+msgstr "カレンダー機能:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Please specify if you would like to enable calendaring in 'local' mode, "
+"enable groupware or 'net' mode or disable it. The courier-pcp package is "
+"required to use the groupware mode."
+msgstr ""
+"「ローカル」モードでカレンダー機能を有効にするか、グループウェア機能を有効に"
+"するか、「ネットワーク」モードを選ぶか、それとも「無効にする」かを決めてくだ"
+"さい。グループウェア機能を使うには、courier-pcp パッケージをインストールする"
+"必要があります。"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Local mode adds very little overhead over a disabled calendaring mode. On "
+"the other hand, groupware mode is less resources-friendly and requires a "
+"separate daemon process to be run."
+msgstr ""
+"ローカルモードでは、カレンダー機能を無効にした場合と比較して少しだけオーバー"
+"ヘッドがあります。一方で、グループウェア機能はサーバ資源がより必要で、デーモ"
+"ンプロセスを分離して動作させる必要があります。"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"For more information, please refer to /usr/share/doc/sqwebmail/PCP.html."
+msgstr ""
+"より詳細については、/usr/share/doc/sqwebmail/PCP.html を参照してください。"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid "Ispell dictionary:"
+msgstr "ispell 辞書:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid ""
+"SqWebMail allows you to spellcheck your emails. Please select an appropriate "
+"dictionary for ispell."
+msgstr ""
+"SqWebMail ではメールのスペルチェックができます。ispell 用の適切な辞書を選んで"
+"ください。"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:4001
+msgid "symlink, copy, custom"
+msgstr "シンボリックリンク, コピーする, 手動で行う"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid "Installation method for HTML documents and images:"
+msgstr "HTML ドキュメントと画像の設定方法:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The HTML documents and images in /usr/share/sqwebmail can be made accessible "
+"at /var/www/sqwebmail via a symbolic link; or by being copied directly into "
+"a directory there; or not at all."
+msgstr ""
+"/usr/share/sqwebmail 中の HTML ドキュメントと画像を、/var/www/sqwebmail への"
+"シンボリックリンク経由でアクセス可能にするか、ディレクトリに直接コピーする、"
+"あるいは全く何もしないかを選んでください。"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The 'copy' option is recommended for security reasons. However, if "
+"'FollowSymLinks' or 'SymLinksIfOwnerMatch' are already enabled in Apache "
+"configuration, the first option can be considered. The last option needs "
+"manual actions to configure the web server."
+msgstr ""
+"セキュリティ上の理由から「コピーする」がおすすめです。しかし、すでに Apache "
+"の設定で FollowSymLinks か SymLinksIfOwnerMatch を有効にしていれば、最初の方"
+"法を選ぶのも良いかもしれません。最後のを選ぶと web サーバを手動で設定すること"
+"になります。"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"Please note that /var/www/sqwebmail will be removed if this package is "
+"purged unless the 'custom' option is chosen."
+msgstr ""
+"「カスタム」を選んでいたとしても、パッケージが完全に削除 (purge) されると /"
+"var/www/sqwebmail が削除されるのに注意してください。"

@@ -1,0 +1,13 @@
+[Unit]
+Description=Courier Daemon
+Requires=courier-authdaemon.service
+After=courier-authdaemon.service
+PartOf=courier-mta.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/courier start
+ExecStop=/usr/sbin/courier stop
+
+[Install]
+WantedBy=multi-user.target

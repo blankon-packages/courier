@@ -1,0 +1,20 @@
+=head1 NAME
+
+webmaild - wrapper script for the sqwebmail daemon
+
+=head1 SYNOPSIS
+
+webmaild
+
+=head1 DESCRIPTION
+
+B<webmaild> is a wrapper script that starts the sqwebmail daemon. It 
+takes no options. 
+
+The sqwebmail daemon is the backend server for the frontend located in  
+F</usr/lib/cgi-bin/sqwebmail>.
+
+=head1 AUTHOR
+
+This manual page was written by Willi Mann <willi@wm1.at>
+for the Debian GNU/Linux system.

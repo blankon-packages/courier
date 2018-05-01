@@ -1,0 +1,152 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Fix default configuration for Debian
+
+---
+ courier/ldapaliasrc.dist                |  2 +-
+ courier/module.esmtp/esmtpd-ssl.dist.in |  2 +-
+ courier/module.esmtp/esmtpd.dist.in     | 10 +++++-----
+ courier/webmlmrc.dist.in                |  2 +-
+ libs/imap/imapd-ssl.dist.in             |  2 +-
+ libs/imap/imapd.dist.in                 |  6 +++---
+ libs/imap/pop3d-ssl.dist.in             |  2 +-
+ libs/imap/pop3d.dist.in                 |  2 +-
+ 8 files changed, 14 insertions(+), 14 deletions(-)
+
+--- a/courier/ldapaliasrc.dist
++++ b/courier/ldapaliasrc.dist
+@@ -48,7 +48,7 @@
+ #
+ # Location of your LDAP server:
+ 
+-LDAP_URI	ldap://ldap.example.com:389
++LDAP_URI	ldap://localhost:389
+ 
+ ##NAME: LDAP_NUMPROCS:0
+ #
+--- a/courier/module.esmtp/esmtpd-ssl.dist.in
++++ b/courier/module.esmtp/esmtpd-ssl.dist.in
+@@ -123,7 +123,7 @@
+ #
+ #  Whether or not to start ESMTP over SSL on esmtps port:
+ 
+-ESMTPDSSLSTART=NO
++ESMTPDSSLSTART=YES
+ 
+ ##NAME: COURIERTLS:0
+ #
+--- a/courier/module.esmtp/esmtpd.dist.in
++++ b/courier/module.esmtp/esmtpd.dist.in
+@@ -36,7 +36,7 @@
+ #  Sets the maximum size of courieresmtpd's data segment
+ #
+ 
+-ULIMIT=16384
++ULIMIT=32768
+ 
+ ##NAME: BOFHCHECKDNS:0
+ #
+@@ -49,13 +49,13 @@
+ #
+ #  Set BOFHNOEXP to 1 to disable EXPN
+ 
+-BOFHNOEXPN=0
++BOFHNOEXPN=1
+ 
+ ##NAME: BOFHNOVRFY:1
+ #
+ #  Set BOFHNOVERIFY to disable VRFY
+ 
+-BOFHNOVRFY=0
++BOFHNOVRFY=1
+ 
+ ##NAME: TARPIT:1
+ #
+@@ -211,7 +211,7 @@
+ # In all cases, $TLS_CERTFILE needs to be linked to one of the existing
+ # certificate files.
+ 
+-TLS_CERTFILE=@mydatadir@/esmtpd.pem
++TLS_CERTFILE=@certsdir@/esmtpd.pem
+ 
+ ##NAME: TLS_DHPARAMS:0
+ #
+@@ -446,4 +446,4 @@
+ # with enough platforms so that people get annoyed with having to flip it to
+ # YES every time.
+ 
+-ESMTPDSTART=NO
++ESMTPDSTART=YES
+--- a/courier/webmlmrc.dist.in
++++ b/courier/webmlmrc.dist.in
+@@ -12,7 +12,7 @@
+ # executes the web cgi-bin scripts (nobody, in the default Apache
+ # configuration).
+ 
+-PORT=@localstatedir@/webmlm
++PORT=@piddir@/webmlm
+ 
+ 
+ ##NAME: PIDFILE:0
+--- a/libs/imap/imapd-ssl.dist.in
++++ b/libs/imap/imapd-ssl.dist.in
+@@ -72,7 +72,7 @@
+ #
+ #  Whether or not to start IMAP over SSL on simap port:
+ 
+-IMAPDSSLSTART=NO
++IMAPDSSLSTART=YES
+ 
+ ##NAME: IMAPDSTARTTLS:0
+ #
+--- a/libs/imap/imapd.dist.in
++++ b/libs/imap/imapd.dist.in
+@@ -57,7 +57,7 @@
+ #
+ #  Maximum number of connections to accept from the same IP address
+ 
+-MAXPERIP=4
++MAXPERIP=20
+ 
+ ##NAME: PIDFILE:0
+ #
+@@ -260,7 +260,7 @@
+ # sorting (by my calculations you have to have at least 100,000 messages
+ # in a single folder, for that to happen).
+ 
+-IMAP_ULIMITD=65536
++IMAP_ULIMITD=131072
+ 
+ ##NAME: IMAP_USELOCKS:0
+ #
+@@ -480,7 +480,7 @@
+ # The default setting is going to be NO, so you'll have to manually flip
+ # it to yes.
+ 
+-IMAPDSTART=NO
++IMAPDSTART=YES
+ 
+ ##NAME: MAILDIRPATH:0
+ #
+--- a/libs/imap/pop3d-ssl.dist.in
++++ b/libs/imap/pop3d-ssl.dist.in
+@@ -61,7 +61,7 @@
+ #
+ #  Whether or not to start POP3 over SSL on spop3 port:
+ 
+-POP3DSSLSTART=NO
++POP3DSSLSTART=YES
+ 
+ ##NAME: POP3_STARTTLS:0
+ #
+--- a/libs/imap/pop3d.dist.in
++++ b/libs/imap/pop3d.dist.in
+@@ -146,7 +146,7 @@
+ # with enough platforms so that people get annoyed with having to flip it to
+ # YES every time.
+ 
+-POP3DSTART=NO
++POP3DSTART=YES
+ 
+ ##NAME: POP3_LOG_DELETIONS:0
+ #

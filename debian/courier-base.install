@@ -1,0 +1,38 @@
+#!/usr/bin/dh-exec
+usr/bin/courier-config
+usr/bin/deliverquota => usr/bin/deliverquota.courier
+usr/lib/courier/mkesmtpdcert => usr/lib/courier/mkcouriercert
+usr/bin/maildiracl
+usr/bin/maildirkw
+usr/bin/maildirmake => usr/bin/maildirmake.courier
+usr/bin/makedat => usr/bin/makedat.courier
+usr/bin/testmxlookup
+usr/lib/courier/courier/makedatprog
+usr/lib/courier/makedat
+usr/lib/courier/perlfilter-ratelimit.pl
+usr/lib/courier/makeimapaccess
+usr/sbin/couriertcpd
+usr/sbin/makeimapaccess
+usr/sbin/sharedindexinstall
+usr/sbin/sharedindexsplit
+usr/share/man/man1/courier-config.1
+usr/share/man/man1/couriertcpd.1
+usr/share/man/man1/maildiracl.1
+usr/share/man/man1/maildirkw.1
+usr/share/man/man1/maildirmake.1 => usr/share/man/man1/maildirmake.courier.1
+usr/share/man/man1/makedat.1 => usr/share/man/man1/makedat.courier.1
+usr/share/man/man1/testmxlookup.1
+usr/share/man/man5/maildir.5 => usr/share/man/man5/maildir.courier.5
+usr/share/man/man7/maildirquota.7 => usr/share/man/man7/maildirquota.courier.7
+usr/share/man/man8/deliverquota.8 => usr/share/man/man8/deliverquota.courier.8
+usr/share/man/man8/sharedindexinstall.8
+usr/share/man/man8/sharedindexsplit.8
+usr/share/man/man8/makeimapaccess.8
+usr/bin/couriertls
+usr/lib/courier/mkdhparams
+usr/sbin/mkdhparams
+usr/share/man/man1/couriertls.1
+usr/share/man/man8/mkdhparams.8
+libs/imap/mkdhparams.8 /usr/share/man/man8
+install-perms-list.dat /usr/lib/courier/
+usr/lib/courier/init-d-script-courier

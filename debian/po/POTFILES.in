@@ -1,0 +1,4 @@
+[type: gettext/rfc822deb] courier-base.templates
+[type: gettext/rfc822deb] courier-mta.templates
+[type: gettext/rfc822deb] courier-webadmin.templates
+[type: gettext/rfc822deb] sqwebmail.templates

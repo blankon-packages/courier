@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+del_override() {
+    if dpkg-statoverride --list $4 >/dev/null; then
+	dpkg-statoverride --force --remove $4
+    fi
+}
+
+if [ "$1" = "purge" ]; then
+    rm -f /etc/courier/imapd.pem
+    rm -f /etc/courier/imapaccess.dat
+    del_override root courier 0640 /etc/courier/imapd.cnf
+fi
+
+#DEBHELPER#
+
+exit 0

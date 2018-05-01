@@ -1,0 +1,16 @@
+0002-rmail-and-sendmail-belong-to-usr-sbin.patch
+0003-Add-manpages-for-courier-mtaconfig-and-courieresmtpd.patch
+0004-Remove-Google-Ads-from-documentation.patch
+0006-Add-de-and-sv-translations.patch
+0008-Move-ldapaliasd-pidfiles-to-run.patch
+0010-Don-t-use-static-linking-in-libs-maildir.patch
+0011-Don-t-cleanup-staticlist.c.patch
+0012-Define-and-use-PEMFILE-in-mkesmtpdcert.patch
+0015-Disable-imapscanfail-maildirwatch-error-reporting.patch
+0016-Use-system-courierauth.patch
+0018-Fix-default-configuration-for-Debian.patch
+0019-Remove-upstream-chown-on-install-target.patch
+0022-mkesmtpdcert-should-use-certsdir.patch
+0023-Fix-missing-AC_PROG_SYSCONFTOOL-macro-on-autoreconf.patch
+0024-Dynamically-resolver-mailuid-and-mailgid-on-runtime-.patch
+0025-Use-SOURCE_DATE_EPOCH-for-imapd-version-Use-the-envi.patch

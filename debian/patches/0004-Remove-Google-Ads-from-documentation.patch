@@ -1,0 +1,31 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Remove Google Ads from documentation
+
+---
+ courier/doc/download.html | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/courier/doc/download.html b/courier/doc/download.html
+index 2d85e61..9f326df 100644
+--- a/courier/doc/download.html
++++ b/courier/doc/download.html
+@@ -199,18 +199,5 @@ body div.main { height: 100%; width: 100%; overflow: auto;
+     older/other releases</a>)</font></p>
+   </div>
+ 
+-  <div class='banner'>
+-    <script type="text/javascript">
+-<![CDATA[
+-    google_ad_client = "ca-pub-3196826191648604";
+-    /* download */
+-    google_ad_slot = "9611116675";
+-    google_ad_width = 160;
+-    google_ad_height = 600;
+-    ]]>
+-    </script> <script type="text/javascript" src=
+-    "http://pagead2.googlesyndication.com/pagead/show_ads.js">
+-</script>
+-  </div>
+ </body>
+ </html>

@@ -1,0 +1,19 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Don't cleanup staticlist.c
+
+---
+ courier/module.esmtp/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/courier/module.esmtp/Makefile.am
++++ b/courier/module.esmtp/Makefile.am
+@@ -44,7 +44,7 @@
+ INSTALL=@INSTALL@ `test \`id -u\` != 0 || echo -o @mailuser@ -g @mailgroup@`
+ INSTALL_PROGRAM=${INSTALL} -m 550
+ 
+-EXTRA_DIST=courier.config staticlist.c esmtp.authpam.dist esmtpd.cnf.gnutls
++EXTRA_DIST=courier.config esmtp.authpam.dist esmtpd.cnf.gnutls
+ 
+ noinst_LTLIBRARIES=librewrite.la libesmtp.la
+ 

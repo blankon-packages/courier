@@ -1,0 +1,247 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:09 +0100
+Subject: Remove upstream chown on install target
+
+---
+ Makefile.am                            |  3 ---
+ courier/doc/Makefile.am                |  6 ------
+ courier/filters/Makefile.am            | 11 -----------
+ courier/filters/perlfilter/Makefile.am |  1 -
+ courier/module.dsn/Makefile.am         |  5 +----
+ courier/module.esmtp/Makefile.am       |  8 +-------
+ courier/module.fax/Makefile.am         |  5 +----
+ courier/module.local/Makefile.am       |  5 +----
+ courier/module.uucp/Makefile.am        |  5 +----
+ libs/pcp/Makefile.am                   |  2 --
+ libs/sqwebmail/Makefile.am             |  3 ---
+ webadmin/Makefile.am                   |  6 ------
+ 12 files changed, 5 insertions(+), 55 deletions(-)
+
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -169,9 +169,6 @@
+ 	@$(MAKE) install-perms
+ 	@SYSCONFTOOL@ `awk ' $$5 == "config" && $$1 ~ /\.dist$$/ { print $$1 }' <permissions.dat`
+ 
+-install-webadmin-password:
+-	@stty -echo ; echo -n "Password: " ; read P; stty echo ; echo "" ; echo $$P >@sysconfdir@/webadmin/password && chown @mailuser@ @sysconfdir@/webadmin/password && chgrp @mailgroup@ @sysconfdir@/webadmin/password && chmod 400 @sysconfdir@/webadmin/password
+-
+ upload-beta:
+ 	rm -f @PACKAGE@-@VERSION@.tar.bz2.sig; gpg --detach-sign --default-key mrsam@courier-mta.com @PACKAGE@-@VERSION@.tar.bz2; test -f @PACKAGE@-@VERSION@.tar.bz2.sig || exit 1
+ 	~/src/sftools/release.pl mrsam courier courier-devel `echo @VERSION@|sed 's/.*\(........\)/\1/'` @PACKAGE@-@VERSION@.tar.bz2 @PACKAGE@-@VERSION@.tar.bz2.sig
+--- a/courier/doc/Makefile.am
++++ b/courier/doc/Makefile.am
+@@ -601,13 +601,7 @@
+ 	for f in $(man5) ; do test -f $(DESTDIR)$(man5dir)/$$f && chmod 644 $(DESTDIR)$(man5dir)/$$f ; done ; exit 0
+ 	for f in $(man7) ; do test -f $(DESTDIR)$(man7dir)/$$f && chmod 644 $(DESTDIR)$(man7dir)/$$f ; done ; exit 0
+ 	for f in $(man8) ; do test -f $(DESTDIR)$(man8dir)/$$f && chmod 644 $(DESTDIR)$(man8dir)/$$f ; done ; exit 0
+-	test `id -u` = 0 || exit 0 ; for f in $(mandir) $(man1dir) $(man5dir) $(man7dir) $(man8dir) ; do test -d $(DESTDIR)$$f && chown bin $(DESTDIR)$$f && chgrp bin $(DESTDIR)$$f ; done ; exit 0
+-	test `id -u` = 0 || exit 0 ; for f in $(man1) ; do test -f $(DESTDIR)$(man1dir)/$$f && chown bin $(DESTDIR)$(man1dir)/$$f && chgrp bin $(DESTDIR)$(man1dir)/$$f ; done ; exit 0
+-	test `id -u` = 0 || exit 0 ; for f in $(man5) ; do test -f $(DESTDIR)$(man5dir)/$$f && chown bin $(DESTDIR)$(man5dir)/$$f && chgrp bin $(DESTDIR)$(man5dir)/$$f ; done ; exit 0
+-	test `id -u` = 0 || exit 0 ; for f in $(man7) ; do test -f $(DESTDIR)$(man7dir)/$$f && chown bin $(DESTDIR)$(man7dir)/$$f && chgrp bin $(DESTDIR)$(man7dir)/$$f ; done ; exit 0
+-	test `id -u` = 0 || exit 0 ; for f in $(man8) ; do test -f $(DESTDIR)$(man8dir)/$$f && chown bin $(DESTDIR)$(man8dir)/$$f && chgrp bin $(DESTDIR)$(man8dir)/$$f ; done ; exit 0
+ 	for f in $(htmldoc_DATA) ; do chmod 444 $(DESTDIR)$(htmldocdir)/$$f ; done
+-	test `id -u` = 0 || exit 0; for f in $(htmldoc_DATA) ; do chown bin $(DESTDIR)$(htmldocdir)/$$f ; chgrp bin $(DESTDIR)$(htmldocdir)/$$f ; done
+ 
+ status.html: config.status
+ 
+--- a/courier/filters/Makefile.am
++++ b/courier/filters/Makefile.am
+@@ -117,24 +117,12 @@
+ 	chmod 750 $(DESTDIR)$(allfiltersocketdir)
+ 	chmod 750 $(DESTDIR)$(filterconfdir)
+ 	chmod 750 $(DESTDIR)$(filteractivedir)
+-	-chown @mailuser@ $(DESTDIR)$(filtersocketdir) \
+-		$(DESTDIR)$(allfiltersocketdir) \
+-		$(DESTDIR)$(filterconfdir) \
+-		$(DESTDIR)$(filteractivedir) 2>/dev/null
+-	-chgrp @mailgroup@ $(DESTDIR)$(filtersocketdir) \
+-		$(DESTDIR)$(allfiltersocketdir) \
+-		$(DESTDIR)$(filterconfdir) \
+-		$(DESTDIR)$(filteractivedir) 2>/dev/null
+ 	cd $(DESTDIR)$(man8dir) || exit 0; \
+ 		rm -f filterctl.8; $(LN_S) courierfilter.8 filterctl.8
+ 	for f in $(htmldoc_DATA); do chmod 444 $(DESTDIR)$(htmldocdir)/$$f ; done
+-	test `id -u` = 0 || exit 0; for f in $(htmldoc_DATA); do chown bin $(DESTDIR)$(htmldocdir)/$$f ; chgrp bin $(DESTDIR)$(htmldocdir)/$$f ; done
+ 	chmod 755 $(DESTDIR)$(filterbindir)/dupfilter
+ 	chmod 755 $(DESTDIR)$(filterbindir)/verifyfilter
+ 	chmod 755 $(DESTDIR)$(filterbindir)/ratefilter
+-	test `id -u` = 0 || exit 0; chown @mailuser@ $(DESTDIR)$(filterbindir)/dupfilter; chgrp @mailgroup@ $(DESTDIR)$(filterbindir)/dupfilter
+-	test `id -u` = 0 || exit 0; chown @mailuser@ $(DESTDIR)$(filterbindir)/ratefilter; chgrp @mailgroup@ $(DESTDIR)$(filterbindir)/ratefilter
+-	test `id -u` = 0 || exit 0; chown @mailuser@ $(DESTDIR)$(filterbindir)/verifyfilter; chgrp @mailgroup@ $(DESTDIR)$(filterbindir)/verifyfilter
+ 
+ install-perms:
+ 	@$(MAKE) install-perms-recursive
+--- a/courier/filters/perlfilter/Makefile.am
++++ b/courier/filters/perlfilter/Makefile.am
+@@ -55,4 +55,3 @@
+ 	chmod 755 $(DESTDIR)$(scriptdir)/perlfilter-example.pl
+ 	@test "@perlfilter_prog@" = "perlfilter" || exit 0; \
+ 		chmod 755 $(DESTDIR)$(filterbindir)/perlfilter
+-	test `id -u` = 0 || exit 0; for f in $(DESTDIR)$(scriptdir)/perlfilter-wrapper.pl $(DESTDIR)$(scriptdir)/perlfilter-example.pl $(DESTDIR)$(filterbindir)/perlfilter ; do test -f $$f || continue; chown @mailuser@ $$f ; chgrp @mailgroup@ $$f ; done
+--- a/courier/module.dsn/Makefile.am
++++ b/courier/module.dsn/Makefile.am
+@@ -8,7 +8,7 @@
+ 
+ BUILT_SOURCES=sysconfdir.h
+ 
+-INSTALL=@INSTALL@ `test \`id -u\` != 0 || echo -o @mailuser@ -g @mailgroup@`
++INSTALL=@INSTALL@
+ INSTALL_PROGRAM=${INSTALL} -m 550
+ 
+ DSNTXTIN=dsnheader.txt
+@@ -35,9 +35,6 @@
+ 
+ noinst_LTLIBRARIES=librewrite.la
+ 
+-install-data-hook:
+-	@test `id -u` = 0 || exit 0 ; cd $(DESTDIR)$(moduledir) || exit 1 ; chown @mailuser@ . ; chgrp @mailgroup@ .
+-
+ install-perms:
+ 	@$(MAKE) install-perms-recursive
+ 	@$(MAKE) install-perms-local
+--- a/courier/module.esmtp/Makefile.am
++++ b/courier/module.esmtp/Makefile.am
+@@ -41,16 +41,13 @@
+ 	touch $@
+ 
+ module_PROGRAMS=courieresmtp courieresmtpd addcr
+-INSTALL=@INSTALL@ `test \`id -u\` != 0 || echo -o @mailuser@ -g @mailgroup@`
++INSTALL=@INSTALL@
+ INSTALL_PROGRAM=${INSTALL} -m 550
+ 
+ EXTRA_DIST=courier.config esmtp.authpam.dist esmtpd.cnf.gnutls
+ 
+ noinst_LTLIBRARIES=librewrite.la libesmtp.la
+ 
+-install-data-hook:
+-	test `id -u` = 0 || exit 0 ; cd $(DESTDIR)$(moduledir) || exit 1 ; chown @mailuser@ . ; chgrp @mailgroup@ .
+-
+ ldaddlibdl=@LIBDL@
+ 
+ courieresmtp_SOURCES=courieresmtp.c esmtpclient.c esmtpconfig.c esmtpconfig.h \
+@@ -123,9 +120,6 @@
+ 		$(LN_S) $(datadir)/$$f $(DESTDIR)$(sbindir)/$$f ; done
+ 	cat </dev/null >>$(DESTDIR)$(sysconfdir)/esmtpauthclient
+ 	chmod 600 $(DESTDIR)$(sysconfdir)/esmtpauthclient
+-	test `id -u` = 0 || exit 0; \
+-		chown @mailuser@ $(DESTDIR)$(sysconfdir)/esmtpauthclient ; \
+-		chgrp @mailgroup@ $(DESTDIR)$(sysconfdir)/esmtpauthclient
+ 	rm -f $(DESTDIR)$(sbindir)/esmtpd-msa $(DESTDIR)$(sbindir)/makesmtpaccess-msa
+ 	$(LN_S) esmtpd $(DESTDIR)$(sbindir)/esmtpd-msa
+ 	$(LN_S) makesmtpaccess $(DESTDIR)$(sbindir)/makesmtpaccess-msa
+--- a/courier/module.fax/Makefile.am
++++ b/courier/module.fax/Makefile.am
+@@ -25,7 +25,7 @@
+ 
+ moduledir=$(libexecdir)/courier/modules/fax
+ 
+-INSTALL=@INSTALL@ `test \`id -u\` != 0 || echo -o @mailuser@ -g @mailgroup@`
++INSTALL=@INSTALL@
+ INSTALL_PROGRAM=${INSTALL} -m 550
+ 
+ module.fax: courier.config
+@@ -41,11 +41,8 @@
+ 
+ install-data-hook:
+ 	-$(mkinstalldirs) $(DESTDIR)$(moduledir)
+-	@test `id -u` = 0 || exit 0 ; cd $(DESTDIR)$(moduledir) || exit 1 ; chown @mailuser@ . ; chgrp @mailgroup@ .
+ 	-$(mkinstalldirs) $(DESTDIR)@faxtmpdir@
+ 	chmod 700 $(DESTDIR)@faxtmpdir@
+-	-chown @mailuser@ $(DESTDIR)@faxtmpdir@ 2>/dev/null
+-	-chgrp @mailgroup@ $(DESTDIR)@faxtmpdir@ 2>/dev/null
+ 
+ install-perms:
+ 	@$(MAKE) install-perms-recursive
+--- a/courier/module.local/Makefile.am
++++ b/courier/module.local/Makefile.am
+@@ -24,7 +24,7 @@
+ 
+ bin_PROGRAMS=preline
+ 
+-INSTALL=@INSTALL@ `test \`id -u\` != 0 || echo -o @mailuser@ -g @mailgroup@`
++INSTALL=@INSTALL@
+ INSTALL_PROGRAM=${INSTALL} -m 555
+ 
+ EXTRA_DIST=courier.config testsuite testsuite.txt
+@@ -60,9 +60,6 @@
+ 
+ noinst_LTLIBRARIES=librewrite.la
+ 
+-install-data-hook:
+-	@test `id -u` = 0 || exit 0 ; cd $(DESTDIR)$(moduledir) || exit 1 ; chown @mailuser@ . ; chgrp @mailgroup@ .
+-
+ install-perms:
+ 	@$(MAKE) install-perms-recursive
+ 	@$(MAKE) install-perms-local
+--- a/courier/module.uucp/Makefile.am
++++ b/courier/module.uucp/Makefile.am
+@@ -6,7 +6,7 @@
+ 
+ moduledir=$(libexecdir)/courier/modules/uucp
+ 
+-INSTALL=@INSTALL@ `test \`id -u\` != 0 || echo -o @mailuser@ -g @mailgroup@`
++INSTALL=@INSTALL@
+ INSTALL_PROGRAM=${INSTALL} -m 550
+ 
+ module.uucp: courier.config
+@@ -25,14 +25,12 @@
+ install-data-hook:
+ 	-$(mkinstalldirs) $(DESTDIR)$(moduledir)
+ 	-$(mkinstalldirs) $(DESTDIR)$(sbindir)
+-	@test `id -u` = 0 || exit 0 ; cd $(DESTDIR)$(moduledir) || exit 1 ; chown @mailuser@ . ; chgrp @mailgroup@ .
+ 	rm -f $(DESTDIR)$(sbindir)/makeuucpneighbors ; \
+ 		$(LN_S) $(datadir)/makeuucpneighbors \
+ 			$(DESTDIR)$(sbindir)/makeuucpneighbors
+ 	rm -f $(DESTDIR)$(man8dir)/makeuucpneighbors.8
+ 	$(LN_S) courieruucp.8 $(DESTDIR)$(man8dir)/makeuucpneighbors.8
+ 	for f in $(htmldoc_DATA); do chmod 444 $(DESTDIR)$(htmldocdir)/$$f ; done
+-	test `id -u` = 0 || exit 0; for f in $(htmldoc_DATA); do chown bin $(DESTDIR)$(htmldocdir)/$$f ; chgrp bin $(DESTDIR)$(htmldocdir)/$$f ; done
+ 
+ 
+ courieruucp_SOURCES=uucp.c staticlist.c
+--- a/libs/pcp/Makefile.am
++++ b/libs/pcp/Makefile.am
+@@ -66,8 +66,6 @@
+ 	chmod 755 $(DESTDIR)$(calendardir)/public
+ 	chmod 750 $(DESTDIR)$(calendardir)/private
+ 	chmod 700 $(DESTDIR)$(localpcpdcachedir)
+-	-chown @localcacheowner@ $(DESTDIR)$(localpcpdcachedir)
+-	-chgrp -R @mailgroup@ $(DESTDIR)$(calendardir)
+ 	echo "localcacheowner=@localcacheowner@" >uids
+ 	echo "calendardir=$(calendardir)" >>uids
+ 	echo "mailgroup=@mailgroup@" >>uids
+--- a/libs/sqwebmail/Makefile.am
++++ b/libs/sqwebmail/Makefile.am
+@@ -174,8 +174,6 @@
+ install-data-local: cache-reminder
+ 
+ install-exec-hook:
+-	-chown @mailuser@ $(DESTDIR)$(pkglibexecdir)/sqwebpasswd
+-	-chgrp @mailgroup@ $(DESTDIR)$(pkglibexecdir)/sqwebpasswd
+ 	-chmod 755 $(DESTDIR)$(pkglibexecdir)/sqwebpasswd
+ 	-chmod g+s $(DESTDIR)$(pkglibexecdir)/sqwebpasswd
+ 
+@@ -189,7 +187,6 @@
+ cache-reminder:
+ 	-$(mkinstalldirs) $(DESTDIR)@cachedir@
+ 	-$(mkinstalldirs) $(DESTDIR)$(piddir)
+-	test -w /etc || exit 0; chown @cacheowner@ $(DESTDIR)@cachedir@
+ 	@rm -f cron.cmd
+ 	@echo '#! @SHELL@' >cron.cmd
+ 	@echo 'su -p -c "$(scriptdir)/cleancache.pl" @cacheowner@' >>cron.cmd
+--- a/webadmin/Makefile.am
++++ b/webadmin/Makefile.am
+@@ -19,12 +19,6 @@
+ 	-$(mkinstalldirs) $(DESTDIR)$(sysconfdir)/webadmin/added
+ 	-$(mkinstalldirs) $(DESTDIR)$(sysconfdir)/webadmin/removed
+ 	chmod 700 $(DESTDIR)$(sysconfdir)/webadmin
+-	-chown @mailuser@ $(DESTDIR)$(sysconfdir)/webadmin
+-	-chown @mailuser@ $(DESTDIR)$(sysconfdir)/webadmin/added
+-	-chown @mailuser@ $(DESTDIR)$(sysconfdir)/webadmin/removed
+-	-chgrp @mailgroup@ $(DESTDIR)$(sysconfdir)/webadmin
+-	-chgrp @mailgroup@ $(DESTDIR)$(sysconfdir)/webadmin/added
+-	-chgrp @mailgroup@ $(DESTDIR)$(sysconfdir)/webadmin/removed
+ 
+ install-perms:
+ 	@echo $(sysconfdir)/webadmin 700 @mailuser@ @mailgroup@ >permissions.dat

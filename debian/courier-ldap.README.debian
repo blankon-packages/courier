@@ -1,0 +1,5 @@
+The init script issues a message "Starting Courier LDAP alias daemon" 
+without considering the LDAP_ALIAS setting in /etc/courier/ldapaliasrc.
+
+In fact, the Courier LDAP alias daemon stops automatically if LDAP_ALIAS
+isn't set to 1 in /etc/courier/ldapaliasrc.

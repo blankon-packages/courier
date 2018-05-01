@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+# Remove /etc/courier/maildroprc on purge
+if [ "$1" = "purge" -a -h /etc/courier/maildroprc ]; then
+    rm -f /etc/courier/maildroprc
+    rmdir --ignore-fail-on-non-empty /etc/courier
+fi
+
+#DEBHELPER#

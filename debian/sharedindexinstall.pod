@@ -1,0 +1,25 @@
+=head1 NAME
+
+sharedindexinstall - Installs the shared index files
+
+=head1 SYNOPSIS
+
+sharedindexinstall
+
+=head1 DESCRIPTION
+
+B<sharedindexinstall> installs the shared index files from 
+F</etc/courier/shared.tmp/> to F</etc/courier/shared/>. 
+The full documentation of shared folders with courier-imap 
+and sqwebmail is located at 
+F</usr/share/doc/courier-base/README.sharedfolders.txt.gz>.
+
+=head1 SEE ALSO
+
+L<authenumerate>(8), L<sharedindexsplit>(8)
+
+=head1 AUTHOR
+
+This manual page was written by Willi Mann <willi@wm1.at>
+for the Debian GNU/Linux system.
+

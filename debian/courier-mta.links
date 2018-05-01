@@ -1,0 +1,5 @@
+/usr/sbin/makealiases /usr/sbin/newaliases
+/usr/share/man/man8/makealiases.8 /usr/share/man/man8/newaliases.8
+/usr/sbin/sendmail /usr/lib/sendmail
+/usr/share/man/man8/esmtpd.8 /usr/share/man/man8/esmtpd-ssl.8
+/usr/lib/courier/mkcouriercert /usr/lib/courier/mkesmtpdcert

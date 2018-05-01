@@ -1,0 +1,15 @@
+courier (0.76.1-1) unstable; urgency=medium
+
+  * The courier, courierfilter services has been split from the
+    courier-mta init.d script, so if you still use sysvinit, then for
+    a full restart/reload you also need to restart/reload these
+    services:
+
+        # service courier restart
+        # service courierfilter restart
+	# service courier-mta restart
+
+    Systemd units have a dependency, so they should be restarted
+    automatically on courier-mta restart.
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 09 May 2016 15:13:47 +0200

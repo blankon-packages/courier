@@ -1,0 +1,223 @@
+From: =?utf-8?q?Ond=C5=99ej_Sur=C3=BD?= <ondrej@sury.org>
+Date: Sat, 2 Jan 2016 14:06:02 +0100
+Subject: Dynamically resolver mailuid and mailgid on runtime (suboptimal,
+ resolving is done every time)
+
+---
+ courier/Makefile.am          |  7 ++--
+ courier/configure.ac         |  8 -----
+ courier/courier-config.c     |  1 +
+ courier/courier.h.in         |  6 ++--
+ courier/courierdb.C          |  1 +
+ courier/module.local/local.c |  3 +-
+ libs/numlib/changeuidgid.c   | 84 ++++++++++++++++++++++++++++++++++++++++++++
+ libs/numlib/numlib.h         |  3 ++
+ 8 files changed, 98 insertions(+), 15 deletions(-)
+
+--- a/courier/Makefile.am
++++ b/courier/Makefile.am
+@@ -314,7 +314,7 @@
+ 	courierdb.C courierd.C courierd.h mydirent.h
+ 
+ courierd_DEPENDENCIES=$(COURIERDEPENDENCIES) ../afx/libafx.a ../libs/liblock/liblock.la ../libs/tcpd/libspipe.la ../libs/soxwrap/libsoxwrap.a ../libs/soxwrap/soxlibs.dep
+-courierd_LDADD=$(COURIERLDADD) ../afx/libafx.a ../libs/liblock/liblock.la ../libs/tcpd/libspipe.la ../libs/soxwrap/libsoxwrap.a `cat ../libs/soxwrap/soxlibs.dep` $(DEBUGLIB) -lcourierauth
++courierd_LDADD=$(COURIERLDADD) ../afx/libafx.a ../libs/liblock/liblock.la ../libs/tcpd/libspipe.la ../libs/numlib/libnumlib.la ../libs/soxwrap/libsoxwrap.a `cat ../libs/soxwrap/soxlibs.dep` $(DEBUGLIB) -lcourierauth
+ courierd_LDFLAGS=`@COURIERAUTHCONFIG@ --ldflags`
+ 
+ # tcpd
+@@ -404,6 +404,7 @@
+ # courier-config
+ 
+ courier_config_SOURCES=courier-config.c
++courier_config_LDADD=../libs/numlib/libnumlib.la
+ 
+ EXTRA_DIST= testsuite.alias testsuite.alias1.in testsuite.alias2.in \
+ 		aliases.config smtpaccess.config \
+@@ -420,8 +421,8 @@
+ uidgid.h: config.status
+ 	echo "#define MAILUSER \"$(mailuser)\"" >uidgid.h
+ 	echo "#define MAILGROUP \"$(mailgroup)\"" >>uidgid.h
+-	echo "#define MAILUID $(mailuid)" >>uidgid.h
+-	echo "#define MAILGID $(mailgid)" >>uidgid.h
++	echo "#define MAILUID libmail_getuid(MAILUSER)" >>uidgid.h
++	echo "#define MAILGID libmail_getgid(MAILGROUP)" >>uidgid.h
+ 
+ configargs.h: ../configure.args
+ 	echo "#define CONFIGURE_ARGS \"`cat ../configure.args`\"" >configargs.h
+--- a/courier/configure.ac
++++ b/courier/configure.ac
+@@ -321,16 +321,8 @@
+ AC_ARG_WITH(mailgroup, [], mailgroup="$withval",
+ 	AC_MSG_ERROR(--with-mailgroup not set))
+ 
+-AC_ARG_WITH(mailuid, [], mailuid="$withval",
+-	AC_MSG_ERROR(--with-mailuid not set))
+-
+-AC_ARG_WITH(mailgid, [], mailgid="$withval",
+-	AC_MSG_ERROR(--with-mailgid not set))
+-
+ AC_SUBST(mailuser)
+ AC_SUBST(mailgroup)
+-AC_SUBST(mailuid)
+-AC_SUBST(mailgid)
+ 
+ AC_ARG_WITH(explicitsync, [  --without-explicitsync  Do not manually sync queue files],
+ 	explicitsync="$withval", explicitsync="Y")
+--- a/courier/courier-config.c
++++ b/courier/courier-config.c
+@@ -16,6 +16,7 @@
+ #include	"configargs.h"
+ #include	<string.h>
+ #include	<stdlib.h>
++#include	"numlib/numlib.h"
+ #if	HAVE_UNISTD_H
+ #include	<unistd.h>
+ #endif
+--- a/courier/courier.h.in
++++ b/courier/courier.h.in
+@@ -16,11 +16,11 @@
+ extern "C" {
+ #endif
+ 
+-#define	MAILUID		@mailuid@
+-#define	MAILGID		@mailgid@
+ #define	MAILUSER	"@mailuser@"
+ #define	MAILGROUP	"@mailgroup@"
+-
++#define	MAILUID		libmail_getuid(MAILUSER)
++#define	MAILGID		libmail_getgid(MAILGROUP)
++	
+ #define	COURIER_HOME	"@prefix@"
+ 
+ #define	COURIER_COPYRIGHT	"@COPYRIGHT@"
+--- a/courier/courierdb.C
++++ b/courier/courierdb.C
+@@ -25,6 +25,7 @@
+ #include	"waitlib/waitlib.h"
+ #include	"liblock/config.h"
+ #include	"liblock/liblock.h"
++#include	"numlib/numlib.h"
+ 
+ pid_t	couriera, courierb;
+ time_t	courierastart, courierbstart;
+--- a/courier/module.local/local.c
++++ b/courier/module.local/local.c
+@@ -26,6 +26,7 @@
+ #include	"modulelist.h"
+ #include	"sysconfdir.h"
+ #include	<courierauth.h>
++#include	"numlib/numlib.h"
+ 
+ #if	HAVE_SYSLOG_H
+ #include	<syslog.h>
+@@ -353,7 +354,7 @@
+ 
+ 	{
+ 	struct	authinfo aa;
+-	static const uid_t	mailuid=MAILUID;
++	const uid_t	mailuid = (const uid_t)MAILUID;
+ 
+ 		memset(&aa, 0, sizeof(aa));
+ 		aa.homedir= ALIASDIR;
+--- a/libs/numlib/changeuidgid.c
++++ b/libs/numlib/changeuidgid.c
+@@ -108,3 +108,87 @@
+ 		exit(1);
+ 	}
+ }
++
++uid_t libmail_getuid(const char *uname) {
++	uid_t u;
++	struct passwd pwd;
++	struct passwd *result;
++	char *buf;
++	size_t bufsize;
++	int s;
++
++	bufsize = sysconf(_SC_GETPW_R_SIZE_MAX);
++	if (bufsize == -1)          /* Value was indeterminate */
++	{
++		bufsize = 16384;        /* Should be more than enough */
++	}
++
++	buf = malloc(bufsize);
++	if (buf == NULL)
++	{
++		perror("malloc");
++		exit(1);
++	}
++
++	s = getpwnam_r(uname, &pwd, buf, bufsize, &result);
++	if (result == NULL)
++	{
++		if (s == 0)
++		{
++			fprintf(stderr, "CRIT: User %s not found\n", uname);
++		}
++		else
++		{
++			errno = s;
++			perror("getpwnam_r");
++		}
++		exit(1);
++	}
++
++	u = pwd.pw_uid;
++	free(buf);
++
++	return u;
++}
++
++gid_t libmail_getgid(const char *gname) {
++	gid_t g;
++	struct group grp;
++	struct group *result;
++	char *buf;
++	size_t bufsize;
++	int s;
++
++	bufsize = sysconf(_SC_GETGR_R_SIZE_MAX);
++	if (bufsize == -1)          /* Value was indeterminate */
++	{
++		bufsize = 16384;        /* Should be more than enough */
++	}
++
++	buf = malloc(bufsize);
++	if (buf == NULL)
++	{
++		perror("malloc");
++		exit(1);
++	}
++
++	s = getgrnam_r(gname, &grp, buf, bufsize, &result);
++	if (result == NULL)
++	{
++		if (s == 0)
++		{
++			fprintf(stderr, "CRIT: Group %s not found\n", gname);
++		}
++		else
++		{
++			errno = s;
++			perror("getpwnam_r");
++		}
++		exit(1);
++	}
++
++	g = grp.gr_gid;
++	free(buf);
++
++	return g;
++}
+--- a/libs/numlib/numlib.h
++++ b/libs/numlib/numlib.h
+@@ -95,6 +95,9 @@
+ 	** no aux group IDs for the user, any AUX ids are cleared.
+ 	*/
+ 
++uid_t libmail_getuid(const char *);
++gid_t libmail_getgid(const char *);
++
+ #ifdef	__cplusplus
+ }
+ #endif

@@ -1,0 +1,25 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Move ldapaliasd pidfiles to /run
+
+---
+ courier/ldapaliasdrc.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/courier/ldapaliasdrc.h b/courier/ldapaliasdrc.h
+index 25d08fa..e7e682f 100644
+--- a/courier/ldapaliasdrc.h
++++ b/courier/ldapaliasdrc.h
+@@ -20,9 +20,9 @@ FILE *ldapaliasd_connect();
+ void ldapaliasd_configchanged();
+ 
+ #define	LDAPALIASDCONFIGFILE	SYSCONFDIR	"/ldapaliasrc"
+-#define	SOCKETFILE		LOCALSTATEDIR	"/tmp/ldapaliasd"
+-#define	LOCKFILE		LOCALSTATEDIR	"/tmp/ldapaliasd.lock"
+-#define	PIDFILE			LOCALSTATEDIR	"/tmp/ldapaliasd.pid"
++#define	SOCKETFILE		"/run/courier/ldapaliasd"
++#define	LOCKFILE		"/run/courier/ldapaliasd.lock"
++#define	PIDFILE			"/run/courier/ldapaliasd.pid"
+ 
+ #ifdef __cplusplus
+ }

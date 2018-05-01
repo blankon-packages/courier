@@ -1,0 +1,24 @@
+=head1 NAME
+
+webgpg - initializes maildir subdirectory gpg
+
+=head1 SYNOPSIS
+
+webgpg MAILDIR
+
+=head1 DESCRIPTION
+
+B<webgpg> creates a new subdirectory in the given MAILDIR and initializes
+it. Once that subdirectory is created, encryption/decryption in SqWebMail will
+become available for that account.
+
+B<webgpg> must be executed by the same UID and GID which owns the MAILDIR.
+
+=head1 SEE ALSO
+
+L<gpg>(1), F</usr/share/doc/sqwebmail/GPG.html>
+
+=head1 AUTHOR
+
+This manual page was written by Stefan Hornburg (Racke) <racke@linuxia.de>
+for the Debian GNU/Linux system.

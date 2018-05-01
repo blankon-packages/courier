@@ -1,0 +1,27 @@
+From: =?utf-8?q?Alexis_Bienven=C3=BCe?= <pado@passoire.fr>
+Date: Thu, 12 May 2016 10:12:49 +0200
+Subject: Use SOURCE_DATE_EPOCH for imapd version Use the environment variable
+ SOURCE_DATE_EPOCH (if set) for imapd PROGRAMVERSION,
+ to make the build reproducible. See
+ https://reproducible-builds.org/specs/source-date-epoch/
+
+---
+ libs/imap/configure.ac | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/libs/imap/configure.ac b/libs/imap/configure.ac
+index 1106e15..62bd7fe 100644
+--- a/libs/imap/configure.ac
++++ b/libs/imap/configure.ac
+@@ -340,8 +340,9 @@ courier)
+ 	;;
+ esac
+ 
+-date=`date`
+-AC_DEFINE_UNQUOTED(PROGRAMVERSION, "$package/${target_cpu}-${target_vendor}-${target_os}/$date",
++SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-$(date +%s)}"
++BUILD_DATE=$(date -u -d "@$SOURCE_DATE_EPOCH" "+%F %R" 2>/dev/null || date -u -r "$SOURCE_DATE_EPOCH" "+%F %R" 2>/dev/null || date -u "+%F %R")
++AC_DEFINE_UNQUOTED(PROGRAMVERSION, "$package/${target_cpu}-${target_vendor}-${target_os}/$BUILD_DATE",
+ 		       [ Source code version ])
+ 
+ AC_ARG_WITH(trashquota, [ --with-trashquota       Count deleted messages as part of the quota],

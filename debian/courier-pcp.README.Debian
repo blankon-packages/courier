@@ -1,0 +1,12 @@
+Debian Packaging Issues
+***********************
+
+Please read /usr/share/doc/courier-base/README.Debian for more
+information about the packaging of the Courier Mail Server suite.
+
+Further Documentation
+*********************
+
+Please refer to the documentation of the sqwebmail package
+(especially /usr/share/doc/sqwebmail/PCP.html) for more
+information.

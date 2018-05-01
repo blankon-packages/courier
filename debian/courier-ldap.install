@@ -1,0 +1,8 @@
+etc/courier/ldapaddressbook
+etc/courier/ldapaliasrc
+usr/sbin/courierldapaliasd
+usr/share/courier/webadmin/admin-15ldap.html
+usr/share/courier/webadmin/admin-15ldap.pl
+usr/share/courier/webadmin/admin-15ldapa.html
+usr/share/courier/webadmin/admin-15ldapa.pl
+usr/share/man/man8/courierldapaliasd.8

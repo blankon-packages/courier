@@ -1,0 +1,14 @@
+etc/courier/imapd
+etc/courier/imapd-ssl
+etc/courier/imapd.cnf
+etc/pam.d/imap
+usr/bin/imapd
+usr/lib/courier/courier/imaplogin
+usr/lib/courier/imapd
+usr/lib/courier/imapd-ssl
+usr/sbin/imapd
+usr/sbin/imapd-ssl
+usr/sbin/mkimapdcert
+usr/share/courier/webadmin/admin-40imap.html
+usr/share/courier/webadmin/admin-40imap.pl
+usr/share/man/man8/imapd.8

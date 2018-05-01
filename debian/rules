@@ -1,0 +1,222 @@
+#!/usr/bin/make -f
+#
+# Copyright 2000-2012 by Stefan Hornburg (Racke) <racke@linuxia.de>
+# Copyright 2015 Ondřej Surý <ondrej@debian.org>
+# Copyright 2017 Markus Wanner <markus@bluegap.ch>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public
+# License along with this program; if not, write to the Free
+# Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
+# MA  02111-1307  USA.
+
+BUILD=$(CURDIR)/debian/tmp
+
+sed_AC_INIT = 's/AC_INIT(PACKAGE_NAME, \([.0-9]*\), .*$$/\1/p'
+get_version = $(shell sed -ne $(subst PACKAGE_NAME,$(1),$(sed_AC_INIT)) $(2))
+IMAPVER=$(call get_version,courier-imap,libs/imap/configure.ac)
+SQWEBMAILVER=$(call get_version,sqwebmail,libs/sqwebmail/configure.ac)
+MAILDROPVER=$(call get_version,maildrop,libs/maildrop/configure.ac)
+
+# Uncomment this to turn on verbose mode. 
+#export DH_VERBOSE=1
+
+# see EXAMPLES in dpkg-buildflags(1) and read /usr/share/dpkg/*
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# see ENVIRONMENT in dpkg-buildflags(1)
+# package maintainers to append CFLAGS
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# package maintainers to append LDFLAGS
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+SED_VERSION=sed -ne 's/^Version: \(.*\)/\1/p'
+
+%:
+	dh $@ --with autotools-dev --with autoreconf --with systemd
+
+override_dh_autoreconf:
+	find $(CURDIR) -name Makefile.in -delete
+	dh_autoreconf --as-needed
+
+# Common configuration options
+COMMON_CONFIGURE = \
+		--cache-file=$(CURDIR)/config.cache \
+		--with-piddir=/run/courier \
+		--sysconfdir=/etc/courier \
+		--libexecdir=\$${prefix}/lib/courier \
+		--datadir=\$${prefix}/lib/courier \
+		--localstatedir=/var/lib/courier \
+		--with-mailuser=courier \
+		--with-mailgroup=courier \
+		--without-socks \
+		--with-gnutls \
+		--enable-workarounds-for-imap-client-bugs \
+		--with-authdaemonvar=/run/courier/authdaemon \
+		--with-db=gdbm \
+		--without-fcgi \
+		--with-htmllibdir=/usr/share/sqwebmail \
+		--with-ispell=/usr/bin/ispell \
+		--enable-imageurl=/sqwebmail \
+		--with-mailer="/usr/sbin/sendmail" \
+		--enable-sendmail="/usr/sbin/sendmail" \
+		--with-cachedir=/var/cache/sqwebmail \
+		--with-calendardir=/run/courier/calendar \
+		--with-certsdir=/etc/courier \
+		--with-postgresql-includes=/usr/include/postgresql \
+		--with-webadmindir=/usr/share/courier/webadmin \
+		--enable-authlib \
+		--enable-userdb \
+		--enable-syslog=1 \
+		--enable-unicode \
+		--disable-root-check
+
+override_dh_auto_configure:
+	CONFIG_SHELL=/bin/sh dh_auto_configure -- $(COMMON_CONFIGURE)
+
+override_dh_auto_install:
+	INSTALL_IGNORE_UMASK=1 dh_auto_install -- install
+
+override_dh_installdocs-arch:
+	dh_installdocs -a
+	install -m 644 debian/sqwebmail.html debian/sqwebmail/usr/share/doc/sqwebmail
+	install -m 644 libs/gpglib/README.html debian/sqwebmail/usr/share/doc/sqwebmail/GPG.html
+	install -m 644 libs/pcp/README.html debian/sqwebmail/usr/share/doc/sqwebmail/PCP.html
+
+override_dh_installinit:
+	dh_installinit -p courier-base --name=courier-imapaccess
+	dh_installinit -p courier-mta --name=courier
+	dh_installinit -p courier-mta --name=courierfilter
+	dh_installinit -p courier-mta
+	dh_installinit -p courier-mta --name=courier-mta-ssl
+	dh_installinit -p courier-mta --name=courier-msa
+	dh_installinit -p courier-imap
+	dh_installinit -p courier-imap --name=courier-imap-ssl
+	dh_installinit -p courier-pop
+	dh_installinit -p courier-pop --name=courier-pop-ssl
+	dh_installinit --remaining
+
+POD2MAN := pod2man --center='Debian GNU/Linux Documentation' --release='Debian GNU/Linux '`cat /etc/debian_version`
+
+override_dh_install:
+	${MAKE} install-perms
+	cd $(CURDIR)/courier && ./perms.sh > $(CURDIR)/debian/tmp/install-perms-list.dat
+
+# Install init-d helper script
+	install -m 644 debian/init-d-script-courier $(BUILD)/usr/lib/courier/
+
+# Create additional manpages
+	for man1 in addcr courier-config; do \
+	    $(POD2MAN) --section=1 debian/$${man1}.pod > $(BUILD)/usr/share/man/man1/$${man1}.1; \
+	done
+	for man8 in sharedindexinstall sharedindexsplit webgpg webmaild; do \
+	    $(POD2MAN) --section=8 debian/$${man8}.pod > $(BUILD)/usr/share/man/man8/$${man8}.8; \
+	done
+
+# Ispell dictionary configuration will be produced by postinst
+	rm -f $(BUILD)/usr/lib/courier/sqwebmail/html/en-us/ISPELLDICT
+
+# Remove examples
+	rm -f $(BUILD)/usr/lib/courier/perlfilter-example.pl
+	rm -f $(BUILD)/etc/courier/quotawarnmsg.example
+
+# Fix Perl paths in webadmin stuff
+	perl -i -pe 's%^#!\s?perl%#!/usr/bin/perl%' $(BUILD)/usr/share/courier/webadmin/*.pl
+
+# CHECK&FIXME
+# Fix ldapsearch path
+#	perl -i -pe 's%/usr/local/%/usr/%' $(BUILD)/usr/lib/courier/sqwebmail/ldapsearch
+
+# CHECK&FIXME
+# Fix sendit.sh
+#	perl -i -pe 's%sendmail%sendmail -oi -t%' $(BUILD)/usr/lib/courier/sqwebmail/sendit.sh
+
+# Remove showmodules so we get rid of the libmysqlclient dependency
+	rm -f $(BUILD)/usr/sbin/showmodules
+
+# Remove *.dist configuration files
+	for f in $(BUILD)/etc/courier/*.dist; do \
+	  mv $${f} $${f%.dist}; \
+	done
+
+# Replace PAM files with our versions
+	rm $(BUILD)/etc/courier/*.authpam
+	install -d -m 755 $(BUILD)/etc/pam.d
+	install -m 644 debian/common-session.pam $(BUILD)/etc/pam.d/esmtp
+	install -m 644 debian/common-session.pam $(BUILD)/etc/pam.d/imap
+	install -m 644 debian/common-session.pam $(BUILD)/etc/pam.d/pop3
+	install -m 644 debian/common-password.pam $(BUILD)/etc/pam.d/webmail
+	install -m 644 debian/common-password.pam $(BUILD)/etc/pam.d/calendar
+
+# faxmail init is just a shell snippet
+	chmod 644 $(BUILD)/usr/lib/courier/faxmail/init
+
+# kill duplicate maildrop package
+	rm -f \
+	  $(BUILD)/etc/courier/maildrop \
+	  $(BUILD)/usr/bin/mailbot \
+	  $(BUILD)/usr/bin/maildrop \
+	  $(BUILD)/usr/bin/makemime \
+	  $(BUILD)/usr/bin/reformail \
+	  $(BUILD)/usr/bin/reformime \
+	  $(BUILD)/usr/share/man/man1/mailbot.1 \
+	  $(BUILD)/usr/share/man/man1/maildrop.1 \
+	  $(BUILD)/usr/share/man/man1/makemime.1 \
+	  $(BUILD)/usr/share/man/man1/reformail.1 \
+	  $(BUILD)/usr/share/man/man1/reformime.1 \
+	  $(BUILD)/usr/share/man/man7/maildropex.7 \
+	  $(BUILD)/usr/share/man/man7/maildropfilter.7 \
+	  $(BUILD)/usr/share/man/man7/maildropgdbm.7
+
+	rm -f \
+	  $(BUILD)/usr/lib/courier/mkpop3dcert \
+	  $(BUILD)/usr/lib/courier/mkimapdcert
+
+# Run dh_install but fail on missing files
+	dh_install --list-missing
+
+override dh_installchangelogs-indep:
+	dh_installchangelogs -p courier-doc
+
+override_dh_installchangelogs-arch:
+	dh_installchangelogs -p courier-base ChangeLog
+	dh_installchangelogs -p courier-imap libs/imap/ChangeLog
+	dh_installchangelogs -p sqwebmail libs/sqwebmail/ChangeLog
+	dh_installchangelogs -a --remaining-packages
+
+override_dh_gencontrol-arch:
+	echo "courier-base:Version=$(DEB_VERSION)" >> debian/sqwebmail.substvars
+	dh_gencontrol -psqwebmail -- -v$(SQWEBMAILVER)+$(DEB_VERSION_UPSTREAM_REVISION)
+
+	echo "courier-base:Version=$(DEB_VERSION)" >> debian/courier-imap.substvars
+	dh_gencontrol -pcourier-imap -- -v$(IMAPVER)+$(DEB_VERSION_UPSTREAM_REVISION)
+
+	dh_gencontrol -a --remaining-packages
+
+override_dh_gencontrol-indep:
+	echo "courier-base:Version=$(DEB_VERSION)" >> debian/courier-maildrop.substvars
+	dh_gencontrol -pcourier-maildrop -- -v$(MAILDROPVER)+$(DEB_VERSION_UPSTREAM_REVISION)
+	dh_gencontrol -pcourier-imap-ssl -- -v$(IMAPVER)+$(DEB_VERSION_UPSTREAM_REVISION)
+	dh_gencontrol -i --remaining-packages
+
+override_dh_auto_clean:
+	dh_auto_clean
+
+# Update translation files.
+	debconf-updatepo
+
+override_dh_auto_test:
+	:

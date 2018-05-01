@@ -1,0 +1,361 @@
+Source: courier
+Section: mail
+Priority: optional
+Maintainer: BlankOn Developers <blankon-dev@googlegroups.com>
+XSBC-Original-Maintainer: Markus Wanner <markus@bluegap.ch>
+Standards-Version: 3.9.6
+Build-Depends: automake,
+               autotools-dev,
+               courier-authlib-dev (>= 0.66.4-5~),
+               debhelper (>= 9),
+               default-libmysqlclient-dev,
+               dh-autoreconf,
+               dh-exec,
+               dh-systemd,
+               expect,
+               ghostscript,
+               gnupg2,
+               gnutls-bin,
+               groff-base,
+               libcourier-unicode-dev (>= 2.0-2~),
+               libfam-dev,
+               libgcrypt-dev,
+               libgdbm-dev | libgdbmg1-dev,
+               libgnutls28-dev,
+               libidn11-dev,
+               libldap2-dev,
+               libpam0g-dev,
+               libpcre3-dev,
+               libperl-dev,
+               libpq-dev,
+               libsasl2-dev | libsasl-dev,
+               libtool-bin | libtool,
+               mgetty-fax,
+               mime-support,
+               netpbm,
+               po-debconf,
+               procps,
+               zlib1g-dev
+Build-Conflicts: automake1.4
+Homepage: http://www.courier-mta.org/
+
+Package: courier-base
+Architecture: any
+Depends: adduser,
+         courier-authdaemon,
+         courier-authlib (>= 0.66.1),
+         courier-authlib-userdb,
+         debconf | debconf-2.0,
+         gnutls-bin,
+         lsb-base,
+         sysvinit-utils (>= 2.88dsf-50),
+         ${misc:Depends},
+         ${perl:Depends},
+         ${shlibs:Depends}
+Breaks: courier-authdaemon (<< 0.66.4-4~),
+        courier-ssl (<< 0.75.0-1)
+Replaces: courier-ssl (<< 0.75.0-1)
+Description: Courier mail server - base system
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3,
+ LDAP, TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and
+ mailing list services within a single, consistent, framework.
+ .
+ This package provides the functionality needed by all courier
+ packages such as some configuration files, helper programs and the
+ Courier TCP server daemon.
+ .
+ Courier uses the a TLS wrapper application named couriertls
+ instead of embedding TLS support in the different applications.
+ Additionally, this package contains a default set of trusted X.509
+ root CA certs.
+
+Package: courier-maildrop
+Architecture: all
+Depends: debconf | debconf-2.0,
+         maildrop,
+         ${misc:Depends}
+Suggests: courier-doc
+Section: oldlibs
+Description: Courier mail server - mail delivery agent [transitional package]
+ This dummy package depends on standalone maildrop package and can be
+ safely removed.
+
+Package: courier-mlm
+Architecture: any
+Depends: courier-base (= ${binary:Version}),
+         maildrop,
+         sysvinit-utils (>= 2.88dsf-50) | init-d-script,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: courier-doc
+Breaks: sqwebmail (<< 0.75.0-1~)
+Replaces: sqwebmail (<< 0.75.0-1~)
+Description: Courier mail server - mailing list manager
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3,
+ LDAP, TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and
+ mailing list services within a single, consistent, framework.
+ .
+ The couriermlm command sets up, maintains, and runs a mailing list.
+ It automatically handles subscribe and unsubscribe requests, and
+ removes undeliverable addresses from the subscription rolls.  Mailing
+ lists managed by couriermlm require zero human administrative
+ oversight. It supports digests, write-only posting aliases, and
+ moderated mailing lists.
+
+Package: courier-mta
+Architecture: any
+Depends: courier-base (= ${binary:Version}),
+         debconf | debconf-2.0,
+         libnet-cidr-perl,
+         sysvinit-utils (>= 2.88dsf-50) | init-d-script,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Provides: mail-transport-agent
+Conflicts: mail-transport-agent
+Breaks: courier-mta-ssl (<< 0.75.0-1~)
+Replaces: courier-mta-ssl (<< 0.75.0-1~),
+          mail-transport-agent
+Suggests: courier-doc,
+          courier-filter-perl,
+          couriergrey,
+          mail-reader
+Description: Courier mail server - ESMTP daemon
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3,
+ LDAP, TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and
+ mailing list services within a single, consistent, framework.
+ .
+ This package provides an ESMTP daemon which uses the Maildir format
+ as native storage format, supports IPv6, implements SMTP extensions
+ for mailing list management and features integrated mail filtering.
+ It can function as an intermediate mail relay, relaying mail between
+ an internal LAN and the Internet, or perform final delivery to
+ mailboxes.
+ .
+ ESMTP over TLS is handled by the regular ESMTP daemon in conjunction
+ with the TLS wrapper.
+
+Package: courier-faxmail
+Architecture: any
+Depends: courier-mta (= ${binary:Version}),
+         ghostscript,
+         groff,
+         mgetty-fax,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: courier-doc
+Recommends: netpbm
+Description: Courier mail server - Fax<->mail gateway
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ The courierfax module implements a faxmail gateway, which faxes a printed
+ copy of an email message to the phone number specified in the email address
+ (e.g. 5558888@fax).
+
+Package: courier-webadmin
+Architecture: any
+Depends: apache2 | httpd,
+         courier-base (= ${binary:Version}),
+         debconf | debconf-2.0,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: courier-doc
+Description: Courier mail server - web-based administration frontend
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ The web-based administration and configuration tool for the Courier
+ mail server is capable of changing the settings of the MTA, IMAP, POP
+ and Webmail servers and the LDAP, MySQL and PostgreSQL authentication
+ modules. Only the installed parts of the Courier mail server show up
+ in the administration frontend.
+
+Package: sqwebmail
+Architecture: any
+Depends: apache2 | httpd-cgi,
+         courier-base (= ${courier-base:Version}),
+         cron,
+         debconf | debconf-2.0,
+         default-mta | mail-transport-agent,
+         expect,
+         iamerican | ispell-dictionary,
+         ispell,
+         maildrop,
+         sysvinit-utils (>= 2.88dsf-50) | init-d-script,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: courier-pcp
+Suggests: courier-doc,
+          gnupg
+Description: Courier mail server - webmail server
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package contains the SqWebMail webmail server, which
+ provides access to local mailboxes in Maildir format.
+
+Package: courier-pcp
+Architecture: any
+Depends: sqwebmail,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: courier-doc
+Description: Courier mail server - PCP server
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package contains the PCP (Personal Calendaring Protocol) server
+ needed for the groupware calendaring mode of SqWebMail.
+
+Package: courier-pop
+Architecture: any
+Depends: courier-base (= ${binary:Version}),
+         debconf | debconf-2.0,
+         default-mta | mail-transport-agent,
+         sysvinit-utils (>= 2.88dsf-50) | init-d-script,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Provides: pop3-server
+Conflicts: pop3-server
+Breaks: courier-pop-ssl (<< 0.75.0-1~)
+Replaces: courier-pop-ssl (<< 0.75.0-1~),
+          pop3-server
+Suggests: courier-doc,
+          mail-reader
+Description: Courier mail server - POP3 server
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package provide the POP3 daemon for Courier. It only supports email
+ stored in the Maildir format.
+ .
+ POP3 over TLS is handled by the regular POP3 daemon from in
+ conjunction with the TLS wrapper.
+
+Package: courier-imap
+Architecture: any
+Depends: courier-base (= ${courier-base:Version}),
+         debconf | debconf-2.0,
+         default-mta | mail-transport-agent,
+         sysvinit-utils (>= 2.88dsf-50) | init-d-script,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: courier-doc,
+          imap-client
+Provides: imap-server
+Conflicts: imap-server
+Breaks: courier-imap-ssl (<< 4.16.2+0.75.0-1~)
+Replaces: courier-imap-ssl (<< 4.16.2+0.75.0-1~),
+          imap-server
+Description: Courier mail server - IMAP server
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package provides an IMAP server that accesses email stored in Maildirs
+ format mailboxes. This server has an extremely small footprint and provides
+ shared and virtual shared folders.
+ .
+ IMAP over TLS is handled by the regular IMAP daemon in conjunction
+ with the TLS wrapper.
+
+Package: courier-ldap
+Architecture: any
+Depends: courier-authlib-ldap,
+         courier-base (= ${binary:Version}),
+         debconf | debconf-2.0,
+         sysvinit-utils (>= 2.88dsf-50) | init-d-script,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: courier-doc
+Replaces: courier-imap-authldap
+Conflicts: courier-imap-authldap
+Description: Courier mail server - LDAP support
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package contains support for LDAP authentication and
+ LDAP-based mail aliasing.
+
+Package: courier-doc
+Section: doc
+Architecture: all
+Depends: ${misc:Depends}
+Description: Courier mail server - additional documentation
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package contains additional documentation for Courier.
+
+Package: courier-ssl
+Architecture: all
+Depends: courier-base (>= 0.75.0-1~),
+         ${misc:Depends}
+Section: oldlibs
+Description: Courier mail server - TLS Support [transitional]
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This is a transitional package and can be safely removed.
+
+Package: courier-mta-ssl
+Architecture: all
+Depends: courier-mta (>= 0.75.0-1~),
+         ${misc:Depends}
+Section: oldlibs
+Description: Courier mail server - ESMTP over TLS [transitional]
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package provided the SSL variant of the ESMTP daemon. It now is
+ a transitional package and can be safely removed.
+
+Package: courier-pop-ssl
+Architecture: all
+Depends: courier-pop (>= 0.75.0-1~),
+         ${misc:Depends}
+Section: oldlibs
+Description: Courier mail server - POP3 over TLS [transitional]
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package provided the SSL variant of the POP3 daemon for Courier. It
+ now is a transitional package and can be safely removed.
+
+Package: courier-imap-ssl
+Architecture: all
+Depends: courier-imap (>= 4.16.2+0.75.0-1~),
+         ${misc:Depends}
+Section: oldlibs
+Description: Courier mail server - IMAP over TLS [transitional]
+ The Courier mail transfer agent (MTA) is an integrated mail/groupware
+ server based on open commodity protocols, such as ESMTP, IMAP, POP3, LDAP,
+ TLS, and HTTP. Courier provides ESMTP, IMAP, POP3, webmail, and mailing list
+ services within a single, consistent, framework.
+ .
+ This package provided the SSL variant of the IMAP server. It now is a
+ transitional package and can be safely removed.

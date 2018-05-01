@@ -1,0 +1,91 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: rmail and sendmail belong to /usr/sbin
+
+---
+ courier/Makefile.am           | 6 +++---
+ courier/cmlm.h                | 3 ++-
+ courier/module.fax/new_fax.in | 3 ++-
+ libs/maildrop/mailbot.c       | 2 +-
+ 4 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/courier/Makefile.am b/courier/Makefile.am
+index 7286bf9..92a7fcb 100644
+--- a/courier/Makefile.am
++++ b/courier/Makefile.am
+@@ -56,7 +56,7 @@ EXTRA_PROGRAMS=courierldapaliasd
+ extrabin=maildrop lockmail reformail reformime mailbot mimegpg \
+ 	imapd makemime deliverquota maildirmake maildiracl maildirkw
+ 
+-bin_PROGRAMS=cancelmsg mailq sendmail \
++bin_PROGRAMS=cancelmsg mailq \
+ 	testmxlookup dotforward \
+ 	couriermlm webmlmd \
+ 	courier-config @couriertls@ @EXTRABIN@
+@@ -70,7 +70,7 @@ sbinscripts=sharedindexsplit sharedindexinstall webmaild
+ sbin_SCRIPTS=@SBINSCRIPTS@
+ EXTRA_SCRIPTS=
+ 
+-sbin_PROGRAMS=courier showconfig showmodules aliaslookup \
++sbin_PROGRAMS=courier showconfig showmodules aliaslookup sendmail \
+ 	@COURIERLDAPALIASD@ @EXTRASBIN@
+ 
+ sysconf_DATA=pop3d.authpam imapd.authpam webmail.authpam imapd.cnf pop3d.cnf \
+@@ -607,7 +607,7 @@ install-data-hook:
+ 		$(INSTALL_DATA) $(srcdir)/smtpaccess.config \
+ 			$(DESTDIR)$(sysconfdir)/smtpaccess/default
+ 	rm -f $(DESTDIR)$(bindir)/rmail
+-	$(LN_S) sendmail $(DESTDIR)$(bindir)/rmail
++	$(LN_S) sendmail $(DESTDIR)$(sbindir)/rmail
+ 	-$(mkinstalldirs) $(DESTDIR)@mandir@/man8
+ 	-$(mkinstalldirs) $(DESTDIR)$(webmailimagedir)
+ 	for f in `cat ../libs/sqwebmail/images/filelist` ; do \
+diff --git a/courier/cmlm.h b/courier/cmlm.h
+index c85199f..503d893 100644
+--- a/courier/cmlm.h
++++ b/courier/cmlm.h
+@@ -54,8 +54,9 @@
+ #define	MSGSEPARATOR	"===="
+ 
+ #include	"bindir.h"
++#include    "sbindir.h"
+ 
+-#define	SENDMAIL	BINDIR "/sendmail"
++#define	SENDMAIL	SBINDIR "/sendmail"
+ #define	REFORMIME	BINDIR "/reformime"
+ #define	MAXRCPTS	20
+ 
+diff --git a/courier/module.fax/new_fax.in b/courier/module.fax/new_fax.in
+index 1d722d5..e299e5f 100644
+--- a/courier/module.fax/new_fax.in
++++ b/courier/module.fax/new_fax.in
+@@ -7,6 +7,7 @@
+ prefix="@prefix@"
+ exec_prefix="@exec_prefix@"
+ bindir="@bindir@"
++sbindir="@sbindir@"
+ sysconfdir="@sysconfdir@"
+ 
+ . $sysconfdir/faxnotifyrc
+@@ -108,7 +109,7 @@ echo ""
+ echo "--courierfax--"
+ }
+ 
+-makemessage "$@" | $bindir/sendmail -f "$MAILFROM" "$RCPTTO"
++makemessage "$@" | $sbindir/sendmail -f "$MAILFROM" "$RCPTTO"
+ 
+ if test $? = 0
+ then
+diff --git a/libs/maildrop/mailbot.c b/libs/maildrop/mailbot.c
+index 8dfe551..aa02707 100644
+--- a/libs/maildrop/mailbot.c
++++ b/libs/maildrop/mailbot.c
+@@ -410,7 +410,7 @@ static void opensendmail(int argn, int argc, char **argv)
+ 
+ 	if (argn >= argc)
+ 	{
+-		static char *sendmail_argv[]={"sendmail", "-f", ""};
++		static char *sendmail_argv[]={"/usr/sbin/sendmail", "-f", ""};
+ 
+ 		argn=0;
+ 		argc=3;

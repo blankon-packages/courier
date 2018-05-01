@@ -1,0 +1,53 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# debian-l10n-english@lists.debian.org for advice.
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
+Template: sqwebmail/calendarmode
+Type: select
+__Choices: local, net, disabled
+Default: local
+_Description: Calendaring mode:
+ Please specify if you would like to enable calendaring in 'local' mode,
+ enable groupware or 'net' mode or disable it.
+ The courier-pcp package is required to use the groupware mode.
+ .
+ Local mode adds very little overhead over a disabled calendaring
+ mode. On the other hand, groupware mode is less resources-friendly and
+ requires a separate daemon process to be run.
+ .
+ For more information, please refer to /usr/share/doc/sqwebmail/PCP.html.
+
+Template: sqwebmail/dictionary
+Type: select
+Choices: ${DICTS}
+Default: default
+_Description: Ispell dictionary:
+ SqWebMail allows you to spellcheck your emails. Please select an
+ appropriate dictionary for ispell.
+
+Template: sqwebmail/install-www
+Type: select
+_Choices: symlink, copy, custom
+Default: symlink
+_Description: Installation method for HTML documents and images:
+ The HTML documents and images in /usr/share/sqwebmail can be made
+ accessible at /var/www/sqwebmail via a symbolic link; or by being
+ copied directly into a directory there; or not at all.
+ .
+ The 'copy' option is recommended for security reasons. However, if
+ 'FollowSymLinks' or 'SymLinksIfOwnerMatch' are already enabled in
+ Apache configuration, the first option can be considered. The last
+ option needs manual actions to configure the web server.
+ .
+ Please note that /var/www/sqwebmail will be removed if this package is
+ purged unless the 'custom' option is chosen.
+
+Template: sqwebmail/install-www-backup
+Type: string
+Description: for internal use
+

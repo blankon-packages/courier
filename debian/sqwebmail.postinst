@@ -1,0 +1,57 @@
+#!/bin/sh
+
+set -e
+
+# Source debconf library
+. /usr/share/debconf/confmodule
+
+add_override() {
+    if ! dpkg-statoverride --list $4 >/dev/null; then
+	dpkg-statoverride --update --add $1 $2 $3 $4
+    fi
+}
+
+if [ "$1" = "configure" ]; then
+
+    db_get sqwebmail/install-www
+    if [ "$RET" = "symlink" ]; then
+	db_get sqwebmail/install-www-backup
+	if [ "$RET" = "copy" ]; then
+	    rm -rf /var/www/sqwebmail
+	elif [ "$RET" = "symlink" ]; then
+	    rm -f /var/www/sqwebmail
+	fi
+	ln -sf /usr/share/sqwebmail /var/www/sqwebmail
+    elif [ "$RET" = "copy" ]; then
+	if [ "$RET" = "copy" ]; then
+	    rm -rf /var/www/sqwebmail
+	elif [ "$RET" = "symlink" ]; then
+	    rm -f /var/www/sqwebmail
+	fi
+	mkdir -p /var/www/sqwebmail
+	cp -a /usr/share/sqwebmail/* /var/www/sqwebmail
+    fi
+
+    # configure calendarmode
+    db_get sqwebmail/calendarmode
+    CALFILE=/etc/courier/calendarmode
+    if [ "$RET" = "local" ]; then
+	echo local > $CALFILE
+    elif [ "$RET" = "net" ]; then
+	echo net > $CALFILE
+    else
+	echo > $CALFILE
+    fi
+    # create ispelldict configuration
+    db_get sqwebmail/dictionary
+    echo -n "$RET" > /etc/courier/ispelldict
+
+    add_override root    courier 0700 /usr/lib/courier/courier/webmail
+    add_override courier courier 2755 /usr/lib/courier/courier/sqwebpasswd
+    add_override courier courier 0700 /var/cache/sqwebmail/
+    add_override courier courier 0750 /var/lib/courier/calendar/
+fi
+
+#DEBHELPER#
+
+exit 0

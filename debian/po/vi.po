@@ -1,0 +1,436 @@
+# Vietnamese translation for courier.
+# Copyright © 2008 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: courier 0.59.0-1.1\n"
+"Report-Msgid-Bugs-To: courier@packages.debian.org\n"
+"POT-Creation-Date: 2017-08-10 00:25+0200\n"
+"PO-Revision-Date: 2008-05-06 22:18+0930\n"
+"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.7b3\n"
+
+# msgid "Create directories for web-based administration ?"
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid "Create directories for web-based administration?"
+msgstr "Tạo thư mục để quản lý dựa trên Mạng không?"
+
+# msgid ""
+# Courier uses several configuration files which are located in /etc/
+# courier. Some configuration files can be replaced by a subdirectory where 
+# all files insides this directory are concatenated and considered to be a 
+# single, consolidated, configuration file.
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"Courier uses several configuration files in /etc/courier. Some of these "
+"files can be replaced by a subdirectory whose contents are concatenated and "
+"treated as a single, consolidated, configuration file."
+msgstr ""
+"Phần mềm Courier dùng vài tập tin cấu hình nằm trong thư mục « /etc/courier "
+"». Một số tập tin cấu hình có thể được thay thế bằng một thư mục con có nội "
+"dung đã ghép nối thì được xử lý là một tập tin cấu hình đơn giản đã củng cố."
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"The web-based administration provided by the courier-webadmin package relies "
+"on configuration directories instead of configuration files.  If you agree, "
+"any directories needed for the web-based administration tool will be created "
+"unless there is already a plain file in place."
+msgstr ""
+"Khả năng quản lý dựa trên Mạng do gói « courier-webadmin » cung cấp nhờ thư "
+"mục cấu hình thay cho tập tin cấu hình. Bạn chấp nhận thì thư mục nào cần "
+"thiết cho công cụ quản trị dựa trên Mạng sẽ được tạo nếu chưa có tập tin "
+"chuẩn tại chỗ."
+
+# msgid "Path to user's Maildir directory"
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid "Path to Maildir directory:"
+msgstr "Đường dẫn đến thư mục Maildir:"
+
+# msgid ""
+# This is a relative path name from each user's home directory to the 
+# Maildir directory where the Courier servers store and access the user's 
+# email. Please refer to the maildir(5) manual page if you are unfamiliar 
+# with the mail storage format used by Courier.
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid ""
+"Please give the relative path name from each user's home directory to the "
+"Maildir directory where the Courier servers store and access the user's "
+"email. Please refer to the maildir.courier(5) manual page if you are "
+"unfamiliar with the mail storage format used by Courier."
+msgstr ""
+"Hãy cung cấp tên đường dẫn tương đối từ thư mục chính của mỗi người dùng đến "
+"thư mục Maildir trong đó các trình phục vụ Courier cất giữ và truy cập thư "
+"tín của người dùng. Bạn chưa quen với định dạng cất giữ thư tín được Courier "
+"dùng thì xem trang hướng dẫn (man) « maildir.courier(5) »."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid "Obsolete setting of MAILDIR"
+msgstr "Thiết lập MAILDIR quá cũ"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid ""
+"The name of the Maildir directory is now recognized through the variable "
+"MAILDIRPATH in Courier configuration files. The MAILDIR setting in /etc/"
+"default/courier is therefore obsolete and will be not recognized."
+msgstr ""
+"Tên của thư mục Maildir giờ này được nhận ra qua biến MAILDIRPATH trong các "
+"tập tin cấu hình Courier. Thiết lập MAILDIR trong tập tin cấu hình « /etc/"
+"default/courier » thì quá thời nên không được nhận ra."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid "SSL certificate required"
+msgstr "Cần thiết chứng nhận SSL"
+
+# msgid ""
+# POP and IMAP over SSL requires a valid, signed, X.509 certificate. During 
+# the installation of courier-pop resp. courier-imap a self-signed 
+# X.509 certificate will be generated if necessary. For production use the 
+# X.509 certificate must be signed by a recognized certificate authority, 
+# in order for mail clients to accept the certificate. The default 
+# locations for this certificate is /etc/courier/pop3d.pem resp. /etc/
+# courier/imapd.pem.
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"POP and IMAP over SSL requires a valid, signed, X.509 certificate. During "
+"the installation of courier-pop or courier-imap, a self-signed X.509 "
+"certificate will be generated if necessary."
+msgstr ""
+"Giao thức POP và IMAP qua SSL thì cần thiết một chứng nhận X.509 đã ký và "
+"hợp lệ. Trong khi cài đặt gói « courier-pop » hay « courier-imap », một "
+"chứng nhận X.509 tự ký sẽ được tạo ra nếu cần thiết."
+
+# msgid ""
+# POP and IMAP over SSL requires a valid, signed, X.509 certificate. During 
+# the installation of courier-pop resp. courier-imap a self-signed 
+# X.509 certificate will be generated if necessary. For production use the 
+# X.509 certificate must be signed by a recognized certificate authority, 
+# in order for mail clients to accept the certificate. The default 
+# locations for this certificate is /etc/courier/pop3d.pem resp. /etc/
+# courier/imapd.pem.
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"For production use, the X.509 certificate must be signed by a recognized "
+"certificate authority, in order for mail clients to accept the certificate. "
+"The default location for this certificate is /etc/courier/pop3d.pem or /etc/"
+"courier/imapd.pem."
+msgstr ""
+"Để sử dụng trong trường hợp sản xuất, chứng nhận X.509 phải được ký bởi nhà "
+"cầm quyền chứng nhận đã công nhận, để ứng dụng khách thư chấp nhận chứng "
+"nhận đó. Vị trí mặc định cho chứng nhận này là « /etc/courier/pop3d.pem » "
+"hay « /etc/courier/imapd.pem »."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid "Courier MTA under courier user"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The Courier MTA packaging has been extensively rewritten and major changes "
+"had been done to the default setup of Courier MTA."
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The default user and group for Courier MTA has been changed to courier:"
+"courier.  The package tries hard to make all files belong to correct user:"
+"group and the permissions on those files are correct, but if you have a non-"
+"default setup, you will have to make sure that:"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+" + All file owners and file in /etc/courier and /var/lib/courier\n"
+"   are correctly set.\n"
+" + MAILUSER and MAILGROUP settings in /etc/courier/esmtpd is set to\n"
+"   correct user and group, both has to be set to `courier'."
+msgstr ""
+
+# msgid "Default domain"
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid "Default domain:"
+msgstr "Miền mặc định:"
+
+# msgid ""
+# Please specify a valid email domain. Most header rewriting functions will 
+# append this domain to all email addresses which do not specify a domain, 
+# e.g. emails from accounts on this machine.
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid ""
+"Please specify a valid email domain. Most header rewriting functions will "
+"append this domain to all email addresses which do not specify a domain, "
+"such as local accounts."
+msgstr ""
+"Hãy ghi rõ một miền thư điện tử hợp lệ. Phần lớn chức năng ghi lại dòng đầu "
+"sẽ phụ thêm miền này vào mỗi địa chỉ thư điện tử không ghi rõ miền, v.d. thư "
+"từ tài khoản cục bộ."
+
+# msgid "\"From\" Header for Delivery Notifications"
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid "\"From\" header for delivery notifications:"
+msgstr "Dòng đầu « Từ » (From) cho thông báo phát:"
+
+# msgid ""
+# Please specify a valid value for the \"From\" Header for mail delivery 
+# notifications. Otherwise these cannot be sent.
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid ""
+"Please specify a valid value for the \"From\" header for mail delivery "
+"notifications. These notifications cannot be sent without that setting."
+msgstr ""
+"Hãy ghi rõ một giá trị hợp lệ cho dòng đầu « Từ » (From) cho thông báo phát "
+"thư. Không thì không thể gửi thông báo này."
+
+# msgid "Activate CGI Program ?"
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid "Activate CGI program?"
+msgstr "Kích hoạt chương trình CGI không?"
+
+# msgid ""
+# To allow courier-webadmin to work out of the box, we need to copy the CGI 
+# program from /usr/lib/courier/courier/webmail/webadmin to /usr/lib/cgi-
+# bin/courierwebadmin and set the SUID bit.
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"To allow courier-webadmin to work out of the box, the CGI program /usr/lib/"
+"courier/courier/webmail/webadmin needs to be installed as /usr/lib/cgi-bin/"
+"courierwebadmin with the SUID bit set."
+msgstr ""
+"Để cho phép phần mềm « courier-webadmin » hoạt động có sẵn, chương trình CGI "
+"« usr/lib/courier/courier/webmail/webadmin » cần phải được cài đặt như là « /"
+"usr/lib/cgi-bin/courierwebadmin », cũng đặt bit SUID."
+
+# msgid ""
+# There are two reasons why this is not done by default during the 
+# installation. First it has serious security implications, because 
+# courierwebadmin runs as root. Second it is not guaranteed to work 
+# depending on your web server software and its configuration.
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"This may have serious security implications, because courierwebadmin runs as "
+"root. Moreover, that solution is not guaranteed to work, depending on the "
+"web server software and its configuration."
+msgstr ""
+"Trường hợp này có thể rủi ro bảo mật, vì courierwebadmin chạy với tư cách "
+"người chủ (root). Hơn nữa, giải pháp đó không nhất thiết đúng, phụ thuộc vào "
+"phần mềm phục vụ Web và cấu hình của nó."
+
+# msgid ""
+# If you agree here and your web server setup is compliant with the Debian 
+# policy, you can access the administration frontend through http://
+# localhost/cgi-bin/courierwebadmin.
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"If you choose this option and the web server setup is policy-compliant, you "
+"can access the administration frontend through http://localhost/cgi-bin/"
+"courierwebadmin."
+msgstr ""
+"Bật tùy chọn này và thiết lập trình phục vụ Web tùy theo chính sách thì bạn "
+"có quyền truy cập giao diện quản trị ở địa chỉ « http://localhost/cgi-bin/"
+"courierwebadmin »."
+
+# msgid "Password for the Courier Administration"
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid "Password for Courier administration:"
+msgstr "Mật khẩu quản trị Courier:"
+
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid ""
+"A password is needed to protect access to the Courier administration web "
+"interface. Please choose one now."
+msgstr ""
+"Cần thiết mật khẩu để bảo vệ khả năng truy cập giao diện Web quản trị "
+"Courier. Hãy chọn một mật khẩu lập tức."
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "local"
+msgstr "cục bộ"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "net"
+msgstr "mạng"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "disabled"
+msgstr "bị tắt"
+
+# msgid "Enable Calendaring ?"
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid "Calendaring mode:"
+msgstr "Chế độ ghi lịch:"
+
+# msgid ""
+# Please specify if you would like to enable calendaring in local mode 
+# (choose local), groupware mode (choose net) or not at all (choose 
+# disabled). To actually using the groupware mode, you need to install the 
+# courier-pcp package.
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Please specify if you would like to enable calendaring in 'local' mode, "
+"enable groupware or 'net' mode or disable it. The courier-pcp package is "
+"required to use the groupware mode."
+msgstr ""
+"Hãy ghi rõ nếu bạn muốn hiệu lực khả năng ghi lịch ở chế độ « cục bộ », hiệu "
+"lực phần nhóm (groupware) hay chế độ « mạng », hoặc tắt khả năng này. Gói « "
+"courier-pcp » cần thiết để sử dụng chế độ phần nhóm."
+
+# msgid ""
+# Local mode requires very little overhead compared to not using 
+# calendaring at all, but groupware mode requires a substantial additional 
+# amount of server resources. If you select the groupware mode, a separate 
+# daemon process will be run.
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Local mode adds very little overhead over a disabled calendaring mode. On "
+"the other hand, groupware mode is less resources-friendly and requires a "
+"separate daemon process to be run."
+msgstr ""
+"Chế độ cục bộ cũng cần thiết ít tài nguyên hơn chế độ ghi lịch bị tắt. Mặt "
+"khác, chế độ phần nhóm chiếm nhiều tài nguyên hơn và cần thiết một tiến "
+"trình nền riêng để chạy."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"For more information, please refer to /usr/share/doc/sqwebmail/PCP.html."
+msgstr ""
+"Để tìm thêm thông tin, xem tập tin « /usr/share/doc/sqwebmail/PCP.html »."
+
+# msgid "Ispell Dictionary"
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid "Ispell dictionary:"
+msgstr "Từ điển Ispell:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid ""
+"SqWebMail allows you to spellcheck your emails. Please select an appropriate "
+"dictionary for ispell."
+msgstr ""
+"Phần mềm SqWebMail cho phép kiểm tra chính tả trong thư. Hãy chọn một từ "
+"điển thích hợp cho trình Ispell."
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:4001
+msgid "symlink, copy, custom"
+msgstr "liên kết mềm, chép, riêng"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid "Installation method for HTML documents and images:"
+msgstr "Phương pháp cài đặt các tài liệu HTML và ảnh:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The HTML documents and images in /usr/share/sqwebmail can be made accessible "
+"at /var/www/sqwebmail via a symbolic link; or by being copied directly into "
+"a directory there; or not at all."
+msgstr ""
+"Cũng có thể truy cập các tài liệu HTML và ảnh đều nằm trong thư mục « /usr/"
+"share/sqwebmail » ở « /var/www/sqwebmail »:\n"
+" • thông qua một liên kết tượng trưng\n"
+" • bằng cách được sao chép trực tiếp vào đó\n"
+" • hay không."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The 'copy' option is recommended for security reasons. However, if "
+"'FollowSymLinks' or 'SymLinksIfOwnerMatch' are already enabled in Apache "
+"configuration, the first option can be considered. The last option needs "
+"manual actions to configure the web server."
+msgstr ""
+"Tùy chọn « chép » khuyến khích vì lý do bảo mật. Tuy nhiên, nếu mục « "
+"FollowSymLinks » (theo các liên kết tượng trưng) hay « SymLinksIfOwnerMatch "
+"» (các liên kết tượng trưng nếu người sở hữu có khớp) đã được hiệu lực trong "
+"cấu hình Apache, cũng có thể sử dụng tùy chọn thứ nhất. Tùy chọn thứ ba cần "
+"thiết bạn tự cấu hình trình phục vụ Web."
+
+# msgid ""
+# Please note that /var/www/sqwebmail will be removed if this package is 
+# purged except you choose custom.
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"Please note that /var/www/sqwebmail will be removed if this package is "
+"purged unless the 'custom' option is chosen."
+msgstr ""
+"Ghi chú : không bật tùy chọn « riêng » thì « /var/www/sqwebmail » sẽ bị gỡ "
+"bỏ nếu gói này bị tẩy."

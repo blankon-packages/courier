@@ -1,0 +1,8 @@
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ courierpop3login: (Connection|Disconnected), ip=\[[.:[:alnum:]]+\]$
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ courierpop3login: LOGIN, user=[-_.@[:alnum:]]+, ip=\[[.:[:alnum:]]+\], port=\[[0-9]+\]$
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ courierpop3login: (LOGOUT|TIMEOUT|DISCONNECTED), user=[-_.@[:alnum:]]+, ip=\[[.:[:alnum:]]+\], port=\[[0-9]+\], top=[0-9]+, retr=[0-9]+, rcvd=[0-9]+, sent=[0-9]+, time=[0-9]+(, stls=1)?$
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ pop3d-ssl: (Connection|Disconnected), ip=\[[.:[:alnum:]]+\]$
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ pop3d-ssl: LOGIN, user=[-_.@[:alnum:]]+, ip=\[[.:[:alnum:]]+\]$
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ pop3d-ssl: (LOGOUT|TIMEOUT|DISCONNECTED), user=[-_.@[:alnum:]]+, ip=\[[.:[:alnum:]]+\], port=\[[0-9]+\], top=[0-9]+, retr=[0-9]+, rcvd=[0-9]+, sent=[0-9]+, time=[0-9]+$
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ popd-ssl: couriertls: read: Connection timed out$
+^\w{3} [ :0-9]{11} [._[:alnum:]-]+ popd-ssl: couriertls: accept: Connection reset by peer$

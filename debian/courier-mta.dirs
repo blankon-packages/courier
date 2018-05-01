@@ -1,0 +1,12 @@
+/etc/courier/aliasdir
+/etc/courier/filters
+/etc/courier/filters/active
+/etc/courier/hosteddomains
+/etc/courier/esmtpacceptmailfor.dir
+/var/lib/courier/tmp
+/var/lib/courier/tmp/broken
+/var/lib/courier/msgs
+/var/lib/courier/msgq
+/var/lib/courier/allfilters
+/var/lib/courier/filters
+/var/lib/courier/track

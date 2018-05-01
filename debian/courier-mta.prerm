@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "upgrade" -o "$1" = "remove" ]; then
+    for binary in lockmail preline; do
+	update-alternatives --remove $binary /usr/bin/$binary.courier
+    done
+fi
+
+if [ ! -f /etc/courier/module.fax ]; then
+    # fax module configuration file is missing, courier
+    # will not shutdown properly, therefore we are using
+    # this kludge
+    start-stop-daemon --stop --oknodo --exec /usr/lib/courier/courier/courierd 
+fi
+
+#DEBHELPER#
+
+exit 0

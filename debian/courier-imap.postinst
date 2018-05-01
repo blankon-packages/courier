@@ -1,0 +1,53 @@
+#!/bin/sh
+
+set -e
+
+# Source debconf library
+. /usr/share/debconf/confmodule
+
+add_override() {
+    if ! dpkg-statoverride --list $4 >/dev/null; then
+	dpkg-statoverride --update --add $1 $2 $3 $4
+    fi
+}
+
+if [ "$1" = "configure" ]; then
+    if [ ! -f /etc/courier/imapd.pem ]; then
+	mkimapdcert
+	chmod 0640 /etc/courier/imapd.pem
+	chown root:courier /etc/courier/imapd.pem
+    fi
+
+    # generate configuration directories if necessary
+    db_get courier-base/webadmin-configmode
+    if [ "$RET" = true ]; then
+	for dir in imapaccess; do
+	    mkdir -p /etc/courier/$dir
+	    chmod 0750 /etc/courier/$dir
+	    chown root:courier /etc/courier/$dir
+	done
+    fi
+
+    IMAPACCESSFILE=$(sh -c '. /etc/courier/imapd; echo $IMAPACCESSFILE')
+
+    if [ -z "$IMAPACCESSFILE" ]; then
+	cat <<EOF
+ERROR: Mandatory option IMAPACCESSFILE=\${sysconfdir}/imapaccess missing
+ERROR: Aborting installation, either configure it yourself or run:
+
+echo 'IMAPACCESSFILE=\${sysconfdir}/imapaccess' >> /etc/courier/imapd
+dpkg --configure courier-imapd
+
+EOF
+	exit 1
+    fi
+
+    # run makeimapaccess
+    makeimapaccess
+
+    add_override root root 0600 /etc/courier/imapd.cnf
+fi
+
+#DEBHELPER#
+
+exit 0

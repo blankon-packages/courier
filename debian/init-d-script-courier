@@ -1,0 +1,53 @@
+#!/bin/sh
+
+do_tmpfiles() {
+    local type path mode user group
+
+    TMPFILES=/usr/lib/tmpfiles.d/$1.conf
+
+    if [ -r "$TMPFILES" ]; then
+	while read type path mode user group age argument; do
+            if [ "$type" = "d" ]; then
+                mkdir -p "$path"
+		chmod "$mode" "$path"
+                chown "$user:$group" "$path"
+            fi
+        done < $TMPFILES
+    fi
+}
+
+do_start_prepare() {
+    do_tmpfiles $(basename $0)
+}
+
+do_start_cmd_override() {
+    if [ "$DO_START" != "yes" ]; then
+	return 2
+    fi
+
+    if pidofproc ${PIDFILE:+-p ${PIDFILE}} "$DAEMON" >/dev/null; then
+	return 1
+    fi
+    
+    if $DAEMON start $DAEMON_ARGS; then
+	return 0
+    else
+	return 2
+    fi
+}
+
+do_stop_cmd_override() {
+    if ! pidofproc ${PIDFILE:+-p ${PIDFILE}} "$DAEMON" >/dev/null; then
+	return 1
+    fi
+    
+    if $DAEMON stop $DAEMON_ARGS; then
+	return 0;
+    else
+	return 2;
+    fi
+}
+
+do_status_override() {
+    status_of_proc ${PIDFILE:+-p ${PIDFILE}} "$DAEMON" "$NAME"
+}

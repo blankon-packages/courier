@@ -1,0 +1,64 @@
+From: =?utf-8?q?Ond=C5=99ej_Sur=C3=BD?= <ondrej@sury.org>
+Date: Sat, 2 Jan 2016 10:41:09 +0100
+Subject: Don't use static linking in libs/maildir/
+
+---
+ libs/maildir/Makefile.am | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+--- a/libs/maildir/Makefile.am
++++ b/libs/maildir/Makefile.am
+@@ -55,7 +55,7 @@
+ deliverquota_DEPENDENCIES=libmaildir.la ../rfc822/librfc822.la \
+ 				../numlib/libnumlib.la
+ deliverquota_LDADD=libmaildir.la ../rfc822/librfc822.la ../numlib/libnumlib.la
+-deliverquota_LDFLAGS=-static
++deliverquota_LDFLAGS=
+ 
+ maildirmake_SOURCES=maildirmake.c
+ maildirmake_DEPENDENCIES=libmaildir.la \
+@@ -64,38 +64,38 @@
+ maildirmake_LDADD=libmaildir.la \
+ 			../numlib/libnumlib.la \
+ 			../rfc822/librfc822.la -lcourier-unicode
+-maildirmake_LDFLAGS=-static
++maildirmake_LDFLAGS=
+ 
+ testmaildirfilter_SOURCES=maildirfiltertypelist.h testmaildirfilter.c
+ testmaildirfilter_DEPENDENCIES=libmaildir.la ../numlib/libnumlib.la
+ testmaildirfilter_LDADD=libmaildir.la ../numlib/libnumlib.la -lcourier-unicode @LIBPCRE@
+-testmaildirfilter_LDFLAGS=-static
++testmaildirfilter_LDFLAGS=
+ 
+ maildirkwtest_SOURCES=maildirkwtest.c
+ maildirkwtest_LDADD=libmaildir.la
+ maildirkwtest_DEPENDENCIES=libmaildir.la
+-maildirkwtest_LDFLAGS=-static
++maildirkwtest_LDFLAGS=
+ 
+ maildirkw_SOURCES=maildirkw.c
+ maildirkw_LDADD=libmaildir.la ../liblock/liblock.la ../numlib/libnumlib.la \
+ 		`cat maildir.libdeps`
+ maildirkw_DEPENDENCIES=libmaildir.la ../liblock/liblock.la \
+ 	../numlib/libnumlib.la maildir.libdeps
+-maildirkw_LDFLAGS=-static
++maildirkw_LDFLAGS=
+ 
+ maildiracl=maildiracl.c
+ maildiracl_LDADD=libmaildir.la ../liblock/liblock.la ../numlib/libnumlib.la \
+ 			`cat maildir.libdeps`
+ maildiracl_DEPENDENCIES=libmaildir.la ../liblock/liblock.la \
+ 		../numlib/libnumlib.la maildir.libdeps
+-maildiracl_LDFLAGS=-static
++maildiracl_LDFLAGS=
+ 
+ maildiraclttest_SOURCES=testmaildiraclt.c
+ maildiraclttest_LDADD=libmaildir.la ../liblock/liblock.la \
+ 		../numlib/libnumlib.la `cat maildir.libdeps`
+ maildiraclttest_DEPENDENCIES=libmaildir.la ../liblock/liblock.la \
+ 		../numlib/libnumlib.la maildir.libdeps
+-maildiraclttest_LDFLAGS=-static
++maildiraclttest_LDFLAGS=
+ 
+ testmaildirsearch_SOURCES=testmaildirsearch.c
+ testmaildirsearch_LDADD=libmaildir.la -lcourier-unicode

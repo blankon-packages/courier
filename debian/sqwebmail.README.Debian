@@ -1,0 +1,51 @@
+Debian Packaging Issues
+***********************
+
+Please read /usr/share/doc/courier-base/README.Debian for more
+information about the packaging of the Courier Mail Server suite.
+
+Groupware Calendars
+*******************
+
+To use the groupware calendaring mode, you have to install the
+courier-pcp package.
+
+Spellcheck
+**********
+
+The file containing the ispell dictionary used by SqWebMail has been
+moved to /etc/courier/ispelldict.
+
+URL
+***
+
+The URL for SqWebMail is http://localhost/cgi-bin/sqwebmail on a
+Debian system with a standard webserver setup.
+
+Runtime Configuration
+*********************
+
+sqwebmail reads runtime configuration files from /etc/courier,
+e.g. /etc/courier/logindomainlist.
+
+Some other settings can be changed by setting environment variables,
+f.e. increasing the session timeout from 20 to 60 minutes in Apache2
+webserver:
+
+    SetEnv SQWEBMAIL_TIMEOUTSOFT 3600
+
+Using a Different Set of Templates
+**********************************
+
+You can make up your own template set from scratch or copy the
+existing set within /usr/lib/courier/sqwebmail/html to, e.g.
+/home/mywebmail.
+
+Then you need to advise your webserver to set the environment variable
+SQWEBMAIL_TEMPLATEDIR to name of the directory containing the
+templates, f.e. changing the default template directory to
+/home/mywebmail in Apache2 webserver:
+
+    SetEnv SQWEBMAIL_TEMPLATEDIR /home/mywebmail
+
+ -- Ondřej Surý <ondrej@debian.org>, Mon,  3 Aug 2015 10:51:54 +0200

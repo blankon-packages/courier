@@ -1,0 +1,14 @@
+[Unit]
+Description=Courier ESMTP Daemon
+Requires=courier-authdaemon.service courier.service courierfilter.service
+After=courier-authdaemon.service courier.service courierfilter.service
+PartOf=courier-mta.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/esmtpd-ssl start
+ExecStop=/usr/sbin/esmtpd-ssl stop
+PIDFile=/run/courier/esmtpd-ssl.pid
+
+[Install]
+WantedBy=multi-user.target

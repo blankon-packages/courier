@@ -1,0 +1,19 @@
+etc/courier/sqwebmaild
+etc/pam.d/webmail
+usr/bin/mimegpg
+usr/lib/courier/courier/sqwebmaild
+usr/lib/courier/courier/sqwebpasswd
+usr/lib/courier/courier/webmail/webmail
+usr/lib/courier/sqwebmail/cleancache.pl
+usr/lib/courier/sqwebmail/html
+usr/lib/courier/sqwebmail/images/* /usr/share/sqwebmail
+usr/lib/courier/sqwebmail/ldapsearch
+usr/lib/courier/sqwebmail/sendit.sh
+usr/lib/courier/sqwebmail/webgpg
+usr/sbin/webgpg
+usr/sbin/webmaild
+usr/share/courier/webadmin/admin-47webmail.html
+usr/share/courier/webadmin/admin-47webmail.pl
+usr/share/man/man1/mimegpg.1
+usr/share/man/man8/webgpg.8
+usr/share/man/man8/webmaild.8

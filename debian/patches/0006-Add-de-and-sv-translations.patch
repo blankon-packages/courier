@@ -1,0 +1,581 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Add de and sv translations
+
+---
+ pcp/po/LINGUAS |   1 +
+ pcp/po/de.po   | 270 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ pcp/po/sv.po   | 279 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 550 insertions(+)
+ create mode 100644 pcp/po/LINGUAS
+ create mode 100644 pcp/po/de.po
+ create mode 100644 pcp/po/sv.po
+
+diff --git a/pcp/po/LINGUAS b/pcp/po/LINGUAS
+new file mode 100644
+index 0000000..e474d40
+--- /dev/null
++++ b/pcp/po/LINGUAS
+@@ -0,0 +1 @@
++de sv
+diff --git a/pcp/po/de.po b/pcp/po/de.po
+new file mode 100644
+index 0000000..b34815e
+--- /dev/null
++++ b/pcp/po/de.po
+@@ -0,0 +1,270 @@
++# Translation of courier to German
++# Copyright (C) Chris Leick <c.leick@vollbio.de>, 2008.
++# This file is distributed under the same license as the courier package.
++# Chris Leick <c.leick@vollbio.de>, 2008.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: courier 0.60.0-2_pcp\n"
++"Report-Msgid-Bugs-To: http://www.courier-mta.org\n"
++"POT-Creation-Date: 2007-07-01 15:36-0400\n"
++"PO-Revision-Date: 2008-12-16 21:56+GMT\n"
++"Last-Translator: Chris Leick <c.leick@vollbio.de>\n"
++"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: pcp.c:56
++msgid "today"
++msgstr "heute"
++
++#: pcp.c:57
++msgid "tomorrow"
++msgstr "morgen"
++
++#: pcp.c:64
++msgid "from"
++msgstr "von"
++
++#: pcp.c:69
++msgid "to"
++msgstr "bis"
++
++#: pcp.c:74
++msgid "event"
++msgstr "Ereignis"
++
++#: pcp.c:79
++msgid "on"
++msgstr "auf"
++
++#: pcp.c:185
++#, c-format
++msgid ""
++"LOGIN ERROR:\n"
++"%s\n"
++msgstr ""
++"ANMELDEFEHLER:\n"
++"%s\n"
++
++#: pcp.c:197 pcp.c:1419
++#, c-format
++msgid "ERROR: Unable to obtain authentication token from the server.\n"
++msgstr "FEHLER: Das Merkmal fÃ¼r die EchtheitsprÃ¼fung kann nicht vom Server "
++"bezogen werden.\n"
++
++#: pcp.c:291
++#, c-format
++msgid ""
++"Conflict: %s\n"
++"    (%s)\n"
++msgstr ""
++"Konflikt: %s\n"
++"    (%s)\n"
++
++#: pcp.c:310
++msgid "with"
++msgstr "mit"
++
++#: pcp.c:358
++msgid "until"
++msgstr "bis"
++
++#: pcp.c:463
++#, c-format
++msgid "Created event %s\n"
++msgstr "Erzeugtes Ereignis %s\n"
++
++#: pcp.c:507
++#, c-format
++msgid ""
++"\n"
++"Enter event information, terminate with EOF (usually CTRL-D)\n"
++"\n"
++msgstr ""
++"\n"
++"Geben Sie die Information Ã¼ber das Ereignis ein, beenden Sie mit EOF "
++"(normalerweise CTRL-D)\n"
++"\n"
++
++#: pcp.c:588
++msgid "all"
++msgstr "alle"
++
++#: pcp.c:770
++msgid "CANCELLED: "
++msgstr "ABGEBROCHEN: "
++
++#: pcp.c:772
++msgid "(event not yet commited)"
++msgstr "(Ereignis bislang nicht bestÃ¤tigt)"
++
++#: pcp.c:782
++#, c-format
++msgid "%d events found.\n"
++msgstr "%d Ereignisse gefunden.\n"
++
++#: pcp.c:1062
++#, c-format
++msgid "Event: %s\n"
++msgstr "Ereignis: %s\n"
++
++#: pcp.c:1086
++#, c-format
++msgid "       %s\n"
++msgstr "       %s\n"
++
++#: pcp.c:1091
++#, c-format
++msgid "    **** CANCELLED ****\n"
++msgstr "    **** ABGEBROCHEN ****\n"
++
++#: pcp.c:1093
++#, c-format
++msgid "    **** EVENT NOT YET COMMITED ****\n"
++msgstr "    **** EREIGNIS BISLANG NICHT BESTÃ„TIGT ****\n"
++
++#: pcp.c:1096
++#, c-format
++msgid "    Participant: %s\n"
++msgstr "    Teilnehmer: %s\n"
++
++#: pcp.c:1227
++#, c-format
++msgid "Attachment: %s (%s)\n"
++msgstr "Anhang: %s (%s)\n"
++
++#: pcp.c:1298
++#, c-format
++msgid ""
++"    (%s charset follows)\n"
++"\n"
++msgstr ""
++"    (%s Zeichensatz folgt)\n"
++"\n"
++
++#: pcp.c:1392
++#, c-format
++msgid "Password: "
++msgstr "Passwort: "
++
++#: pcp.c:1448
++#, c-format
++msgid ""
++"ERROR:\n"
++"%s\n"
++msgstr ""
++"FEHLER:\n"
++"%s\n"
++
++#: pcp.c:1469 pcp.c:1499
++#, c-format
++msgid "ERROR: ACLs not supported.\n"
++msgstr "FEHLER: ACLs nicht unterstÃ¼tzt.\n"
++
++#: pcp.c:1611
++#, c-format
++msgid ""
++"Usage: pcp [options] [command]\n"
++"\n"
++"Options:\n"
++"   -c           - add/uncancel event that conflicts with an existing event\n"
++"   -s subject   - specify event subject\n"
++"   -C charset   - specify your local charset (default %s)\n"
++"   -m           - standard input is already a MIME-formatted message\n"
++"   -e           - list event ids\n"
++"\n"
++"Commands:\n"
++"   init\n"
++"   login USERID\n"
++"   logout\n"
++"   add from FROM to TO [ from FROM to TO...]\n"
++"   update ID from FROM to TO [ from FROM to TO...]\n"
++"   list [all] [from FROM] [to TO] [event ID]\n"
++"   cancel ID\n"
++"   uncancel ID\n"
++"   delete ID\n"
++"   connect [/pathname]\n"
++"   sconnect [/pathname]\n"
++"   setacl [MODIFY|CONFLICT|LIST|RETR|NONE]*\n"
++"   listacl\n"
++msgstr ""
++"Gebrauch: pcp [Optionen] [Befehle]\n"
++"\n"
++"Optionen:\n"
++"   -c             - Ereignis, das einen Konflikt mit einem bestehenden\n"
++"                    Ereignis hat, hinzufÃ¼gen/weiterhin ausfÃ¼hren\n"
++"   -s Betreff     - Betreff des Ereignisses angeben\n"
++"   -C Zeichensatz - lokalen Zeichensatz angeben (Standard %s)\n"
++"   -m             - Standardeingabe ist bereits eine Nachricht im\n"
++"                    MIME-Format\n"
++"   -e             - Ereignis-IDs auflisten\n"
++"\n"
++"Befehle:\n"
++"   init\n"
++"   login USERID\n"
++"   logout\n"
++"   add from FROM to TO [ from FROM to TO...]\n"
++"   update ID from FROM to TO [ from FROM to TO...]\n"
++"   list [all] [from FROM] [to TO] [event ID]\n"
++"   cancel ID\n"
++"   uncancel ID\n"
++"   delete ID\n"
++"   connect [/Pfadname]\n"
++"   sconnect [/Pfadname]\n"
++"   setacl [MODIFY|CONFLICT|LIST|RETR|NONE]*\n"
++"   listacl\n"
++
++#: pcp.c:1712
++msgid "add"
++msgstr "add"
++
++#: pcp.c:1713
++msgid "update"
++msgstr "update"
++
++#: pcp.c:1715
++msgid "init"
++msgstr "init"
++
++#: pcp.c:1721
++msgid "login"
++msgstr "login"
++
++#: pcp.c:1730
++msgid "connect"
++msgstr "connect"
++
++#: pcp.c:1748
++msgid "sconnect"
++msgstr "sconnect"
++
++#: pcp.c:1767
++msgid "cancel"
++msgstr "cancel"
++
++#: pcp.c:1776
++msgid "delete"
++msgstr "delete"
++
++#: pcp.c:1785
++msgid "uncancel"
++msgstr "uncancel"
++
++#: pcp.c:1827
++#, c-format
++msgid "Error: -s is required\n"
++msgstr "Fehler: -s ist erforderlich\n"
++
++#: pcp.c:1840
++msgid "list"
++msgstr "list"
++
++#: pcp.c:1845
++msgid "setacl"
++msgstr "setacl"
++
++#: pcp.c:1861
++msgid "listacl"
++msgstr "listacl"
+diff --git a/pcp/po/sv.po b/pcp/po/sv.po
+new file mode 100644
+index 0000000..74a971a
+--- /dev/null
++++ b/pcp/po/sv.po
+@@ -0,0 +1,279 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR Double Precision, Inc.
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: courier 0.47-11 pcp\n"
++"Report-Msgid-Bugs-To: http://www.courier-mta.org\n"
++"POT-Creation-Date: 2004-06-11 23:01-0400\n"
++"PO-Revision-Date: 2005-11-10 01:27+0100\n"
++"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
++"Language-Team: Swedish <sv@li.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=iso-8859-1\n"
++"Content-Transfer-Encoding: 8bit\n"
++"X-Poedit-Language: swe\n"
++"X-Poedit-Country: swe\n"
++
++#: pcp.c:56
++msgid "today"
++msgstr "idag"
++
++#: pcp.c:57
++msgid "tomorrow"
++msgstr "imorgon"
++
++#: pcp.c:64
++msgid "from"
++msgstr "från"
++
++#: pcp.c:69
++msgid "to"
++msgstr "till"
++
++#: pcp.c:74
++msgid "event"
++msgstr "händelse"
++
++#: pcp.c:79
++msgid "on"
++msgstr "den"
++
++#: pcp.c:185
++#, c-format
++msgid ""
++"LOGIN ERROR:\n"
++"%s\n"
++msgstr ""
++"INLOGGNINGSFEL:\n"
++"%s\n"
++
++#: pcp.c:197
++#: pcp.c:1419
++#, c-format
++msgid "ERROR: Unable to obtain authentication token from the server.\n"
++msgstr "FEL: Kunde inte hämta autentiseringstoken från servern.\n"
++
++#: pcp.c:291
++#, c-format
++msgid ""
++"Conflict: %s\n"
++"    (%s)\n"
++msgstr ""
++"Konflikt: %s\n"
++"    (%s)\n"
++
++#: pcp.c:310
++msgid "with"
++msgstr "med"
++
++#: pcp.c:358
++msgid "until"
++msgstr "fram till"
++
++#: pcp.c:463
++#, c-format
++msgid "Created event %s\n"
++msgstr "Skapade händelse %s\n"
++
++#: pcp.c:507
++#, c-format
++msgid ""
++"\n"
++"Enter event information, terminate with EOF (usually CTRL-D)\n"
++"\n"
++msgstr ""
++"\n"
++"Ange händelseinformation, avsluta med EOF (normalt sett CTRL-D)\n"
++"\n"
++
++#: pcp.c:588
++msgid "all"
++msgstr "alla"
++
++#: pcp.c:770
++msgid "CANCELLED: "
++msgstr "AVBRUTEN: "
++
++#: pcp.c:772
++msgid "(event not yet commited)"
++msgstr "(händelse ännu inte insänd)"
++
++#: pcp.c:782
++#, c-format
++msgid "%d events found.\n"
++msgstr "%d händelser funna.\n"
++
++#: pcp.c:1062
++#, c-format
++msgid "Event: %s\n"
++msgstr "Händelse: %s\n"
++
++#: pcp.c:1086
++#, c-format
++msgid "       %s\n"
++msgstr "       %s\n"
++
++#: pcp.c:1091
++#, c-format
++msgid "    **** CANCELLED ****\n"
++msgstr "    **** AVBRUTEN ****\n"
++
++#: pcp.c:1093
++#, c-format
++msgid "    **** EVENT NOT YET COMMITED ****\n"
++msgstr "    **** HÄNDELSEN ÄNNU INTE INSÄND ****\n"
++
++#: pcp.c:1096
++#, c-format
++msgid "    Participant: %s\n"
++msgstr "    Deltagare: %s\n"
++
++#: pcp.c:1227
++#, c-format
++msgid "Attachment: %s (%s)\n"
++msgstr "Bifogning: %s (%s)\n"
++
++#: pcp.c:1298
++#, c-format
++msgid ""
++"    (%s charset follows)\n"
++"\n"
++msgstr ""
++"    (%s teckenuppsättning följer)\n"
++"\n"
++
++#: pcp.c:1392
++#, c-format
++msgid "Password: "
++msgstr "Lösenord: "
++
++#: pcp.c:1448
++#, c-format
++msgid ""
++"ERROR:\n"
++"%s\n"
++msgstr ""
++"FEL:\n"
++"%s\n"
++
++#: pcp.c:1469
++#: pcp.c:1499
++#, c-format
++msgid "ERROR: ACLs not supported.\n"
++msgstr "FEL: ACL (Access Control Lists) stöds inte.\n"
++
++#: pcp.c:1611
++#, c-format
++msgid ""
++"Usage: pcp [options] [command]\n"
++"\n"
++"Options:\n"
++"   -c           - add/uncancel event that conflicts with an existing event\n"
++"   -s subject   - specify event subject\n"
++"   -C charset   - specify your local charset (default "
++msgstr ""
++"Användning: pcp [flaggor] [kommando]\n"
++"\n"
++"Flaggor:\n"
++"   -c           - lägg till/återuppta händelse som är i konflikt\n"
++"                  med en existerande händelse\n"
++"   -s ämne      - ange ämne för händelse\n"
++"   -C tecken    - ange din lokala teckenuppsättning (förvald "
++
++#: pcp.c:1616
++#, c-format
++msgid ""
++")\n"
++"   -m           - standard input is already a MIME-formatted message\n"
++"   -e           - list event ids\n"
++"\n"
++"Commands:\n"
++"   init\n"
++"   login USERID\n"
++"   logout\n"
++"   add from FROM to TO [ from FROM to TO...]\n"
++"   update ID from FROM to TO [ from FROM to TO...]\n"
++"   list [all] [from FROM] [to TO] [event ID]\n"
++"   cancel ID\n"
++"   uncancel ID\n"
++"   delete ID\n"
++"   connect [/pathname]\n"
++"   sconnect [/pathname]\n"
++"   setacl [MODIFY|CONFLICT|LIST|RETR|NONE]*\n"
++"   listacl\n"
++msgstr ""
++")\n"
++"   -m           - standard inmatning är redan ett MIME-formaterat meddelande\n"
++"   -e           - lista händelsernas ID:n\n"
++"\n"
++"Kommandon:\n"
++"   init\n"
++"   login ANVÄNDARID\n"
++"   logout\n"
++"   add from FRÅN to TILL [ from FRÅN to TILL...]\n"
++"   update ID from FRÅN to TILL [ from FRÅN to TILL...]\n"
++"   list [all] [från FRÅN] [to TILL] [event ID]\n"
++"   cancel ID\n"
++"   uncancel ID\n"
++"   delete ID\n"
++"   connect [/sökväg]\n"
++"   sconnect [/sökväg]\n"
++"   setacl [MODIFY|CONFLICT|LIST|RETR|NONE]*\n"
++"   listacl\n"
++
++#: pcp.c:1712
++msgid "add"
++msgstr "lägg till"
++
++#: pcp.c:1713
++msgid "update"
++msgstr "uppdatera"
++
++#: pcp.c:1715
++msgid "init"
++msgstr "init"
++
++#: pcp.c:1721
++msgid "login"
++msgstr "logga in"
++
++#: pcp.c:1730
++msgid "connect"
++msgstr "connect"
++
++#: pcp.c:1748
++msgid "sconnect"
++msgstr "sconnect"
++
++#: pcp.c:1767
++msgid "cancel"
++msgstr "avbryt"
++
++#: pcp.c:1776
++msgid "delete"
++msgstr "ta bort"
++
++#: pcp.c:1785
++msgid "uncancel"
++msgstr "återuppta"
++
++#: pcp.c:1827
++#, c-format
++msgid "Error: -s is required\n"
++msgstr "Fel: -s krävs\n"
++
++#: pcp.c:1840
++msgid "list"
++msgstr "lista"
++
++#: pcp.c:1845
++msgid "setacl"
++msgstr "setacl"
++
++#: pcp.c:1861
++msgid "listacl"
++msgstr "listacl"
++

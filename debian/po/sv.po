@@ -1,0 +1,374 @@
+# translation of courier_0.60.0-1_sv.po to Swedish
+# Translators, if you are not familiar with the PO format, gettext
+# documentation is worth reading, especially sections dedicated to
+# this format, e.g. by running:
+# info -n '(gettext)PO Files'
+# info -n '(gettext)Header Entry'
+# Some information specific to po-debconf are available at
+# /usr/share/doc/po-debconf/README-trans
+# or http://www.debian.org/intl/l10n/po-debconf/README-trans
+# Developers do not need to manually edit POT or PO files.
+#
+# Martin Ågren <martin.agren@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: courier_0.60.0-1_sv\n"
+"Report-Msgid-Bugs-To: courier@packages.debian.org\n"
+"POT-Creation-Date: 2017-08-10 00:25+0200\n"
+"PO-Revision-Date: 2008-07-19 19:51+0200\n"
+"Last-Translator: Martin Ågren <martin.agren@gmail.com>\n"
+"Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid "Create directories for web-based administration?"
+msgstr "Skapa kataloger för webbaserad administration?"
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"Courier uses several configuration files in /etc/courier. Some of these "
+"files can be replaced by a subdirectory whose contents are concatenated and "
+"treated as a single, consolidated, configuration file."
+msgstr ""
+"Courier använder flera konfigurationsfiler som finns i /etc/courier. Vissa "
+"konfigurationsfiler kan ersättas av en underkatalog där alla filer "
+"tillsammans behandlas som en enda konfigurationsfil."
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"The web-based administration provided by the courier-webadmin package relies "
+"on configuration directories instead of configuration files.  If you agree, "
+"any directories needed for the web-based administration tool will be created "
+"unless there is already a plain file in place."
+msgstr ""
+"Den webbaserade administration som ges av paketet courier-webadmin använder "
+"konfigurationskataloger istället för konfigurationsfiler.  Om du godkänner, "
+"kommer de kataloger som behövs för det webbaserade administrationsverktyget "
+"att skapas om det inte redan finns en fil på samma plats."
+
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid "Path to Maildir directory:"
+msgstr "Sökväg till Maildir-katalog:"
+
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid ""
+"Please give the relative path name from each user's home directory to the "
+"Maildir directory where the Courier servers store and access the user's "
+"email. Please refer to the maildir.courier(5) manual page if you are "
+"unfamiliar with the mail storage format used by Courier."
+msgstr ""
+"Ange ett relativt namn på sökvägen från varje användares hemkatalog till den "
+"Maildir-mapp där Courier-servrarna lagrar och får tillgång till användarens "
+"e-post. Referera till manualsidan för maildir.courier(5) om du är obekant "
+"med formatet för e-postlagring som används av Courier."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid "Obsolete setting of MAILDIR"
+msgstr "Föråldrad inställning av MAILDIR"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid ""
+"The name of the Maildir directory is now recognized through the variable "
+"MAILDIRPATH in Courier configuration files. The MAILDIR setting in /etc/"
+"default/courier is therefore obsolete and will be not recognized."
+msgstr ""
+"Namnet på Maildir-katalogen identifieras nu genom variabeln MAILDIRPATH i "
+"Couriers konfigurationsfiler. MAILDIR-inställningen i /etc/default/courier "
+"är därför föråldrad och kommer inte uppfattas."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid "SSL certificate required"
+msgstr "SSL-certifikat krävs"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"POP and IMAP over SSL requires a valid, signed, X.509 certificate. During "
+"the installation of courier-pop or courier-imap, a self-signed X.509 "
+"certificate will be generated if necessary."
+msgstr ""
+"POP och IMAP över SSL kräver ett giltigt, signerat X.509-certifikat. Under "
+"installationen av courier-pop eller courier-imap kommer ett självsignerat "
+"X.509-certifikat att genereras om det behövs."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"For production use, the X.509 certificate must be signed by a recognized "
+"certificate authority, in order for mail clients to accept the certificate. "
+"The default location for this certificate is /etc/courier/pop3d.pem or /etc/"
+"courier/imapd.pem."
+msgstr ""
+"För användning i produktionsmiljö bör X.509-certifikatet signeras av en känd "
+"certifikatutställare, för att e-postklienter ska acceptera certifikatet. "
+"Standardplatsen för detta certifikat är /etc/courier/pop3d.pem respektive /"
+"etc/courier/imapd.pem."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid "Courier MTA under courier user"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The Courier MTA packaging has been extensively rewritten and major changes "
+"had been done to the default setup of Courier MTA."
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The default user and group for Courier MTA has been changed to courier:"
+"courier.  The package tries hard to make all files belong to correct user:"
+"group and the permissions on those files are correct, but if you have a non-"
+"default setup, you will have to make sure that:"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+" + All file owners and file in /etc/courier and /var/lib/courier\n"
+"   are correctly set.\n"
+" + MAILUSER and MAILGROUP settings in /etc/courier/esmtpd is set to\n"
+"   correct user and group, both has to be set to `courier'."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid "Default domain:"
+msgstr "Standarddomän:"
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid ""
+"Please specify a valid email domain. Most header rewriting functions will "
+"append this domain to all email addresses which do not specify a domain, "
+"such as local accounts."
+msgstr ""
+"Specificera en giltig e-postdomän. De flesta omskrivningsfunktioner för e-"
+"posthuvuden kommer att lägga till denna domän till alla e-postadresser som "
+"inte har en domän specificerad, till exempel e-post från konton på denna "
+"maskin."
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid "\"From\" header for delivery notifications:"
+msgstr "\"From\"-huvud för leveransbesked:"
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid ""
+"Please specify a valid value for the \"From\" header for mail delivery "
+"notifications. These notifications cannot be sent without that setting."
+msgstr ""
+"Specificera ett giltigt värde för \"From\"-huvudet för e-postleveransbesked. "
+"Dessa besked kan inte skickas utan denna inställning."
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid "Activate CGI program?"
+msgstr "Aktivera CGI-programmet?"
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"To allow courier-webadmin to work out of the box, the CGI program /usr/lib/"
+"courier/courier/webmail/webadmin needs to be installed as /usr/lib/cgi-bin/"
+"courierwebadmin with the SUID bit set."
+msgstr ""
+"För att tillåta courier-webadmin att fungera direkt måste CGI-programmet /"
+"usr/lib/courier/courier/webmail/webadmin kopieras till /usr/lib/cgi-bin/"
+"courierwebadmin med SUID-biten satt."
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"This may have serious security implications, because courierwebadmin runs as "
+"root. Moreover, that solution is not guaranteed to work, depending on the "
+"web server software and its configuration."
+msgstr ""
+"Detta kan innebära allvarliga säkerhetsproblem eftersom courierwebadmin kör "
+"som root. För det andra är det inte garanterat att fungera beroende på din "
+"webbserverprogramvara och dess konfiguration."
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"If you choose this option and the web server setup is policy-compliant, you "
+"can access the administration frontend through http://localhost/cgi-bin/"
+"courierwebadmin."
+msgstr ""
+"Om du godkänner detta val och dina webbserverinställningar följer Debians "
+"policy kan du få tillgång till administrationsgränssnittet genom http://"
+"localhost/cgi-bin/courierwebadmin."
+
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid "Password for Courier administration:"
+msgstr "Lösenord för administration av Courier:"
+
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid ""
+"A password is needed to protect access to the Courier administration web "
+"interface. Please choose one now."
+msgstr ""
+"Ett lösenord behövs för att skydda åtkomsten till webbgränssnittet för "
+"konfiguration av Courier. Var vänlig välj ett nu."
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "local"
+msgstr "lokalt"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "net"
+msgstr "nätverk"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "disabled"
+msgstr "avstängd"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid "Calendaring mode:"
+msgstr "Aktivera kalender:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Please specify if you would like to enable calendaring in 'local' mode, "
+"enable groupware or 'net' mode or disable it. The courier-pcp package is "
+"required to use the groupware mode."
+msgstr ""
+"Specificera om du vill aktivera kalendern i lokalt läge (välj lokalt), "
+"groupwareläget (välj nätverk) eller inte alls (välj avstängd). Paketet "
+"courier-pcp krävs för att kunna använda groupwareläget."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Local mode adds very little overhead over a disabled calendaring mode. On "
+"the other hand, groupware mode is less resources-friendly and requires a "
+"separate daemon process to be run."
+msgstr ""
+"Lokalt läge kräver väldigt lite overhead jämfört med att inte använda "
+"kalendern alls. Å andra sidan kräver groupwareläget en hel del "
+"serverresurser och att en separat demonprocess körs."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"For more information, please refer to /usr/share/doc/sqwebmail/PCP.html."
+msgstr "För mer information, se /usr/share/doc/sqwebmail/PCP.html."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid "Ispell dictionary:"
+msgstr "Ispell-ordlista:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid ""
+"SqWebMail allows you to spellcheck your emails. Please select an appropriate "
+"dictionary for ispell."
+msgstr ""
+"SqWebMail kan kontrollera stavningen i e-postmeddelanden. Välj en lämplig "
+"ordlista för ispell."
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:4001
+msgid "symlink, copy, custom"
+msgstr "symbolisk länk, kopia, egendefinierad"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid "Installation method for HTML documents and images:"
+msgstr "Installationsmetod för HTML-dokument och bilder:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The HTML documents and images in /usr/share/sqwebmail can be made accessible "
+"at /var/www/sqwebmail via a symbolic link; or by being copied directly into "
+"a directory there; or not at all."
+msgstr ""
+"HTML-dokumenten och bilderna i /usr/share/sqwebmail kan göras åtkomliga på /"
+"var/www/sqwebmail via en symbolisk länk; eller genom att kopieras direkt "
+"till katalogen; eller inte alls."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The 'copy' option is recommended for security reasons. However, if "
+"'FollowSymLinks' or 'SymLinksIfOwnerMatch' are already enabled in Apache "
+"configuration, the first option can be considered. The last option needs "
+"manual actions to configure the web server."
+msgstr ""
+"Valet \"kopia\" rekommenderas av säkerhetsskäl. Men om \"FollowSymLinks\" "
+"eller \"SymLinksIfOwnerMatch\" redan har aktiverats i Apaches konfiguration, "
+"kan det första valet övervägas. Det sista valet kräver en manuell insats för "
+"att konfigurera webbservern."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"Please note that /var/www/sqwebmail will be removed if this package is "
+"purged unless the 'custom' option is chosen."
+msgstr ""
+"Notera att /var/www/sqwebmail kommer att tas bort om detta paket rensas "
+"såvida du inte väljer \"egendefinierat\"."

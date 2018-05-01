@@ -1,0 +1,13 @@
+[Unit]
+Description=Courier IMAP Daemon
+Requires=courier-authdaemon.service
+After=courier-authdaemon.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/webmaild start
+ExecStop=/usr/sbin/webmaild stop
+PIDFile=/run/courier/sqwebmaild.pid
+
+[Install]
+WantedBy=multi-user.target

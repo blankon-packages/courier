@@ -1,0 +1,26 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Disable imapscanfail("maildirwatch") error reporting
+
+---
+ libs/imap/imapscanclient.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/libs/imap/imapscanclient.c b/libs/imap/imapscanclient.c
+index da79c70..aa03d01 100644
+--- a/libs/imap/imapscanclient.c
++++ b/libs/imap/imapscanclient.c
+@@ -147,8 +147,11 @@ int imapmaildirlock(struct imapscaninfo *scaninfo,
+ 
+ 	if (scaninfo->watcher == NULL &&
+ 	    (scaninfo->watcher=maildirwatch_alloc(maildir)) == NULL)
+-		imapscanfail("maildirwatch");
+-
++	{
++	/* we don't report this problem any longer */
++	/* imapscanfail("maildirwatch"); */
++	}
++	
+ 	if ((newname=maildir_lock(maildir, scaninfo->watcher, &tryAnyway))
+ 	    == NULL)
+ 	{

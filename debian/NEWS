@@ -1,0 +1,83 @@
+courier (0.75.0-1) unstable; urgency=medium
+
+    SSL packages has been merged into it's non-SSL variants, as it is
+    strongly recommended to run secure variants of all protocols.
+
+ -- Ondřej Surý <ondrej@debian.org>  Sun, 02 Aug 2015 21:22:55 +0200
+
+courier (0.73.1-1.3) unstable; urgency=medium
+
+    The scripts makesmtpaccess, makeacceptmailfor, makehosteddomains, and
+    makepercentrelay now ignore files conforming to the regex patterns
+    ".*\.dpkg-[a-z]*" and ".*~". Please check whether your configuration
+    relies on such files and rename them if required.
+
+ -- Willi Mann <willi@debian.org>  Sun, 06 Jul 2014 09:30:34 +0200
+
+courier (0.66.1-1) unstable; urgency=low
+
+    The format of the autoreplies has changed. Autoreply content must now
+    use flowed-text markup. This affects mailbot and the equivalent
+    autoreply feature in sqwebmail. Existing mailbot autoreply files need
+    to be edited and reformatted as flowed text. Ditto for autoreplies set
+    up in sqwebmail. They need to be opened, and edited so that the only
+    linebreaks occur between paragraphs. Additionally, the autoreply text
+    in sqwebmail is now saved in UTF-8; existing autoreplies may need to
+    be transcoded manually.
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 08 May 2011 08:37:04 +0200
+
+courier-imap (0.58.0.20080127-1) unstable; urgency=low
+
+    Mismatches between ownership of the mailbox directory and the
+    ownership retrieved from the account database can cause mysterious
+    error messages. To prevent these a sanity check was added to Courier
+    IMAP. Such mismatches trigger the following error on login: 
+  
+    BYE [ALERT] Fatal error: Account's mailbox directory is not owned 
+    by the correct uid or gid
+
+    The sanity check can be averted by setting IMAP_MAILBOX_SANITY_CHECK
+    in /etc/courier/imapd to 0 and restart Courier IMAP.
+    
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 29 Jan 2008 13:22:09 +0100
+
+courier-ssl (0.57.0-1) unstable; urgency=low
+
+    New TLS_PROTOCOL setting SSL23 is equivalent to SSL3 in Courier before
+    version 0.56. Please change setting accordingly to avoid problems with
+    common mail user agents.
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  1 Oct 2007 15:21:15 +0200
+
+courier-mlm (0.56.0-2) unstable; urgency=low
+
+    All existing courier-mlm mailing list directories must be updated with
+    new configuration files. See the "update" command in the "MANUAL
+    COMMANDS" section of the couriermlm(1) manual page.
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 12 Sep 2007 16:58:39 -0400
+
+courier (0.53.1-1) unstable; urgency=low
+
+    Beginning with Courier 0.48, the authentication modules that used to
+    be part of Courier have been separated into a standalone library. All
+    Courier applications are now using the same authentication
+    infrastructure, the Courier authentication library. Packages for this
+    library consists of a base package (courier-authlib) and one for each
+    authentication method (courier-authlib-userdb, -mysql, -postgresql,
+    -ldap, -pipe). Unfortunately it wasn't possible to setup the
+    dependencies in order to allow a seamless upgrade. Please install the
+    package for your authentication method manually.
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 12 May 2006 12:00:03 +0200
+
+courier (0.45.6-1) unstable; urgency=low
+
+    /etc/courier/authmodulelist has been deprecated, you can remove this file
+    backed out patch to quell FAM error messages, we just suppress them
+    now as suggested by upstream. If you want to use FAM for the IMAP IDLE
+    command, please make sure that it works. You wouldn't get any notice 
+    about that in the logs.
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 12 Jul 2004 00:14:44 +0200

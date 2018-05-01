@@ -1,0 +1,68 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# debian-l10n-english@lists.debian.org for advice.
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
+Template: courier-base/webadmin-configmode
+Type: boolean
+Default: false
+_Description: Create directories for web-based administration?
+ Courier uses several configuration files in /etc/courier. Some of
+ these files can be replaced by a subdirectory whose contents are
+ concatenated and treated as a single, consolidated, configuration
+ file.
+ .
+ The web-based administration provided by the courier-webadmin package
+ relies on configuration directories instead of configuration files. 
+ If you agree, any directories needed for the web-based
+ administration tool will be created unless there is already a
+ plain file in place.
+
+Template: courier-base/maildir
+Type: string
+Default: Maildir
+_Description: Path to Maildir directory:
+ Please give the relative path name from each user's home directory to the
+ Maildir directory where the Courier servers store and access the
+ user's email. Please refer to the maildir.courier(5) manual page if you are
+ unfamiliar with the mail storage format used by Courier.
+
+Template: courier-base/maildirpath
+Type: note
+_Description: Obsolete setting of MAILDIR
+ The name of the Maildir directory is now recognized through the variable
+ MAILDIRPATH in Courier configuration files. The MAILDIR setting in
+ /etc/default/courier is therefore obsolete and will be not recognized.
+
+Template: courier-base/certnotice
+Type: note
+_Description: SSL certificate required
+ POP and IMAP over SSL requires a valid, signed, X.509 certificate. During
+ the installation of courier-pop or courier-imap, a self-signed
+ X.509 certificate will be generated if necessary. 
+ .
+ For production use, the
+ X.509 certificate must be signed by a recognized certificate authority, in
+ order for mail clients to accept the certificate. The default location
+ for this certificate is /etc/courier/pop3d.pem or
+ /etc/courier/imapd.pem.
+
+Template: courier-base/courier-user
+Type: note
+_Description: Courier MTA under courier user
+ The Courier MTA packaging has been extensively rewritten and major
+ changes had been done to the default setup of Courier MTA.
+ .
+ The default user and group for Courier MTA has been changed to
+ courier:courier.  The package tries hard to make all files belong to
+ correct user:group and the permissions on those files are correct,
+ but if you have a non-default setup, you will have to make sure that:
+ .
+  + All file owners and file in /etc/courier and /var/lib/courier
+    are correctly set.
+  + MAILUSER and MAILGROUP settings in /etc/courier/esmtpd is set to
+    correct user and group, both has to be set to `courier'.

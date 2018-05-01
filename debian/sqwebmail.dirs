@@ -1,0 +1,4 @@
+usr/lib/cgi-bin
+var/cache/sqwebmail
+var/lib/courier/calendar
+var/www

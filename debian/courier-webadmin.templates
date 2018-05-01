@@ -1,0 +1,31 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# debian-l10n-english@lists.debian.org for advice.
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
+Template: courier-webadmin/install-cgi
+Type: boolean
+Default: false
+_Description: Activate CGI program?
+ To allow courier-webadmin to work out of the box, the CGI
+ program /usr/lib/courier/courier/webmail/webadmin needs to
+ be installed as /usr/lib/cgi-bin/courierwebadmin with the SUID bit set.
+ .
+ This may have serious security implications, because
+ courierwebadmin runs as root. Moreover, that solution is
+ not guaranteed to work,
+ depending on the web server software and its configuration.
+ .
+ If you choose this option and the web server setup is
+ policy-compliant, you can access the administration frontend through
+ http://localhost/cgi-bin/courierwebadmin.
+
+Template: courier-webadmin/password
+Type: password
+_Description: Password for Courier administration:
+ A password is needed to protect access to the Courier administration
+ web interface. Please choose one now.

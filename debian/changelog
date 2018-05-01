@@ -1,0 +1,2070 @@
+courier (0.78.0-2blankon1) uluwatu; urgency=medium
+
+  * New upstream release
+
+ -- antosamalona <ansamsoftdev@gmail.com>  Tue, 01 May 2018 20:14:09 +0800
+
+courier (0.78.0-2) unstable; urgency=medium
+
+  * Fix an FTBFS by adding a B-D on libgcrypt-dev. Closes: #875659.
+
+ -- Markus Wanner <markus@bluegap.ch>  Wed, 13 Sep 2017 18:01:52 +0200
+
+courier (0.78.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches: 0011-Don-t-cleanup-staticlist.c.patch,
+    0018-Fix-default-configuration-for-Debian.patch,
+    0019-Remove-upstream-chown-on-install-target.patch, and
+    0022-mkesmtpdcert-should-use-certsdir.patch.
+  * Drop patch 0021-Fix-dotforward-manpage-installation.patch:
+    upstream now installs dotforward.1 as a link to dot-forward.1.
+  * Correct patch 0012-Define-and-use-PEMFILE-in-mkesmtpdcert.patch
+    effectively correcting mkesmtpcert, called from the postinst
+    script. Closes: #874736.
+  * Correct build-dependencies: drop alternative dependencies that
+    no longer exist: init-d-script, libmysqlclient-dev.
+  * Add a separate 'set -e' line to the mainscripts.
+  * Correct NEWS file syntax.
+
+ -- Markus Wanner <markus@bluegap.ch>  Tue, 12 Sep 2017 21:58:24 +0200
+
+courier (0.77.0-3) unstable; urgency=medium
+
+  * Correct build-dependencies: Require at least version 2.0-2~
+    of courier-unicode.
+
+ -- Markus Wanner <markus@bluegap.ch>  Tue, 15 Aug 2017 21:20:35 +0200
+
+courier (0.77.0-2) unstable; urgency=medium
+
+  * Correct build-dependencies: add gnupg2. Closes: #871685.
+
+ -- Markus Wanner <markus@bluegap.ch>  Sun, 13 Aug 2017 09:37:19 +0200
+
+courier (0.77.0-1) unstable; urgency=medium
+
+  * New upstream release. Closes: #871586.
+  * Restrict build dependency on courier-unicode to 2.0 and newer.
+  * Drop patches 0001-Include-cstdio-in-afx.h.patch
+    0005-Ignore-and-.dpkg-a-z-files.patch, 0007-Fix-bashisms.patch,
+    0009-Fix-linking-in-upstream-Makefiles.patch,
+    0013-Add-P-to-ghostscript-invocation.patch,
+    0014-Improve-error-reporting-in-preline.c.patch,
+    0017-Fix-formatting-errors-in-syslog-calls.patch,
+    0020-Add-perl-stanza-to-perlfilter-scripts.patch, and
+    0026-Fix-TLS-verification-for-CNAMEs.patch: all of these got applied
+    upstream.
+  * Refresh patches 0010-Don-t-use-static-linking-in-libs-maildir.patch,
+    0019-Remove-upstream-chown-on-install-target.patch,
+    0022-mkesmtpdcert-should-use-certsdir.patch,
+    0023-Fix-missing-AC_PROG_SYSCONFTOOL-macro-on-autoreconf.patch, and
+    0024-Dynamically-resolver-mailuid-and-mailgid-on-runtime-.patch
+  * Refresh, merge and simplify patch
+    0012-Define-and-use-PEMFILE-in-mkesmtpdcert.patch
+  * Drop bogus links to pem files.
+  * Correct permissions on /etc/courier/esmtpauthclient in postinst
+    script of courier-mta so it's readable for user courier.
+  * Tighten permissions of the imapd.cnf and esmtpd.cnf files.
+  * Update Dutch and Portuguese translations of debconf messages.
+    Closes: #832278, #871400.
+  * Update debconf templates.pot, add debconf-updatepo to the clean
+    target.
+  * Change priority extra to optional.
+
+ -- Markus Wanner <markus@bluegap.ch>  Thu, 10 Aug 2017 01:20:09 +0200
+
+courier (0.76.3-5) unstable; urgency=medium
+
+  * Fix Debian patch 0012-Define-and-use-PEMFILE-in-mkesmtpdcert.patch:
+    do not invoke 'install -b' twice from mkesmtpdcert, eliminating
+    backup files not cleaned up by purge. Closes: #847348.
+  * Add patch 0026-Fix-TLS-verification-for-CNAMEs.patch: correct TLS
+    verification when DNS answers with CNAMEs. Closes: #860762.
+  * Systemd service files: Correct delimiter of dependencies.
+    Closes: #860765.
+  * Fix init scripts: Add proper PIDFILE declarations to init scripts.
+    Replace status_of_proc with a more direct call to pidofproc and
+    simplify the courier and courierfilter init scripts. Closes: #860777.
+  * Take over the package. Closes: #848978.
+
+ -- Markus Wanner <markus@bluegap.ch>  Mon, 08 May 2017 19:16:44 +0200
+
+courier (0.76.3-4) unstable; urgency=medium
+
+  * Orphan the package.
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 21 Dec 2016 15:03:32 +0100
+
+courier (0.76.3-3) unstable; urgency=medium
+
+  * Fix Debian patch that removed certtool support from Debian (Closes: #847174)
+  * Install mkesmptdcert as mkcouriercert, symlink all other scripts to it
+    and use basename to check the real certificate name
+  * Rewrap d/control
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 06 Dec 2016 11:51:27 +0100
+
+courier (0.76.3-2) unstable; urgency=medium
+
+  * Abort installation with more meaningful error message when
+    IMAPACCESSFILE is missing (Closes: #815956)
+  * Remove /etc/courier/imapaccess.dat on courier-imap purge
+    (Closes: #814633)
+  * Remove generated /etc/courier/esmtpd.rand on courier-mta purge
+    (Closes: #814634)
+  * Remove generated /usr/lib/courier/esmtpd.rand on courier-mta purge
+    (Closes: #776667)
+  * Compile with gnutls instead of openssl (Closes: #605594, #844975)
+  * Use libmysqlclient-dev (<< 5.7) to enforce compilation with
+    default-libmysqlclient-dev when available
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 29 Nov 2016 14:35:48 +0100
+
+courier (0.76.3-1) unstable; urgency=medium
+
+  * Imported Upstream version 0.76.3
+   + OpenSSL 1.1.0 support (Closes: #828272)
+  * Rebase patches on top of 0.76.3 release
+  * Use default-libmysqlclient-dev as a first choice dependency
+  * Use openssl dhparam instead of openssl gendh for OpenSSL 1.1.x
+    compatibility (Closes: #829477)
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 31 Oct 2016 11:53:03 +0100
+
+courier (0.76.2-1) experimental; urgency=medium
+
+  * Imported Upstream version 0.76.2
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 25 Aug 2016 14:04:43 +0200
+
+courier (0.76.1-3) unstable; urgency=medium
+
+  * Add critical debconf notes about courier:courier change and
+    courier-maildrop -> maildrop change (Closes: #822071)
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 24 May 2016 17:09:49 +0200
+
+courier (0.76.1-2) unstable; urgency=medium
+
+  [ Alexis Bienvenüe ]
+  * Make the build reproducible (Closes: #824037)
+   + Use SOURCE_DATE_EPOCH for imapd version string.
+   + Always use /bin/sh as SHELL, to get reproducible build.
+
+  [ Ondřej Surý ]
+  * Rebase patches on top of 0.76.1 release
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 12 May 2016 10:16:09 +0200
+
+courier (0.76.1-1) unstable; urgency=medium
+
+  * Imported Upstream version 0.76.1
+  * Override do_status from /lib/init/init-d-script to use PIDFILE + fix
+    for non-standard daemon name in courier.init (Closes: #822067)
+  * Use dh-systemd to enable the courier services at start
+    (Closes: #823132)
+  * Add notice about courier and courierfilter split from courier-mta
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 09 May 2016 15:24:33 +0200
+
+courier (0.76.0.20160430-1) unstable; urgency=medium
+
+  * Imported Upstream version 0.76.0.20160430
+  * Includes fix for non-functional SNI
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 05 May 2016 11:31:23 +0200
+
+courier (0.76.0-2) unstable; urgency=medium
+
+  * We need to override do_start_cmd and do_stop_cmd instead of do_start
+    and do_stop
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 27 Apr 2016 09:12:28 +0200
+
+courier (0.76.0-1) unstable; urgency=medium
+
+  * Imported Upstream version 0.76.0
+  * Refresh patches on top of 0.76 release
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 26 Apr 2016 13:41:24 +0200
+
+courier (0.75.0-20) unstable; urgency=medium
+
+  * Use --list-missing instead of --fail-missing as workaround to failing
+    dh-exec with dpkg-buildpackage -A (Closes: #822109)
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 21 Apr 2016 15:25:22 +0200
+
+courier (0.75.0-19) unstable; urgency=medium
+
+  * Fix cut&paste error in courier-mta init.d script (Closes: #822065)
+  * Fix cut&paste error in courier-mta-ssl init.d script (Closes: #822066)
+  * Add NEWS file about default user changes and
+    courier-maildrop->maildrop changes (Closes: #822071, #822070)
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 21 Apr 2016 14:40:26 +0200
+
+courier (0.75.0-18) unstable; urgency=medium
+
+  * Add correct Breaks/Replaces to upgrade after moved some files to
+    courier-mlm package (Closes: #820027)
+  * Cleanup maintainer scripts after making courier-maildrop a dummy
+    package (Closes: #820085)
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 15 Apr 2016 09:31:07 +0200
+
+courier (0.75.0-17) unstable; urgency=medium
+
+  * Fix depcomp failure by removing Makefile.in prior to dh_autoreconf
+    call (Closes: #818511)
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 22 Mar 2016 12:19:25 +0100
+
+courier (0.75.0-16) unstable; urgency=medium
+
+  * Move transitional packages to oldlibs/extra
+  * Move courier-maildrop to indep to return back correct versioning
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 16 Mar 2016 17:49:46 +0100
+
+courier (0.75.0-15) unstable; urgency=medium
+
+  * Don't mangle autotools path to buildroot
+  * Use shared config.cache to speed up configure runs
+  * courier-imap-ssl.init needs to provide courier-imap-ssl and not
+    courier-imap
+  * We don't need exact binary version of courier-maildrop for
+    courier-mlm, it's enforced by courier-base anyway (Closes: #814618)
+  * Depend on courier-authlib-dev >= 0.66.4-5~ to pull version with proper
+    shared libraries
+  * Uses systemd-tmpfiles (and custom helper) to create /run directories
+    (Closes: #349830)
+  * Rewrote init scripts using init-d-script helper
+    (Closes: #795449, #774349, #784001, #144503)
+  * Correctly Build-Depend on libcourier-unicode-dev (Closes: #811151)
+  * Kill duplicate courier-maildrop package and just depend on standard
+    maildrop package
+    (Closes: #289091, #193650, #567462, #684230)
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 16 Mar 2016 16:45:48 +0100
+
+courier (0.75.0-14) unstable; urgency=medium
+
+  * sysvinit-utils | init-d-script is Dependency and not Build-Dependency
+  * Make sure that at least courier-authdaemon >= 0.66.4-4 is pulled
+  * And courier-base was missing the usr/lib/courier/init-d-script-courier
+    script
+  * Disable parallel build to untangle the autoconf mess on Ubuntu Xenial
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 24 Feb 2016 16:04:24 +0100
+
+courier (0.75.0-13) unstable; urgency=medium
+
+  * Cleanup sysvr scripts to match tmpfile handling of systemd init files
+  * Update the rundir /run everywhere
+  * Rewrite sysvrc scripts to use init-d-script from sysvinit-utils and
+    add our own courier helper
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 08 Feb 2016 13:29:02 +0100
+
+courier (0.75.0-12) unstable; urgency=medium
+
+  * Pre-create hosteddomains and esmtpacceptmailfor.dir directories (Closes: #813424)
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 05 Feb 2016 10:07:05 +0100
+
+courier (0.75.0-11) unstable; urgency=medium
+
+  * Add missing Required-Start: courier-authdaemon to courier-mta sysvrc
+    script (Closes: #728747)
+  * Properly call dh_installinit for courier-mta,courier-imap and
+    courier-pop packages
+  * Tune permissions on submitmkdir and /etc/courier
+  * TLS_CERTFILE needs to be mangles in /etc/courier/esmtpd as well
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 26 Jan 2016 16:24:44 +0100
+
+courier (0.75.0-10) unstable; urgency=medium
+
+  * Get rid of /etc/courier/acceptmailfor directory that's not needed
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 08 Jan 2016 13:00:41 +0100
+
+courier (0.75.0-9) unstable; urgency=medium
+
+  * Add tmpfile for each independent Courier MTA service file
+  * Include debconf library in courier-imap postinst
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 06 Jan 2016 11:49:36 +0100
+
+courier (0.75.0-8) unstable; urgency=medium
+
+  * Add couple more systemd units
+  * Add /etc/courier/imapaccess handling to courier-imap package
+  * Cleanup directories handling in maintainer scripts
+  * Set setuid permissions to align with upstream (sendmail and rmail was missing)
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 05 Jan 2016 10:01:00 +0100
+
+courier (0.75.0-7) unstable; urgency=medium
+
+  * Reinstate install-perms code
+  * Install the upstream required permissions into
+    /usr/lib/courier/install-perms-list.dat
+  * Add more fixed permissions for some extra dirs in /var/lib/courier
+  * Dynamically resolver mailuid and mailgid on runtime (suboptimal,
+    resolving is done every time)
+
+ -- Ondřej Surý <ondrej@debian.org>  Sat, 02 Jan 2016 11:53:14 +0100
+
+courier (0.75.0-6) unstable; urgency=medium
+
+  * Use dh-autoreconf to regenerate build scripts
+   + Create manual list for dh_autoreconf to catch en_us directory
+   + Update patches to modify Makefile.am instead of mangling Makefile.in
+   + sendmail now resides in /usr/sbin even in upstream Makefiles
+   + Fix missing AC_PROG_SYSCONFTOOL macro on autoreconf
+   + Update don't-chown-on-install patch to be even more aggressive
+   + Don't run install-permissions in the end
+  * Add systemd service files for all daemons
+  * Other packaging fixes:
+   + Remove extra debian/tmp directories from init scripts
+   + Split one big old patch into individual patches
+   + Fix typo i d/control s/0.75.0.1/0.75.0-1/
+   + Add /etc/courier/esmtpacceptmailfor.dir directory to the package
+   + Update courier-ssl because it's dummy transitional package as well
+   + Properly cleanup old sysvrc scripts for courier-*-ssl packages
+
+ -- Ondřej Surý <ondrej@debian.org>  Sat, 02 Jan 2016 10:48:12 +0100
+
+courier (0.75.0-1) unstable; urgency=medium
+
+  * New upstream version 0.75.0
+  * Add Debian changes as a quilt patch
+  * Rebase Debian changes on top of 0.75.0
+  * Convert the package to dh7 and 3.0 (quilt) format
+  * Use ${source:Version} instead of ${binary:Version} for courier-imap,
+    courier-imap-ssl, courier-maildrop and sqwebmail
+  * mkdhparams has to be run after adding courier user
+  * courier/module.esmtp/configure.ac doesn't define certsdir, so make the override static
+  * Remove some extra + in d/p/0.73.1-1.3.patch
+  * rmail resides in /usr/sbin, not in /usr/bin
+  * Silence dpkg-statoverrides --list
+  * Change the ownership of files in /etc/courier to root:courier
+  * Also remove esmtpd.pem.rand from /etc/courier
+  * Cleanup certificates handling
+  * Add new gencontrol variable courier-base:Version to have proper Dependencies
+  * Add two extra dirs to /etc/courier
+  * Add d/watch with support for signed packages
+  * Use gbp pq for patch management
+  * Add patch to Remove all SSLv2 and SSLv3 related settings
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 31 Dec 2015 12:11:52 +0100
+
+courier (0.73.1-1.3) unstable; urgency=medium
+
+  * Non-maintainer upload in coordination with maintainer.
+  * Change makedat to ignore .*\.dpkg-[a-z]* (and .*~) files. This fixes 
+    errors on upgrade with modified /etc/courier/smtpaccess/default files.
+    closes: #338221.
+  * sqwebmail.dirs: Add /var/www. Otherwise, the postinst script could fail
+    if no one else created this directory. closes: #754538
+
+ -- Willi Mann <willi@debian.org>  Fri, 25 Jul 2014 19:05:24 +0200
+
+courier (0.73.1-1.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Change mkesmptdcert to make cert-filename controllable by parameter.
+  * Create esmptd.pem in temporary path and then move it to /etc/courier.
+    This way, mkesmptdcert no longer has to work on an dangling symlink as
+    destination. (closes: #749129)
+
+ -- Willi Mann <willi@debian.org>  Mon, 30 Jun 2014 21:16:16 +0200
+
+courier (0.73.1-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload in coordination with maintainer.
+  * Create /e/c/dhparams.pem in postinst if it does not exist (closes: #741620)
+  * Force maildrop to be linked against authlib (closes: #741899)
+
+ -- Willi Mann <willi@debian.org>  Sun, 27 Apr 2014 15:02:19 +0200
+
+courier (0.73.1-1) unstable; urgency=low
+
+  * Use --with-certsdir build configuration option (Closes: #741162).
+  * Add dependency on libnet-cidr-perl for courier-mta (Closes: #692755,
+    thanks to Flavio Stanchina <flavio@stanchina.net> for the report).
+  * Install mkdhparams manually.
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 09 Mar 2014 21:28:57 +0100
+
+courier (0.73.1-0.1) unstable; urgency=low
+
+  * New upstream release.
+  * Remove obsolete init script for courier-pcp.
+  * Add patch to remove privacy breach from download HTML page
+    (privacy-breach-google-adsense lintian check)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 03 Mar 2014 12:48:09 +0100
+
+courier (0.68.2-1) unstable; urgency=low
+
+  * New upstream release with the following changes:
+    - another patch for incorrect Content-Type boundary fields 
+      (Closes: #582765) 
+    - fix syntax error signaled by makealiases command for aliases starting 
+      with @ (Closes: #677627)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 27 Jun 2012 23:19:07 +0200
+
+courier (0.68.1-1) unstable; urgency=low
+
+  * New upstream release which fixes incorrect Content-Type boundary
+    fields (Closes: #582765, thanks to Helge Kreutzmann
+    <debian@helgefjell.de> for investigation).
+  * Add postrm maintainer script to courier-mta-ssl package for removing
+    SSL certificate.
+  * Fix inconsistency between esmtpd.cnf and mkesmtpdcert script 
+    (Closes: #672159, thanks to Andreas Beckmann <debian@abeckmann.de> for
+    the report).
+  * Get rid of echo -e in courier-mta's postinst script to avoid problems
+    with dash as shell (Closes: #645786, thanks to Flavio Stanchina
+    <flavio@stanchina.net> for the report).
+  * Add build-arch and build-indep targets to debian/rules.
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 09 May 2012 12:43:53 +0200
+
+courier (0.67.0-2) unstable; urgency=low
+
+  * Force umask to 0022 for make install and make install-perms 
+    (Closes: #669523, thanks to Lucas Nussbaum <lucas@lucas-nussbaum.net>
+    for the report).
+  * Change priority for courier-pop-ssl and courier-faxmail package to
+    extra.
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 20 Apr 2012 14:05:53 +0200
+
+courier (0.67.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix init script crash on missing calendarmode configuration file 
+    (Closes: #647499, thanks to Flavio Stanchina <flavio@stanchina.net>
+    for the report).
+  * Add patch to fix bad so link within man pages.
+
+  [أحمد المحمودي <aelmahmoudy@sabily.org>]
+  
+  * Make sure that /etc/courier exists (Closes: #582405).
+  * Depend on default-mta instead of exim4 (Closes: #582411).
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 17 Apr 2012 10:13:13 +0200
+
+courier (0.66.3-4) unstable; urgency=low
+
+  [Marco Balmer]
+  
+  * Add Suggests for couriergrey to courier-mta package (Closes: #658277)
+  
+  [Joe Dalton]
+  
+  * Add Danish translation of Debconf templates (Closes: #605073)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 03 Feb 2012 08:37:52 +0100
+
+courier (0.66.3-2) unstable; urgency=low
+
+  [Moritz Mühlenhoff]
+  
+  * Apply patch for enable hardening options and missing format strings
+    (Closes: #654794)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 05 Jan 2012 17:50:33 -0500
+
+courier (0.66.3-1) unstable; urgency=low
+
+  * new upstream release
+  * fix FTBFS caused by umask error (Closes: #634595, thanks to Willi Mann
+    <willi@wm1.at> for the patch) 
+  * fix lintian overrides for binary-or-shlib-defines-rpath
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 01 Sep 2011 09:46:09 +0200
+
+courier (0.66.1-1) unstable; urgency=low
+
+  * new upstream release (Closes: #622014, fixes FTBFS due to removed
+    SSLv2 support in recent OpenSSL versions)
+  * fix line length of description for courier-mta package
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 08 May 2011 08:37:04 +0200
+
+courier (0.65.3-2) unstable; urgency=medium
+
+  * fix tests for SSL certificates in postinst scripts 
+    (Closes: #619008, #619009, thanks to Holger Levsen
+    <holger@layer-acht.org> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 21 Mar 2011 12:12:39 +0100
+
+courier (0.65.3-1) unstable; urgency=low
+
+  * new upstream release
+  * double ULIMIT value in esmtpd configuration file to avoid allocation
+    failures on startup of SMTP/SSL server (Closes: #601443, thanks to
+    Buford Sanchez <bugs@business.com.pa> for the report)
+  * fix accidentally removed symbolic links to SSL certificates in
+    postinst scripts (Closes: #592092, thanks to Thibault Richard
+    <thibs@thibs.com> for the report)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 18 Feb 2011 10:41:11 +0100
+
+courier (0.65.2.20110123-1) experimental; urgency=low
+
+  * new upstream snapshot release (Closes: #561264, fixes problem with bindv6only)
+  * add missing dependencies on debconf (Closes: #582412, thanks to
+    أحمد المحمودي <aelmahmoudy@sabily.org> for the patch)
+  * lintian fixes 
+    - adjust description of courier-imap package to fit within 80 characters.
+  * add status action to IMAP, POP and SqWebMail init scripts.
+  * fix FTBFS with ld --as-needed (Closes: #607103, thanks to Matthias
+    Klose <doko@ubuntu.com> for the patch)
+  * fix bashism in filterctl script (Closes: #530058)
+  * remove LDFLAGS=-lcrypt from build options (Closes: #607124, thanks to Matthias
+    Klose <doko@ubuntu.com> for the report)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 08 Feb 2011 11:56:27 +0100
+
+courier (0.65.2-1) experimental; urgency=low
+
+  * new upstream release (Closes: #576249, thanks to Helge Kreutzmann
+    <debian@helgefjell.de> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 08 Nov 2010 11:26:36 +0100
+
+courier (0.65.0-2) unstable; urgency=medium
+
+  * raise ulimit in /etc/courier/imapd to 131072 (Closes: #597434)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 24 Sep 2010 13:32:07 +0200
+
+courier (0.65.0-1) unstable; urgency=low
+
+  * new upstream release
+    - fixes IMAP error message (Closes: #583989, thanks to Adam Warner
+      <lists@consulting.net.nz> for the report)
+  * fix insecure invocations of ghostscript in courier-faxmail 
+    (Closes: #584001, thanks to Paul Szabo <paul.szabo@sydney.edu.au> for
+    the report)
+  * update Build-Depends to use libldap2-dev instead of libldap-dev
+    (Closes: #582414) 
+  * update courier-webadmin dependency from apache to apache2 
+    (Closes: #582413)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 01 Jun 2010 17:37:28 +0200
+
+courier (0.64.2-1) unstable; urgency=low
+
+  * new upstream release
+  * depend on latest release of courier-authlib to prevent build failures
+    (Closes: #574106)
+  * removed outdated config.{guess,sub} files (Closes: #559488, thanks to Bradley Smith
+    <bradsmith@debian.org> for the report)
+  * courier-ldap start script now creates runtime directory if necessary
+    (Closes: #573435, thanks to Petter Reinholdtsen <pere@hungry.com>)
+  * ensure that local LDAP server starts before Courier LDAP alias server
+  * debian/watch file added (Closes: #566737, thanks to Jan Dittberner
+    <jandd@debian.org> for the patch)
+  * applied patch from Jeff Jansen to stop courier-pop-ssl even if 
+    POP3DSSLSTART is no
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 22 Apr 2010 09:10:06 +0200
+
+courier (0.63.0-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * use system libtool (Closes: #560614)
+
+ -- Jan Dittberner <jandd@debian.org>  Sun, 24 Jan 2010 14:44:46 +0100
+
+courier (0.63.0-2) unstable; urgency=low
+
+  * depend on current version of courier-authlib (Closes: #517458)
+  * use default for IMAP_UMASK (Closes: #552368, thanks to Flavio
+    Stanchina <flavio@stanchina.net> for the report)
+  * replaced obsolete dependency gs with ghostscript (Closes: #539652,
+    thanks to Jonas Smedegaard <dr@jones.dk> for the report)
+  * added missing build dependency po-debconf (Closes: #554182, thanks to
+    Manoj Srivastava <srivasta@debian.org> for the report)
+  * lintian fixes
+    - fixed POD errors in sharedindexsplit manual page
+    - made debhelper versioned dependency compliant with debian/compat
+    - added ${misc:Depends} for all packages
+    - moved addcr manpage to section 1
+    - overriding binary-or-shlib-defines-rpath for /usr/lib/courier-authlib
+    - create /var/run/courier/calendar at runtime
+    - bumped up Standards-Version
+    - eliminated commands with absolute paths in maintainer scripts
+  * ensure proper permissions on /var/run/courier for courier-mta
+    (Closes: #555087, thanks to Heiner Markert <hmarkert@bullfinch.org>
+    for the report)
+  * updated Russian translation of Debconf templates (Closes: #556387,
+    thanks to Sergey Alyoshin <alyoshin.s@gmail.com>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 16 Nov 2009 19:28:07 +0100
+
+courier (0.63.0-1) unstable; urgency=low
+
+  * New upstream release
+    - fixes libtool errors (Closes: #527749, #527833)
+  * Applied patch to add missing include avoiding FTBFS with GCC 4.4
+    (Closes: #505132, thanks to Martin Michlmayr <tbm@cyrius.com> for the
+    report)
+  * Disable POP3_STARTTLS and POP3_TLS_REQUIRED by default (Closes: #284327)
+  * Updated Spanish translation of Debconf templates (Closes: #506776,
+    thanks to Francisco Javier Cuadrado <fcocuadrado@gmail.com>)
+  * Updated Czech translation of Debconf templates (Closes: #529279, thanks
+    to Martin Sín <martin.sin@zshk.cz>)
+  * Homepage added to debian/control.
+  * Fix syntax error in clean rule (Closes: #532436)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 22 Oct 2009 08:48:34 +0200
+
+courier (0.61.2-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * debian/courier-base.postinst, debian/courier-base.prerm:
+    + Rename alternatives maildir.5 and maildirquota.7 to maildir.5.gz and
+      maildirquota.7.gz to match names used by the maildrop package for these
+      same alternatives (Closes: #521037).
+
+ -- Gilles Filippini <gilles.filippini@free.fr>  Wed, 23 Sep 2009 10:09:17 +0200
+ 
+courier (0.61.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Lintian:
+    - fix chown in courier-webadmin postinst
+    - removed courier-base preinst
+    - added debhelper token to courier-mta.preinst
+    - removed *.conffiles
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 08 Mar 2009 16:42:08 +0100
+
+courier (0.61.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 17 Feb 2009 18:39:54 +0100
+
+courier (0.60.0-2) unstable; urgency=low
+
+  * Added Italian translation of Debconf templates (Closes: #494536,
+    thanks to Luca Monducci <luca.mo@tiscali.it>)
+  * Updated Swedish translation of Debconf templates (Closes: #491477,
+    thanks to Martin Ågren <martin.agren@gmail.com>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 07 Sep 2008 11:18:21 +0200
+
+courier (0.60.0-1) unstable; urgency=low
+
+  * New upstream release, removing IEFT license from internet draft file (Closes: #482048)
+  * Adding diversion for addcr (Closes: #476489, thanks to Gerrit Pape
+    <pape@smarden.org> for the patch)
+  * Ensure that MAILDIRPATH is set in init scripts (Closes: #490976,
+    thanks to Mario Izquierdo <mariodebian@gmail.com> for the report and
+    the patch)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 17 Jul 2008 12:01:59 +0200
+
+courier (0.59.0-3) unstable; urgency=high
+
+  * Applied upstream patch removing IETF license from internet draft files
+    (Closes: #482048, thanks to Simon Josefsson <simon@josefsson.org> for
+    the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 04 Jun 2008 13:47:12 +0200
+
+courier (0.59.0-2) unstable; urgency=low
+
+  * Updated French translation of Debconf templates (Closes: #442215,
+    thanks to Christian Perrier <bubulle@debian.org>)
+  * Updated German translation of Debconf templates (Closes: #476887,
+    thanks to Holger Wansing <linux@wansing-online.de>)
+  * Updated Finnish translation of the Debconf templates (Closes: #475241,
+    thanks to Esko Arajärvi <edu@iki.fi>)
+  * Updated Czech translation of Debconf templates (Closes: #479213, thanks
+    to Martin Sín <martin.sin@seznam.cz>)
+  * Added Basque translation of Debconf templates (Closes: #479461, thanks
+    to iarres Beobide <pi+debian@beobide.net>)
+  * Updated Turkish translation of Debconf templates (Closes: #479531,
+    thanks to Mehmet Turker <mturker@innova.com.tr>)
+  * Updated Portuguese translation of Debconf templates (Closes: #479642,
+    thanks to Miguel Figueiredo <elmig@debianpt.org>)
+  * Updated Vietnamese translation of Debconf templates (Closes: #479747, 
+    thanks to Clytie Siddall <clytie@riverland.net.au>)
+  * Updated Galician translation of Debconf templates (Closes: #479790,
+    thanks to Jacobo Tarrio <jtarrio@trasno.net>)
+  * Updated Dutch translation of Debconf templates (Closes: #480126,
+    thanks to Bart Cornelis <cobaco@skolelinux.no>)
+  * Updated Japanese translation of Debconf templates (Closes: #480881,
+    thanks to Hideki Yamane <henrich@debian.or.jp>)    
+  * Updated Russian translation of Debconf templates (Closes: #480916,
+    thanks to Yuri Kozlov <kozlov.y@gmail.com>)  
+  * Debhelper compatibility level increased to 5 and moved to debian/compat
+  * Don't ignore make clean errors
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 22 May 2008 13:47:55 +0200
+
+courier (0.59.0-1) unstable; urgency=low
+
+  * new upstream release
+  * remove /var/lib/courier/couriersslcache on purge (Closes: #463497,
+    thanks to Peter Eisentraut <peter_e@gmx.net> for the report)
+  * use MAILDIRPATH from Courier configuration files 
+    (Closes: #463233, #441225)
+  * fix bashism in courier-mta postinst script (Closes: #472226, thanks to
+    Raphael Geissert <atomo64@gmail.com> for the report)
+  * build depend on automake instead of automake1.8 (Closes: #473361,
+    thanks to Eric Dorland <eric@debian.org> for the report)
+  * removed TABs from NEWS file
+  * added short descriptions to LSB init info
+  * lintian:
+    - added copyright notice to debian/copyright
+    - fixed doc-base section for sqwebmail package
+    - use ${shlibs:Depends} for a proper libc dependency
+    - override for linking with openssl added
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu,  3 Apr 2008 18:25:47 +0200
+
+courier (0.58.0.20080127-1) unstable; urgency=low
+
+  * new upstream release (development snapshot)
+  * SPF fix for %{ir} macro
+  * tell user about newly introduced sanity check on mailbox directory
+    ownership (Closes: #456637, thanks to Jerome Benoit
+    <jgmbenoit@mailsnare.net> for the report)
+  * add /usr/lib/cgi-bin directory to sqwebmail package to fix
+    installation problem with yaws webserver (Closes: #462515, #426330,
+    thanks to Lucas Nussbaum <lucas@lucas-nussbaum.net> for the report
+    and Willi Mann <foss-ml@wm1.at> for pointing out a solution)
+  * alternative for makedat added to avoid conflicts with maildrop package
+  * added LSB dependency info to init scripts (Closes: #458433, thanks to
+    Petter Reinholdtsen <pere@hungry.com> for the patch)
+  * remove inappropriate reload option from init scripts (Closes: #449175,
+    thanks to Peter Eisentraut <peter_e@gmx.net> for the report)
+  * fix FTBFS with GCC 4.3 due to missing #includes (Closes: #456096,
+    thanks to Martin Michlmayr <tbm@cyrius.com> for the report)
+  * removed spurious dot from debian/rules causing weird version for
+    courier-imap package (Closes: #462870, thanks to Steve Langasek
+    <vorlon@debian.org> for the report)
+  * recognize logger options for Courier POP (Closes: #418878)
+  * updated Japanese translation of debconf templates (Closes: #463168,
+    thanks to Hideki Yamane <henrich@debian.or.jp>)  
+  * upgrade sqwebmail's webserver dependency to apache2 or httpd-cgi
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 31 Jan 2008 20:25:05 +0100
+
+courier (0.58.0-1) unstable; urgency=low
+
+  * new upstream release
+  * removed obsolete courier-base/authlib-initial template
+    (Closes: #446588, thanks to Christian Perrier <bubulle@debian.org> for
+    the report)
+  * include port in logcheck files
+  * Debconf templates and debian/control reviewed by the debian-l10n-
+    english team as part of the Smith review project
+    (Closes: #449518, #449518)
+  * update Galician translation of Debconf templates (Closes: #450997,
+    thanks to Jacobo Tarrio <jtarrio@trasno.net>)
+  * update Portugues translation of Debconf templates (Closes: #451154,
+    thanks to Miguel Figueiredo <elmig@debianpt.org>)
+  * update German translation of Debconf templates (Closes: #451649,
+    thanks to Holger Wansing <linux@wansing-online.de>)
+  * added Finnish translation of Debconf templates (Closes: #452439,
+    thanks to Esko Arajärvi <edu@iki.fi>)
+  * updated Turkish translation of Debconf templates (Closes: #452505,
+    thanks to Mehmet Turker <mturker@innova.com.tr>)
+  * updated Russian translation of Debconf templates (Closes: #452935,
+    thanks to Sergey Alyoshin <alyoshin.s@gmail.com>)
+  * updated Dutch translation of Debconf templates (Closes: #452952,
+    thanks to Bart Cornelis <cobaco@skolelinux.no>)
+  * updated Vietnamese translation of Debconf templates (Closes: #453624, 
+    thanks to Clytie Siddall <clytie@riverland.net.au>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed,  5 Dec 2007 11:07:13 +0100
+
+courier (0.57.0-1) unstable; urgency=low
+
+  * new upstream release, now under GPL version 3
+  * TLS_PROTOCOL defaults to SSL23 in the configuration files 
+    (Closes: #442271, thanks to Jean-Christophe Dubacq <jcdubacq1@free.fr>
+    for the report)
+  * added empty /etc/courier/shared/index (Closes: #442241)
+  * updated German translation of Debconf templates (Closes: #442864,
+    thanks to Holger Wansing <linux@wansing-online.de>)
+  * updated Portuguese translation of Debconf templates (Closes: #444476,
+    thanks to Miguel Figueiredo <elmig@debianpt.org>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 30 Sep 2007 22:20:55 +0200
+
+courier (0.56.0-2) unstable; urgency=low
+
+  * updated NEWS.Debian entry (Closes: #442061, thanks to Steve Greenland
+    <steveg@moregruel.net> for the report)
+  * catch immediate disconnection in logcheck rules (Closes: #438722,
+    thanks to Nathan Frankish <nf@our-lan.com> for the report)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 12 Sep 2007 16:58:39 -0400
+
+courier (0.56.0-1) unstable; urgency=low
+
+  * new upstream release
+    - includes new WebMLM daemon
+  * newaliases just calls makealiases now (Closes: #389475, thanks to
+    Julian Mehnle <julian@mehnle.net> for the report)
+  * dropped alternative build dependency on postgresql-dev 
+    (Closes: #429966, thanks to Lior Kaplan <kaplan@debian.org> for the report)
+  * make use of common PAM configuration files (Closes: #404218, #441468,
+    thanks to Simone Piccardi <piccardi@truelite.it> for the report)
+  * create /etc/courier/aliasdir (Closes: #304139, thanks to Jeff Drew
+    <jeff@percy.msi.net.au> for the report)
+  * IMAP proxy documentation added
+  * Debconf templates improvements
+    - avoid use of first person
+    - removed config script for courier-pop
+    - use open prompts
+    - removed obsolete moveconfig template
+  * use LSB functions in init scripts (sqwebmail)
+  * lintian overrides added for missing Debconf dependencies, permissions,
+    setuid and setgid binaries
+  * updated Turkish translation of Debconf templates (Closes: #417550,
+    thanks to Mehmet Turker <mturker@innova.com.tr>)
+  * updated Russian translation of Debconf templates (Closes: #416346,
+    thanks to Yuriy Talakan <yt@drsk.ru>)
+  * updated Brazilian Portuguese translation of Debconf templates 
+    (Closes: #421522, thanks to Andre Luis Lopes <andrelop@debian.org>)
+  * updated Vietnamese translation of Debconf templates
+    (Closes: #427027, thanks to Clytie Siddall <clytie@riverland.net.au>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 11 Sep 2007 20:23:06 -0400
+
+courier (0.53.3-6) unstable; urgency=low
+
+  * removed inclusion of Debconf library from courier-pcp postrm script
+    (Closes: #416732, thanks to Michael Ablassmeier <abi@grinser.de>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 18 May 2007 09:45:29 +0200
+  
+courier (0.53.3-5) unstable; urgency=high
+
+  * update-alternatives requires path of the alternative on removal
+    (Closes: #410288, thanks to Tim Cutts <tjrc@sanger.ac.uk> for the
+    report Steve Langasek <vorlon@debian.org> for the patch)
+  * urgency high due to RC bugfix
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 13 Feb 2007 08:18:47 +0100
+
+courier (0.53.3-4) unstable; urgency=medium
+
+  * updated Portuguese translation of Debconf templates (Closes: #409422,
+    thanks to Miguel Figueiredo <elmig@debianpt.org>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat,  3 Feb 2007 17:32:52 +0100
+
+courier (0.53.3-3) unstable; urgency=medium
+
+  * added Galician translation of Debconf templates (Closes: #408125,
+    thanks to Jacobo Tarrio <jtarrio@trasno.net>)
+  * updated German translation of Debconf templates (Closes: #406341,
+    thanks to Holger Wansing <linux@wansing-online.de>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 26 Jan 2007 17:10:39 +0100
+
+courier (0.53.3-2) unstable; urgency=medium
+
+  * change courier-faxmail dependency from groff-base to groff 
+    (Closes: #395532, thanks to John Kloian <john@databill.com> for the report)
+  * remove fuzziness in Japanese translation of debconf templates
+  * updated French translation of Debconf templates (Closes: #394067,
+    thanks to Christian Perrier <bubulle@debian.org>)  
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu,  2 Nov 2006 11:37:35 +0100
+
+courier (0.53.3-1) unstable; urgency=low
+
+  * new upstream release
+  * added default URL to sqwebmail's README.Debian (Closes: #383366,
+    thanks to Jonas Genannt <jonas.genannt@capi2name.de> for the suggestion)
+  * added note about session timeout configuration to sqwebmail's README.Debian
+  * use ulimit -v instead of ulimit -d in courier-imap-ssl's init script and
+    other modifications to bring it into line with courier-imap's init script
+  * fixed typo in Debconf templates for courier-mta (Closes: #390362,
+    thanks to Mateusz Drożdżyński <m.drozdzynski@gmail.com> for the report)
+  * fixed comment and indentation in init script for courier-ldap
+    (Closes: #390081, thanks to Avinash Sultanpur <asultanpur@gmail.com>
+    for the report)
+  * updated Czech translation of debconf templates (Closes: #391551, thanks
+    to Martin Sín <martin.sin@seznam.cz>)
+    <debian@frogcircus.org> for the report)
+  * updated Japanese translation of debconf templates (Closes: #392631,
+    thanks to Hideki Yamane <henrich@debian.or.jp>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 13 Oct 2006 11:46:01 +0200
+
+courier (0.53.2-3) unstable; urgency=low
+
+  * runtime directory /var/lib/courier/track added to courier-mta package
+    (Closes: #372307, thanks to Avinash Sultanpur <asultanpur@gmail.com>
+    and Pawel Tecza <p.tecza@net.icm.edu.pl> for the report
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu,  8 Jun 2006 17:58:22 +0200
+
+courier (0.53.2-2) unstable; urgency=low
+
+  * keep Courier runtime directory /var/run/courier on purge of
+    courier-base (Closes: #368360)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue,  6 Jun 2006 00:48:27 +0200
+
+courier (0.53.2-1) unstable; urgency=low
+
+  * new upstream release (fixes bug that, under certain circumstances, may
+    cause a number of processes to spin, Closes: #368834, CVE-2006-2659)
+  * /var/run/courier no longer part of courier-base, moved to
+    courier-authdaemon
+  * logcheck file updates (Closes: #284958)
+  * added couriertls messages to logcheck files (Closes: #353963, thanks
+    to Martin Krafft <madduck@debian.org> for the report)
+  * added Portuguese translation of Debconf templates (Closes: #336662,
+    thanks to Miguel Figueiredo <elmig@debianpt.org>)
+  * updated French translation of Debconf templates (Closes: #367873,
+    thanks to Christian Perrier <bubulle@debian.org>)  
+  * updated Dutch translation of Debconf templates (Closes: #368998,
+    thanks to Kurt de Bree <kdebree@telenet.be)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 26 May 2006 21:53:56 +0200
+
+courier (0.53.1-4) unstable; urgency=low
+
+  * add courier-authdaemon dependency to courier-base (Closes: #367464,
+    thanks to Ed Casas <dedc@cce.com> for the report)
+  * updated config.{guess,sub} in courier subdirectory also 
+    (Closes: #367404, thanks to Petr Salinger <Petr.Salinger@t-systems.cz>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 16 May 2006 10:34:19 +0200
+
+courier (0.53.1-3) unstable; urgency=low
+
+  * updated config.{guess,sub} to avoid FTBFS on some architectures
+    (Closes: #367404, thanks to Petr Salinger
+    <Petr.Salinger@t-systems.cz>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 15 May 2006 21:01:22 +0200
+
+courier (0.53.1-2) unstable; urgency=low
+
+  * run debconf-updatepo from clean target (Closes: #367205, thanks to
+    Thomas Huriaux <thomas.huriaux@gmail.com> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 15 May 2006 12:47:57 +0200
+
+courier (0.53.1-1) unstable; urgency=low
+
+  * added Debconf notice and NEWS entry about modified authentication
+    infrastructure  
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 12 May 2006 12:00:03 +0200
+
+courier (0.53.1-0.1) experimental; urgency=low
+
+  * new upstream release
+  * update of imapd/imapd-ssl init scripts:
+    - using courierlogger as control program
+    - restart is now equivalent to stop and start for imapd-ssl/pop3d-ssl
+    (Closes: #310131, thanks to kiu@gmx.net for the report)
+    - passing LOGGEROPTS resp. SSLOGGEROPTS to courierlogger
+    - passing PROXY_HOSTNAME to imapd/imapd-ssl/pop3d-ssl
+    - initializing umask from IMAP_UMASK (imapd/imapd-ssl) 
+    - removed AUTHMODULELIST cruft
+  * changed alternative dependency for libmysqlclient-dev to
+    libmysqlclient15-dev
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 14 Mar 2006 12:26:09 +0100
+
+courier (0.52.2-0.3) experimental; urgency=low
+
+  * new upstream release
+  * updated config.{sub,guess}
+  * removed ./configure arguments which are now covered by courier-authlib
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri,  6 Jan 2006 16:15:54 +0100
+
+courier (0.52.1-0.2) experimental; urgency=low
+
+  * added courier-base dependency on courier-authlib-userdb in order to
+    allow seamless transition from sarge to etch
+  * enable authlib extension for maildrop
+  * fixed permission on sqwebpasswd binary
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 17 Nov 2005 22:41:27 +0100
+
+courier (0.52.1-0.1) experimental; urgency=low
+
+  * new upstream release
+  * removed courier-auth* packages
+  * added Czech translation of debconf templates (Closes: #306598, thanks
+    to Martin Sín <martin.sin@seznam.cz>)
+  * changed alternative dependency for libmysqlclient-dev to
+    libmysqlclient14-dev
+  * changed FSF address in copyright file
+  * fix deprecated chown usage in courier-webadmin postinst script
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 11 Nov 2005 12:59:51 +0100
+
+courier (0.50.0-0.1) experimental; urgency=low
+
+  * new upstream release (Closes: #310847)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 30 May 2005 13:20:07 +0200
+
+courier (0.47-11) unstable; urgency=low
+
+  * init script for courier-imap checks for executable binary first
+    (Closes: #300400, thanks to J. Grant <jg@jguk.org> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 12 Oct 2005 01:28:46 +0200
+
+courier (0.47-10) unstable; urgency=low
+
+  * debconf-2.0 alternative dependency added (Closes: #331783, thanks to
+    Joey Hess <joey@kitenet.net> for the report)
+  * added Swedish translation of debconf templates (Closes: #333292,
+    thanks to Daniel Nylander <yeager@lidkoping.net>)
+  * added Vietnamese translation of debconf templates (Closes: #313370,
+    thanks to Clytie Siddall <clytie@riverland.net.au>)
+  * updated Russian translation of debconf templates (Closes: #312026,
+    thanks to Yuriy Talakan <yt@amur.elektra.ru>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 11 Oct 2005 12:57:59 +0200
+
+courier (0.47-9) unstable; urgency=high
+
+  * applied extended patch for cross-side scripting issues in sqwebmail
+    to filter out certain MSIE-only scripting constructs (Closes: #327181,
+    thanks to Martin Schulze <joey@infodrom.org> for the original report),
+    also fixes the issue described in [CAN-2005-2769] (Closes: #327727)
+  * fix FTBFS due to changed behaviour of find binary (Closes: #327162,
+    thanks to Matt Kraai <kraai@ftbfs.org> for the report and Willi Mann
+    <willi@wm1.at> for the patch)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 12 Sep 2005 16:29:35 +0200
+
+courier (0.47-8) unstable; urgency=high
+
+  * backported fixes to prevent cross-side scripting vulnerabilities with
+    some browsers in sqwebmail [CAN-2005-2724] (Closes: #325631, thanks to
+    Florian Weimer <fw@deneb.enyo.de> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 30 Aug 2005 10:21:58 +0200
+
+courier (0.47-7) unstable; urgency=high
+
+  * courier-authmysql.conffiles was missing in the previous release,
+    caused overwriting of local configuration (Closes: #320663, thanks to
+    Tristan Seligmann <mithrandi@mithrandi.za.net> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 31 Jul 2005 20:41:18 +0200
+
+courier (0.47-6) unstable; urgency=high
+
+  * added patch to avoid potential DoS when handling DNS failures while
+    looking up SPF records [CAN-2005-2151] (Closes: #320290, thanks to
+    Micah Anderson <micah@riseup.net> for the report and Willi Mann
+    <willi@wm1.at> for the patch)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 28 Jul 2005 11:19:30 +0200
+
+courier (0.47-5) unstable; urgency=high
+
+  * fixes FTBFS due to changed location of PostgreSQL include files
+    (Closes: #319973, thank to Matt Kraai <kraai@ftbfs.org> for the
+    report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 26 Jul 2005 11:07:51 +0200
+  
+courier (0.47-4) unstable; urgency=low
+
+  * more logcheck fixes:
+    - fix typo in courier-pop file
+    - changed "DISCONNECTED" regular expression in courier-imap file
+  * added libmysqlclient-dev as preferred alternative to Build-Depends
+  * changed default permissions for /var/run/courier to 0755
+  	(Closes: #284062, thanks to Grzegorz Janoszka
+    <Grzegorz.Janoszka@pro.onet.pl> for the report)
+  * backout patch to cope with maildrop bug #265399, it causes overquota
+    deliveries to be deferred instead of bounced (Closes: #291441, thanks
+    to Marcus Pereira <marcus@task.net.br> for the report)
+  * added missing temporary directory for fax mails (thanks to Juergen
+    Beurskens <juergen@beurskens.biz> for the report)
+  * suggest courier-filter-perl for courier-mta package
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 26 Jan 2005 23:04:19 +0100
+
+courier (0.47-3) unstable; urgency=medium
+
+  * fix stupid typo in courier-pop init script (Closes: #276774, thanks to
+    Michael Hummel <mhummel@debian.org> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat, 16 Oct 2004 19:54:47 +0200
+
+courier (0.47-2) unstable; urgency=medium
+
+  * enhanced logcheck regular expressions (Closes: #275415,
+    thanks to Sam Snow <sam.snow@christianheritageschool.org> for the report) 
+  * suggest courier-doc for almost all packages (Closes: #275977, thanks
+    to Moritz Muehlenhoff <jmm@informatik.uni-bremen.de> for the report)
+  * fix courier-pop init script to allow STLS (Closes: #244096, thanks to
+    Lehel Bernadt <lehel@pmc-services.hu> for the report)
+  * fix sendmail location in new_fax script (Closes: #276453, thanks to
+    Mario Peschel <mario@twc.de> for the report)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 14 Oct 2004 15:27:32 +0200
+
+courier (0.47-1) unstable; urgency=medium
+
+  * new upstream release
+  * install symlinks for imapd-ssl and pop3d-ssl manual pages 
+  	(Closes: #234647, #234648)
+  * added manual pages provided by Willi Mann <willi@wm1.at>:
+    sharedindexsplit, sharedindexinstall, webmaild
+  * updated logcheck files
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 27 Sep 2004 23:06:37 +0200
+
+courier (0.46-0.12) experimental; urgency=low
+
+  * file permissions where broken, only affects builds with uid 0
+  	(Closes: #268220)
+  * authenumerate manual page provided by Willi Mann <willi@wm1.at> added
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 10 Sep 2004 20:18:14 +0200
+
+courier (0.46-0.11) experimental; urgency=low
+
+  * new upstream release
+  * init script for courier-pcp is a dummy now (Closes: #266087)
+  * rewrote handling of file permissions (Closes: #253250, #253251,
+    thanks to Andreas Metzler <ametzler@downhill.at.eu.org> for reporting
+    and Willi Mann <willi@wm1.at> for the implementation)
+  * raise default MAXPERIP limit for imapd to 20 (Closes: #269743)
+  * fixed insecure regular expressions in logcheck files
+    (Closes: #262384, #262386, #262388, #262389, thanks to Joel Smith
+    <js-debianbugs@jk1.net> for the report)
+  * update sqwebmail description with requirement for Maildir format
+    (Closes: #267776, thanks to Baruch Even <baruch@ev-en.org>)
+  * updated Brazilian Portuguese translation of debconf templates 
+    (Closes: #264095, thanks to Andre Luis Lopes <andrelop@debian.org>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  6 Sep 2004 16:00:49 +0200
+
+courier (0.45.6.20040712-1) unstable; urgency=low
+
+  * new upstream release:
+  	- needs automake1.8 to build
+    - IMAP outbox feature has been fixed (Closes: #241965, thanks to Dann
+      Franzier <dannf@debian.org> for the report and investigation of the
+      problem)
+  * removed debconf repackaging notice (Closes: #164910, thanks to Mark
+    Brown <broonie@sirena.org.uk> for the report)
+  * removed leftover sqwebmail suid debconf question (Closes: #259519,
+    thanks to Marc Haber <mh+debian-bugs@zugschlus.de> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 15 Jul 2004 15:18:40 +0200
+
+courier (0.45.6-1) unstable; urgency=low
+
+  * new upstream release (/etc/courier/authmodulelist has been deprecated)
+  * backed out patch to quell FAM error messages, we just suppress them
+    now as suggested by upstream (Closes: #253304)
+  * install authdaemon.passwd for changing passwords with courierauthtest
+    (Closes: #256565, thanks to Mohammed Sameer <uniball@gmx.net> for the
+    report)
+  * changed sample path for MySQL socket in /etc/courier/authmysqlrc to
+    default location in Debian (Closes: #258619, thanks to Mike O'Connor
+    <stew@vireo.org> for the report)
+  * removed old ChangeLog from courier-base
+  * use environment variable LDFLAGS to pass -lcyrpt to ./configure
+    instead of CFLAGS
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 12 Jul 2004 00:14:44 +0200
+
+courier (0.45.4-4) unstable; urgency=low
+
+  * fix for SqWebMail cross-site scripting vulnerability according to
+    CAN-2004-0591 (Closes: #255878, thanks to Willi Mann <willi@wm1.at>
+    for the report) 
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 23 Jun 2004 23:07:36 +0200
+
+courier (0.45.4-3) unstable; urgency=low
+
+  * alternative for maildirquota manual page added to help solving
+    conflict with maildrop (Closes: #252948, thanks to Brian May
+    <bam@debian.org> for reporting)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  7 Jun 2004 22:13:27 +0200
+
+courier (0.45.4-2) unstable; urgency=low
+
+  * quell FAM error messages (Closes: #191007, #206626, 
+    thanks to Steve Langasek <vorlon@debian.org> for the patch)
+  * accept nonexistent debconf entries in postrm scripts (Closes: #238822,
+    thanks to Marc Haber <mh+debian-bugs@zugschlus.de> for bug report and
+    patch)
+  * removed obsolete AUTHMODULES check (Closes: #244206, thanks to Carlo
+    Contavalli <ccontavalli@commedia.it> for the bug report)
+  * move maildirquota manual page into courier-base package because it is
+    referenced by the maildirmake manual page, added depend for
+    courier-base to courier-maildrop
+  * added Turkish translation of debconf templates (Closes: #252029)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat,  5 Jun 2004 15:49:40 +0200
+
+courier (0.45.4-1) unstable; urgency=medium
+
+  * new upstream release (Closes: #242354, fixes corrupted return
+    addresses in sqwebmail)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue,  6 Apr 2004 14:15:39 +0200
+
+courier (0.45.2-2) unstable; urgency=low
+
+  * added courier-mta-ssl postinst scripts which generates a SSL
+    certificate if necessary and ensures the correct ownership of this
+    certificate (Closes: #238814, thanks to Charles Fry
+    <debian@frogcircus.org> for the report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 19 Mar 2004 15:40:33 +0100
+
+courier (0.45.2-1) unstable; urgency=low
+
+  * new upstream release (replaces monkeys.com blacklist with
+    spamhaus.org, Closes: #238232, thanks to Charles Fry
+    <debian@frogcircus.org> for the report)
+  * added Japanese translation of debconf templates (Closes: #238642,
+    thanks to Hideki Yamane <henrich@samba.gr.jp>)
+  * fixed dangling symlink /usr/sbin/pop3d-ssl (Closes: #238708, thanks to
+    Charles Fry <debian@frogcircus.org>)
+  * added Build-Conflicts for automake1.4
+  * incorrect code for retrieving AUTHMODULES setting in
+    courier-mta.config fixed (Closes: #238244, thanks to Jon Nelson
+    <jnelson@jamponi.net> for the report and to Denis Barbier
+    <barbier@debian.org> for the help in tracking the bug down)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 19 Mar 2004 03:55:25 +0100
+
+courier (0.45.1-2) unstable; urgency=low
+
+  * removed checks for AUTHMODULES configuration from courier-pop-ssl and
+    courier-imap-ssl packages (Closes: #238234, #238233, thanks to 
+    Charles Fry <debian@frogcircus.org>)
+  * updated Dutch translation of debconf templates (Closes: #238371,
+    thanks to Tim Dijkstra <tim@famdijkstra.org>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 16 Mar 2004 13:39:27 +0100
+
+courier (0.45.1-1) unstable; urgency=high
+
+  * new upstream release (fixes remote buffer overflow vulnerabilities
+    according to CAN-2004-0224, Closes: #238101)
+  * updated French translation of debconf templates (Closes: #237099,
+    thanks to Christian Perrier <bubulle@debian.org>)
+  * updated German translation of debconf templates
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 15 Mar 2004 16:17:26 +0100
+
+courier (0.44.2-3) unstable; urgency=low
+
+  * updated Brazilian Portuguese translation of debconf templates 
+    (Closes: #235334, thanks to Andre Luis Lopes <andrelop@debian.org>)
+  * updated French translation of debconf templates (Closes: #235573,
+    thanks to Christian Perrier <bubulle@debian.org>)
+  * accidentally removed courier-authmysql.conffiles restored 
+    (Closes: #235616, thanks to Thomas Oppel <listen@arenfels.de> for the
+    bug report)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  1 Mar 2004 15:45:49 +0100
+
+courier (0.44.2-2) unstable; urgency=low
+
+  * libtool build dependency added (Closes: #235102, thanks to Hervé
+    <herve@oursours.net> for the bug report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 27 Feb 2004 21:51:39 +0100
+
+courier (0.44.2-1) unstable; urgency=low
+
+  * new upstream release (Closes: #213454, #219326, #231965) which adds a
+    sqwebmail daemon as backend to the sqwebmail CGI script
+  * fixed a bug in courier-mta triggered by reiserfs on 2.6.x
+    kernels (Closes: #226796)
+  * removed excess spaces from courier-mta's description
+  * bashisms removed from courier-mta init script (Closes: #214663,
+    thanks to Sebastian Bleikamp <Sebastian.Bleikamp@web.de> for the
+    bug report)
+  * added installation destination of sqwebmail CGI script to debconf
+    template (Closes: #217407)
+  * patched userdb script to accept email addresses containing the
+    characters + : _ (Closes: #160768, #164637)
+  * courier-mtaconfig and courieresmtpd manual pages added 
+  	(Closes: #93383, #135219), removed corresponding
+    dh_undocumented call (Closes: #223467)
+  * updated patches section in README.Debian and added a note about
+    required values for virtual user authentication
+  * removed unnecessary libraries from courierauthtest binary 
+    (Closes: #223260), migrated courierauthtest to courier-base and
+    removed courier-debug package
+  * various changes to accomodate problems with courier-webadmin: added
+    debconf note about configuration files vs. configuration directories
+    to courier-mta, courier-mta creates configuration directories if
+    necessary (Closes: #133618, #149306, #226428), use a link to the
+    courier-imap/courier-imap-ssl initscripts within /usr/sbin
+    (Closes: #227324), README.Debian added
+  * remove courierwebadmin CGI program in postrm script if
+    installed by the postinst script
+  * rmail relocated to /usr/sbin (Closes: #220397)
+  * applied changes to build system from Michael K. Edwards
+    <mkedeb@sane.net>
+  * modified courier-base Debconf templates after an review on 
+    debian-l10n-english@lists.debian.org (thanks to Era for his help)
+  * depend on exim4 instead of exim (Closes: #228579)
+  * added Dutch translation of debconf templates (Closes: #231231, thanks
+    to Tim Dijkstra <tim@famdijkstra.org>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 26 Feb 2004 13:55:24 +0100
+
+courier (0.42.2-11) unstable; urgency=high
+
+  * updated Brazilian Portuguese translation of debconf templates 
+    (Closes: #227440, thanks to Andre Luis Lopes <andrelop@debian.org>)
+  * intended to replace broken hppa build (see #227076)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat, 17 Jan 2004 11:31:20 +0100
+
+courier (0.42.2-10) unstable; urgency=low
+
+  * updated French translation of debconf templates (Closes: #213816,
+    thanks to Christian Perrier <bubulle@debian.org>)
+  * updated Russian translation of debconf templates (Closes: #214346,
+    thanks to Ilgiz Kalmetev <ilgiz@bashtelecom.ru>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  6 Oct 2003 21:30:09 +0200
+
+courier (0.42.2-9) unstable; urgency=low
+
+  * addcr manual page written by Willi Mann <willi@wm1.at> added (Closes: #135218)
+  * switched to gettext-based debconf templates and added French
+    translation, minor wording change (Closes: #205780, #207114, 
+    thanks to Christian Perrier <bubulle@debian.org>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 30 Sep 2003 10:59:38 +0200
+
+courier (0.42.2-8) unstable; urgency=low
+
+  * removed duplicate entry from authldap.schema (Closes: #210670)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 26 Sep 2003 17:53:27 +0200
+
+courier (0.42.2-7) unstable; urgency=low
+
+  * moved /usr/lib/courier/courier/modules/fax/courierfax and
+    /etc/courier/module.fax into courier-mta package, added kludge to
+    stop the Courier mail server if /etc/courier/module.fax is missing to
+    avoid failures on upgrades (Closes: #154328, #167279, #207267)
+  * /usr/sbin/filterctl uses the correct PID file location now, install
+    perlfilter-wrapper.pl in the correct location - really not an example
+    (Closes: #149669)
+  * /etc/courier/ldapaliasrc now has group read permissions 
+    (Closes: #207512, thanks to James McOrmond <jam@jammys.net> for the report)
+  * revised package descriptions to comply with policy section 2.3.3
+    (Closes: #193776, #209453, #209460, #209474, #209513) among other things
+  * /etc/courier/ldapaliasrc now has group read permissions (Closes: #207512)
+  * message queues are removed on purge of courier-mta now
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 11 Sep 2003 20:49:18 +0200
+
+courier (0.42.2-6) unstable; urgency=low
+
+  * fixed dangling symlink /usr/bin/rmail (Closes: #203505, thanks to Remi
+    Paulmier <remi@shtouff.org> for the bug report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat,  2 Aug 2003 02:15:11 +0200
+
+courier (0.42.2-5) unstable; urgency=low
+
+  * force usage of /bin/bash for courier-imap init script
+    (Closes: #200709, thanks to Tatsuki Sugiura <sugi@nemui.org> for
+    reporting problems with ash shell)
+  * remove alternative for maildir.5 manpage properly in courier-base
+    prerm script
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 10 Jul 2003 23:19:39 +0200
+
+courier (0.42.2-4) unstable; urgency=medium
+
+  * check for existence of imapd-ssl configuration file in the
+    courier-imap startup code as well (Closes: #200570, thanks to Manoj
+    Srivastava <srivasta@debian.org> for reporting the problem)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed,  9 Jul 2003 11:10:52 +0200
+
+courier (0.42.2-3) unstable; urgency=low
+
+  * add final newline to courier-pcp-conffiles to avoid failure of
+    installation (Closes: #197104)
+  * Russian debconf template translations added 
+    (Closes: #135833, #135834, #135835, #135836, #135837)
+    thanks to Ilgiz Kalmetev <ilgiz@bashtelecom.ru>) 
+  * rewrote courier-imap init script to resemble the one shipped with the
+    sources, allows STARTTLS and forcing STARTTLS now by reading imapd-ssl
+    configuration file (Closes: #117446, #152861, #199904, #200089)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue,  8 Jul 2003 01:12:56 +0200
+
+courier (0.42.2-2) unstable; urgency=medium
+
+  * creates a symlink /etc/courier/maildroprc => /etc/maildroprc if only
+    the latter file exists
+  * courier-pcp does contain /etc/courier/calendar now (Closes: #138275)
+  * prefer libgdbm-dev to libgdbmg1-dev (Closes: #196932)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 10 Jun 2003 22:33:47 +0200
+
+courier (0.42.2-1) unstable; urgency=low
+
+  * new upstream release (Closes: #193279, thanks to Devin Carraway
+    <devin@debian.org> for the bug report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 15 May 2003 22:10:20 +0200
+
+courier (0.42.0-6) unstable; urgency=low
+
+  * refined patch for build with SASL2 (Closes: #191950 again)
+  * added missing bindir variable to courier-imap init script 
+    (Closes: #192363, thanks to Marek Habersack <grendel@debian.org> for
+    the bug report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu,  8 May 2003 14:24:25 +0200
+
+courier (0.42.0-5) unstable; urgency=low
+
+  * use defined directory variables in init scripts (Closes: #190703,
+  	thanks to Emmanuel Lacour <elacour@home-dn.net> for the patch)
+  * allow to be build with SASL2 (Closes: #191950, thanks to 
+    LaMont Jones <lamont@hp.com> for the bug report)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed,  7 May 2003 00:17:15 +0200
+
+courier (0.42.0-4) unstable; urgency=low
+
+  * updated config.guess and config.sub files in maildir subdirectory
+    too (Closes: #186986 again)
+  * fixed segmentation fault caused by preline binary that happens if
+    called without parameters (Closes: #169770, thanks to Oliver Thuns
+    <oliver.thuns@web.de> for the bug report)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat,  5 Apr 2003 01:49:57 +0200
+
+courier (0.42.0-3) unstable; urgency=low
+
+  * added alternative for maildir.5 manpage (thanks to Petr Balá
+    <petr@balas.cz> for the bug report)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri,  4 Apr 2003 00:05:12 +0200
+
+courier (0.42.0-2) unstable; urgency=low
+
+  * updated config.guess and config.sub files (Closes: #186986, thanks to
+    Ryan Murray <rmurray@debian.org>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue,  1 Apr 2003 01:27:12 +0200
+
+courier (0.42.0-1) unstable; urgency=low
+
+  * new upstream release
+  * fixed mode on logcheck files (Closes: #186689, thanks to Russell Coker
+    <russell@coker.com.au>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 30 Mar 2003 18:19:39 +0200
+
+courier (0.40.2-4) unstable; urgency=low
+
+  * added a few patches and a cleanup script to finally get the
+    build/clean cycle working as required (Closes: #157267)
+  * updated Spanish templates translations (Closes: #179003, thanks to
+    Carlos Valdivia Yagüe <valyag@dat.etsit.upm.es>)
+  * added logcheck configuration files for courier-imap, courier-imap-ssl,
+    courier-pop and courier-pop-ssl supplied by martin f krafft
+    <madduck@debian.org> (Closes: #181416)
+  * added note about runtime configuration files to sqwebmail's
+    README.Debian 
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 26 Feb 2003 15:46:52 +0100
+
+courier (0.40.2-3) unstable; urgency=critical
+
+  * applied patch to fix potential remote exploit via SQL 
+    injection in courier-authpostgresql package
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 24 Jan 2003 15:14:52 +0100
+
+courier (0.40.2-2) unstable; urgency=medium
+
+  * added README.authmysql.html to courier-authpostgresql docs as well so
+    that the link in README.authpostgresql.html works (Closes: #176203)
+  * courier-imap depends now on libfam0c102 in sid builds 
+    (Closes: #177389)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 19 Jan 2003 22:46:16 +0100
+
+courier (0.40.2-1) unstable; urgency=low
+
+  * new upstream release (incorporates ancient patch to makealiases.in)
+  * build courier-doc package in binary-indep target (Closes: #170564,
+    thanks to Bdale Garbee <bdale@gag.com> for reporting)
+  * use doc section for courier-doc package again
+  * note about vpopmail support added to README.debian
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 31 Dec 2002 16:14:19 +0100
+
+courier (0.40.1-2) unstable; urgency=medium
+
+  * define bindir variable in courier-imap-ssl.init which is referenced
+    in the configuration file (Closes: #170594)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 25 Nov 2002 10:28:02 +0100
+
+courier (0.40.1-1) unstable; urgency=low
+
+  * merged SSL stuff in (Closes: #159099), upstream authors explicitly
+    allowed linking against OpenSSL libraries
+  * URL for information about how to advise Postfix to deliver into
+    maildir's added to README.debian
+  * applied patch to avoid a security issue on IMAP server debug file
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 19 Nov 2002 17:02:10 +0100
+
+courier (0.40.0-3) unstable; urgency=low
+
+  * accidentally removed courier-authmysql.conffiles restored (Closes: #169472)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 17 Nov 2002 15:19:25 +0100
+
+courier (0.40.0-2) unstable; urgency=low
+
+  * updated config.guess and config.sub (Closes: #167767)
+  * libssl-dev added to Build-Depends
+  * adjusted courier-imap's version number
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  4 Nov 2002 23:39:27 +0100
+
+courier (0.40.0-1) unstable; urgency=critical
+
+  * applied security patch to fix a local exploit where a local shell user
+    can trick sqwebmail into reading any file on the local system.
+  * new upstream release which fixes POP login problems (Closes: #162263)
+    and obsolete AC_SUBST(LIBOBJS) in webmail/configure.in (Closes: #162324)
+  * courier-webadmin install-cgi template rewritten
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 30 Oct 2002 14:09:26 +0100
+
+courier (0.39.3.20020921-1) unstable; urgency=low
+
+  * new upstream release (replaces dotlock with lockmail)
+  * install sqwebmail CGI binary whether the user allows the suid bit to
+    be set or not (Closes: #154183)
+  * remove sqwebmail CGI binary on remove instead on purge
+  * check umask in debian/rules because Courier requires umask 022 for
+    installation (Closes: #157149)
+  * --enable-unicode ./configure option added (Closes: #159821)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 23 Sep 2002 14:10:43 +0200
+
+courier (0.39.1-1) unstable; urgency=high
+
+  * new upstream release (Closes: #141878, #149928), includes courierfax module
+    packaged as courier-faxmail
+  * handling of --with-mailer ./configure option changed due to upstream
+    changes 
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun,  7 Jul 2002 23:04:56 +0200
+
+courier (0.37.3-7) unstable; urgency=low
+
+  * check if /etc/courier exists before creating
+    /etc/courier/authmodulelist (Closes: #148659, thanks to Mikhail
+    Sobolev <mss@mawhrin.net>  for reporting the problem)
+  * remove ispell configuration file on purge
+  * remove authdaemon runtime files on purge
+  * remove automatically generated files in /etc/courier and empty
+    configuration directories on purge on courier-mta
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun,  2 Jun 2002 15:52:12 +0200
+
+courier (0.37.3-6) unstable; urgency=low
+
+  * ensure that /etc/courier/authmodulelist exists (Closes: #147285,
+    thanks to Marcus Pereira <marcus@task.com.br> for reporting)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 28 May 2002 17:04:44 +0200
+
+courier (0.37.3-5) unstable; urgency=low
+
+  * fix permissions on directories utilized by the courierfilter daemon
+    (Closes: #147052, thanks to Hilko Bengen <bengen@vdst-ka.inka.de>)
+  * added priorities for courier-pop, courier-mta and courier-imap to get
+    in sync with the Debian override files, changed section for
+    courier-doc to mail
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 15 May 2002 11:06:57 +0200
+
+courier (0.37.3-4) unstable; urgency=low
+
+  * protect /etc/courier/ldapaliasrc against prying eyes too (Closes: #146939)
+  * courier-ldap starts Courier LDAP alias server (Closes: #144724, thanks
+  	to Mark Anthony Lisher <markal@markal.net>, please read courier-ldap's
+  	README.Debian for more information)
+  * change default LDAP server in authldaprc and ldapaliasrc configuration
+    files to localhost
+  * force runtime files of the Courier LDAP alias server to
+    /var/run/courier
+  * add version number to information to README.debian files of the
+    sqwebmail and courier-maildrop packages (Closes: #139548)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 14 May 2002 16:49:14 +0200
+
+courier (0.37.3-3) unstable; urgency=low
+
+  * invocation of the courier-mta and courier-authdaemon init scripts
+    with a relative path and the restart parameter failed 
+    (Closes: #142812, thanks to Andrew Shugg <andrew@neep.com.au> for
+  	reporting this problem)
+  * updated Brazilian Portuguese templates (Closes: #141559, thanks
+    to Andre Luis Lopes <andrelop@ig.com.br>)
+  * added configure option --enable-userdb to include userdb support in
+    the maildrop binary
+  * added configure option --enable-syslog so maildrop errors are logged
+    via syslog
+  * added README.Debian for courier-maildrop 
+  * made maildrop binary suid root
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 24 Apr 2002 12:04:21 +0200
+
+courier (0.37.3-2) unstable; urgency=medium
+
+  * fix permissions of /etc/courier/esmtpauthclient (Closes: #139992,
+    thanks to Torsten Knodt <tk-debian@datas-world.de> for reporting this
+    problem)
+  * create /var/run/courier/calendar/localcache and ensure correct
+    permissions on the directories used by the pcp daemon (Closes: #138262,
+    thanks to Anton Ivanov <ai1@ipaccess.com> for reporting this problem
+    and providing sufficient information to fix it)
+  * sqwebmail uses now /usr/bin/ldapsearch instead of
+    /usr/local/bin/ldapsearch (Closes: #136794, thanks to Karl M. Hegbloom
+    <karlheg@microsharp.com> for reporting this problem)
+  * fixed wrong path for sendmail in the maildrop binary (thanks to
+    Mark Anthony Lisher <markal@markal.net> for the patch)
+  * fixed wrong path for sendmail in the couriermlm binary 
+    (Closes: #139390, thanks to Antti-Juhani Kaijanaho <gaia@iki.fi> for
+    reporting this problem)
+  * throw an error if first argument to init scripts is wrong
+    (Closes: #139257, thanks to Daniel Freedman for reporting this problem)
+  * use the restart option of the courier-mta daemons in the courier-mta
+    init script (Closes: #139571, thanks to Marcus Felipe Pereira
+    <marcus@task.com.br> for his suggestion)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat,  6 Apr 2002 17:19:22 +0200
+
+courier (0.37.3-1) unstable; urgency=low
+
+  * new upstream release
+  * moved maildirquota manpage to courier-maildrop (Closes: #134639)
+  * moved a bunch of files/directories out of courier-base to courier-mta
+    resp. courier-authdaemon
+  * missing manpages for courier-config and webgpg added (Closes: #93382,
+    #93384) 
+  * missing manpage for courierlogger added
+  * added README.Debian link to SqWebMail documentation page
+  * added check to courier-mta init script testing the existence of the
+    esmtpd configuration file
+  * new package courier-debug containing the courierauthtest binary
+  * use debconf value of courier-mta/defaultdomain for courier-mta/dsnfrom
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 26 Feb 2002 09:47:40 +0100
+
+courier (0.37.2.20020131-1) unstable; urgency=low
+
+  * new upstream release, which adds the BOFHBADMIME configuration option
+    to the MTA (Closes: #130033), new courier-pcp package for groupware
+    calendaring mode (Closes: #128461)
+  * authmodulelist is now a conffile (Closes: #132829)
+  * added Courier's LDAP schema to the documentation of the courier-ldap
+    package 
+  * add dots to the output of the init scripts (Closes: #109054)
+  * revised description of courier-base package
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 11 Feb 2002 17:00:01 +0100
+
+courier (0.37.2-1) unstable; urgency=high
+
+  * new upstream release, which fixes a local exploit in the courier-mta
+    package resulting in memory corruption (Closes: #130321)
+  * spelling errors fixed (Closes: #124516, #124517, #124519, #124520)
+  * install changelog for courier-maildrop package
+  * copy debian/newaliases rather than moving it to allow multiple
+    calls of dpkg-buildpackage (thanks to Mark Constable <markc@renta.net>
+    for the hint)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 21 Jan 2002 18:33:59 -0500
+
+courier (0.37.0-1) unstable; urgency=low
+
+  * new upstream release (Closes: #127967)
+  * package courier-maildrop added on which courier-mlm and sqwebmail
+    depend upon (Closes: #111154, #112599)
+  * proper index for sqwebmail documentation added
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun,  6 Jan 2002 00:19:38 -0500
+
+courier (0.36.1-2) unstable; urgency=low
+
+  * init files for courier-pop and courier-imap check for couriertcpd now 
+    (Closes: #112928, #112929)
+  * templates translations to brazilian portuguese added
+    (Closes: #120934, #120936, thanks to Andre Luis Lopes <andrelop@ig.com.br>)
+  * templates translations to Spanish added
+    (Closes: #106365, #106599, thanks to Carlos Valdivia Yagüe
+    <valyag@teleline.es>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri,  7 Dec 2001 21:52:32 +0100
+
+courier (0.36.1-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri,  7 Dec 2001 16:32:21 +0100
+
+courier (0.36.0-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 12 Nov 2001 15:13:31 +0100
+
+courier (0.35.1.20011103-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun,  4 Nov 2001 10:09:59 +0100
+
+courier (0.35.1.20011029-1) unstable; urgency=low
+
+  * new upstream release
+  * courierfilter PID file is now located in /var/run/courier 
+  	(Closes: #109423) 
+  * removed courierauthtest, because it causes dependencies
+    on LDAP and MySQL for the base package
+  * duplicates removed from courier-doc package
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 30 Oct 2001 10:36:05 +0100
+
+courier (0.35.0.20010828-2) unstable; urgency=low
+
+  * replaced chown 4550 authstart by chmod 4550, a silly error breaking
+    SMTP authentification (Closes: #111375, thanks to Steve J. Kondik
+    <shade@chemlab.org>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu,  6 Sep 2001 10:28:13 +0200
+
+courier (0.35.0.20010828-1) unstable; urgency=low
+
+  * new upstream release
+  * versioned dependencies to courier-base and courier-authdaemon
+    (Closes: #110843)
+  * newaliases script added which creates aliases database based
+    on /etc/aliases (instead of the Courier default /etc/courier/aliases,
+    Closes: #109885)
+  * /etc/dsn* files are now part of the courier-mta package
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun,  2 Sep 2001 16:34:17 +0200
+
+courier (0.35.0.20010807-1) unstable; urgency=medium
+
+  * new upstream release (includes web administration tool, various
+    patches, reworked to compile with gcc 3.0, 
+    so it should Closes: #90655, #100114, #104899, #107460)
+  * disabled EXPN and VRFY commands in the default configuration
+  * produce configuration file /etc/courier/defaultdomain 
+    during installation
+  * use /var/cache/sqwebmail as cache directory for the webmail
+    server, added cron script to cleanse this directory
+  * templates translations to brazilian portuguese added
+    (Closes: #106133, #106137, thanks to Andre Luis Lopes <andrelop@ig.com.br>)
+  * template translation to German added (Closes: #95005)
+  * templates translations to spanish added
+  	(Closes: #106598, thanks to Carlos Valdivia Yagüe <valyag@teleline.es>)
+  * use authdaemon exclusively now (Closes: #100821, #104318)
+  * added authentification test utility as /usr/sbin/courierauthtest
+  * dependency to expect added for the sake of the webmail password script
+  * document about GnuPG support in sqwebmail added to 
+  	sqwebmail docs
+  * excess slash in sqwebmail stylesheet URL fixed (Closes: #106674,
+  	thanks to Darik Horn <dajhorn@student.math.uwaterloo.ca>)
+  * courier-doc is now in the doc section
+  * remove runtime files on purge (/var/run/courier)
+  * /etc/courier/aliases/system moved to courier-mta package
+  * authcram authentification enabled
+  * make sure that /etc/courier/dsnfrom and /etc/courier/locales exists  
+  * changed permissions for /usr/sbin/sendmail to 4511 so that local
+    delivery works
+  * use localhost as default MYSQL_SERVER
+  * create /etc/mailname if necessary
+  * close /dev/console (Closes: #92277, thanks to Russell Coker <russell@coker.com.au>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 24 Aug 2001 04:09:53 +0200
+
+courier (0.34.1-2) unstable; urgency=low
+
+  * added current config.guess and config.sub files to help
+    Debian porters
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 10 Jul 2001 13:14:10 +0200
+
+courier (0.34.1-1) unstable; urgency=low
+
+  * new upstream release
+  * courier-pop and courier-imap init scripts do now an explicit
+    stop/start
+  * sqwebmail depends on ispell-dictionary now
+  * /usr/share/sqwebmail/html/en-us/ISPELLDICT is a symlink to 
+    /etc/courier/ispelldict and contains a proper dictionary
+    now (Closes: #98248)
+  * german description added to courier-imap.templates (Closes: #95003)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat, 23 Jun 2001 14:29:43 +0200
+
+courier (0.34.0-4) unstable; urgency=low
+
+  * Fixed makeauthmodulelist so that dpkg temporary files are ignored
+    (Closes: #99495, thanks to Mark Constable <markc@renta.net>)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun,  3 Jun 2001 18:18:36 +0200
+
+courier (0.34.0-3) unstable; urgency=low
+
+  * Build-Depends to procps added (Closes: #99500, thanks to Philip
+    Blundell <philb@gnu.org>)
+  * patch added to enable LDAP passwords with and without {crypt}
+    (Closes: #99306, 
+    thanks to Piotr Roszatycki <Piotr_Roszatycki@netia.net.pl>)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sat,  2 Jun 2001 13:01:50 +0200
+
+courier (0.34.0-2) unstable; urgency=medium
+
+  * set permissions for ESMTP modules in courier-mta.postinst
+  * set permissions for various binaries in courier-mta.postinst
+  * added configure option --enable-webpass=no
+  * revised installation/deinstallation of sqwebmail images (Closes: #98379)
+  * bogus courier-base.postrm script removed
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 30 May 2001 20:18:16 +0200
+
+courier (0.34.0-1) unstable; urgency=low
+
+  * new upstream release 
+  * patch to fix the creation of INBOX.drafts included
+  * description of courier-base package revised (Closes: #93299)
+  * LDAP support enabled, which brings in authdaemon too
+  * Install sqwebmail CGI script if desired by the user (Closes: #94497)
+  * no longer uses shell functions in init scripts (Closes: #95771, #96426)
+  * installation of sqwebmail images fixed (Closes: #94498)
+  * sqwebmail HTML data files moved to /usr/share/sqwebmail
+  * /etc/courier/authmodulelist will be (re)generated automatically
+    during postinst of courier-base, courier-authdaemon and courier-authmysql
+  * added configure option --without-certdb to allow builds without
+    openssl installed
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri, 18 May 2001 20:51:31 +0200
+
+courier (0.33.0-3) unstable; urgency=low
+
+  * moved mkimapdcert from courier-imap to courier-imap-ssl
+  * revised dh_undocumented calls
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  9 Apr 2001 16:17:28 +0200
+
+courier (0.33.0-2) unstable; urgency=low
+
+  * remove binaries/manpages which belongs to maildrop (Closes: #93002, #90797)
+  * moved showconfig to courier-mta and renamed it to
+    courier-showconfig
+  * removed showmodules so we get rid courier-base's libmysqlclient
+    dependency (Closes: #63400)  
+  * moved logger to courierlogger (Closes: #87587)
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun,  8 Apr 2001 18:06:02 +0200
+
+courier (0.33.0-1) unstable; urgency=low
+
+  * new upstream release (Debian patches for imap/mainloop.c
+    and imap/imaptoken.c included, new gnupg stuff for sqwebmail)
+  * set correct permissions for courier-mta stuff (Closes: #92069)
+  * move some directories from courier-base to courier-mta
+  * run makesmtpaccess from courier-mta.postinst
+  * start/stop courier from courier-mta.init (Closes: #91991)
+  * bashism removed (Closes: #92824)
+  * force use of GDBM instead of libdb2
+  * pass MySQL library path to ./configure script
+  * suggest SSL versions of courier-pop and courier-imap
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu,  5 Apr 2001 00:10:19 +0200
+
+courier (0.32.0-3) unstable; urgency=low
+
+  * fixed deliverquota alternative (Closes: #75459)
+  * install ChangeLogs with dh_installchangelogs for policy's sake
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 22 Mar 2001 18:46:52 +0100
+
+courier (0.32.0-2) unstable; urgency=low
+
+  * removed README.debian from courier-base.docs
+  * install ChangeLogs (Closes: #89550)
+  * courier-authmysql overrides old package courier-imap-authmysql now
+  * detects debian release number for courier-imap version
+  * move configuration files of the old courier-imap package(s) 
+    to /etc/courier on demand (Closes: #88246)
+  * remove LDAP alias files after build
+  * note about LDAP support added to README.debian
+  * added error message on leftover files in build directory
+    
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu, 15 Mar 2001 19:51:06 -0500
+
+courier (0.32.0-1) unstable; urgency=low
+
+  * upstream release
+  * ensure that debian/fixlinks is executable (Closes: #87967,
+    thanks to Tommy Virtanen <tv@debian.org> and 
+    Paul Slootman <paul@debian.org>)
+  * use own PAM files instead of the Courier ones
+  * pass existing authentification modules only
+  * fix init files for courier-pop and courier-imap in respect
+    to the Mail directory (both Closes: #88075)
+  * moved /usr/bin/preline to courier-mta and setup the
+    appropriate alternatives (Closes: #87955)
+  
+ -- Stefan Hornburg <racke@linuxia.de>  Thu,  8 Mar 2001 20:36:56 -0800
+
+courier (0.31.1-2) unstable; urgency=low
+
+  * first release as official Debian package
+  * removed dh_suidregister and dh_testversion from rules (thanks to
+    Tommy Virtanen <tv@debian.org>)
+  * provide a concrete package for dependencies on virtual packages (thanks to
+    Tommy Virtanen <tv@debian.org>)
+  * check static buffer overrun in imap command input, and die if
+    this happens (thanks to Tommy Virtanen <tv@debian.org>)
+  * removed /etc/courier/filters/active from courier-mta conffiles
+    (thanks to Tommy Virtanen <tv@debian.org>)
+  * don't produce maildrop package yet, it is no match for 
+    the standalone package
+  * alternatives introduced for deliverquota, maildirmake and dotlock
+  
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Sun, 25 Feb 2001 02:07:57 +0100
+
+courier (0.31.1-1) unstable; urgency=low
+
+  * upstream release
+  * dropped epoch
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon, 19 Feb 2001 10:02:26 +0100
+
+courier (0.31.0-2) unstable; urgency=low
+
+  * SSL split off 
+  * excess blank lines removed from *.conffiles
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Fri,  2 Feb 2001 22:39:18 +0100
+
+courier (0.31.0-1) unstable; urgency=low
+
+  * upstream release (includes esmtpd-msa)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Tue, 30 Jan 2001 12:24:36 +0100
+
+courier (0.30.0-3) unstable; urgency=low
+
+  * courierd config file moved from courier-base to courier-mta
+  * sqwebmail depends on Perl
+    
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed, 17 Jan 2001 11:07:02 +0100
+
+courier (0.30.0-2) unstable; urgency=low
+
+  * lintian errors fixed
+  * IMAP/IMAPS startup removed from courier-base init script
+  * MySQL authentification module added again
+  * no longer remove /usr/bin/imapd
+  * courier-pop/courier-imap init scripts rewritten (thanks to Marc Haber)
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Thu,  4 Jan 2001 16:55:08 +0100
+
+courier (0.30.0-1) unstable; urgency=low
+
+  * upstream update (includes new target install-configure, patch to
+    perms.sh.in no longer needed)
+  * MySQL authentification module removed temporarily
+  * various stuff moved to courier-mta
+  * removed configure option --with-userdb which broke userdb stuff
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed,  3 Jan 2001 23:45:12 +0100
+
+courier (0.29.1-5) unstable; urgency=low
+
+  * epoch added to override standalone courier-imap package
+  * tried to improved package relations
+  * IMAP and IMAP/SSL daemons enabled, init scripts added
+    and configuration files sorted
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Wed,  6 Dec 2000 09:49:12 +0100
+
+courier (0.29.1-4) unstable; urgency=low
+
+  * pop3d.cnf configuration file moved into courier-pop-ssl package
+  * marked courier-pop/courier-pop-ssl init scripts
+    as configuration files
+  * moved couriermlm man page into courier-mlm package
+  * authmysql README added to courier-authmysql documentation
+  * fixed authmysql man page link
+  * extended description for courier-pop-ssl package added
+  * spurious /usr/bin/imapd removed
+  * HTML documentation files removal fixed
+
+ -- Stefan Hornburg (Racke) <racke@linuxia.de>  Mon,  4 Dec 2000 02:06:00 +0100
+
+courier (0.29.1-3) unstable; urgency=low
+
+  * init file for courier-pop-ssl added
+  * configuration for courier-pop-ssl moved from courier-base
+  * dependencies for courier-pop-ssl fixed
+  * courier-mlm package introduced
+  
+ -- Stefan Hornburg <racke@linuxia.de>  Fri,  1 Dec 2000 11:23:37 +0100
+
+courier (0.29.1-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Stefan Hornburg <racke@linuxia.de>  Wed, 22 Nov 2000 02:31:47 +0100
+

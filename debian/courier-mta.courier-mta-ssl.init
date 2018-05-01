@@ -1,0 +1,23 @@
+#!/bin/sh
+# kFreeBSD do not accept scripts as interpreters, using #!/bin/sh and sourcing.
+if [ true != "$INIT_D_SCRIPT_SOURCED" ] ; then
+    set "$0" "$@"; INIT_D_SCRIPT_SOURCED=true . /lib/init/init-d-script
+fi
+### BEGIN INIT INFO
+# Provides:          courier-mta-ssl
+# Required-Start:    courier-authdaemon courier courierfilter $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Courier MTA TLS server
+### END INIT INFO
+
+# Author: Ondřej Surý <ondrej@debian.org>
+
+DAEMON="/usr/sbin/esmtpd-ssl"
+DESC="Courier MTA TLS server"
+
+DO_START=$(sed -ne 's/^ESMTPDSSLSTART=\([^[:space:]]*\)/\1/p' /etc/courier/esmtpd-ssl | tr "A-Z" "a-z")
+PIDFILE=$(sed -ne 's/^SSLPIDFILE=\([^[:space:]]*\)/\1/p' /etc/courier/esmtpd-ssl)
+
+. /usr/lib/courier/init-d-script-courier

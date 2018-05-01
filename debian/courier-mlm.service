@@ -1,0 +1,13 @@
+[Unit]
+Description=Courier MLM Daemon
+Requires=courier-authdaemon.service
+After=courier-authdaemon.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/webmlmd start /etc/courier/webmlmrc
+ExecStop=/usr/bin/webmlmd stop /etc/courier/webmlmrc
+PIDFile=/run/courier/webmlmd.pid
+
+[Install]
+WantedBy=multi-user.target

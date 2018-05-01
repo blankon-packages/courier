@@ -1,0 +1,5 @@
+/etc/courier
+/etc/courier/shared
+/etc/courier/hosteddomains
+/etc/courier/esmtpacceptmailfor.dir
+/var/lib/courier

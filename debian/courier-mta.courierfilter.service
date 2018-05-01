@@ -1,0 +1,14 @@
+[Unit]
+Description=Courier Filter Daemon
+Requires=courier-authdaemon.service
+After=courier-authdaemon.service
+PartOf=courier-mta.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/courierfilter start
+ExecStop=/usr/sbin/courierfilter stop
+PIDFile=/run/courier/courierfilter.pid
+
+[Install]
+WantedBy=multi-user.target

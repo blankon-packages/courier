@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+add_override() {
+    if ! dpkg-statoverride --list $4 >/dev/null; then
+	dpkg-statoverride --update --add $1 $2 $3 $4
+    fi
+}
+
+if [ "$1" = "configure" ]; then
+    if [ ! -f /etc/courier/pop3d.pem ]; then
+	mkpop3dcert
+	chmod 0640 /etc/courier/pop3d.pem
+	chown root:courier /etc/courier/pop3d.pem
+    fi
+    add_override root root 0600 /etc/courier/pop3d.cnf
+fi
+
+#DEBHELPER#
+
+exit 0

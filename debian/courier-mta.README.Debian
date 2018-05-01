@@ -1,0 +1,26 @@
+COURIER-MTA README
+
+This document describes Debian-specific changes which has been
+applied to the courier-mta package.
+
+Please read /usr/share/doc/courier-base/README.Debian first
+for information about general changes applied to the Courier
+suite.
+
+MODULE.FAX
+
+The Courier SMTP server(s) absolutely require the existence
+of /etc/courier/module.fax. An empty file suffices. Therefore
+the init script will refuse to start/stop/restart the SMTP
+server(s) if this file is missing for any reason.
+
+NEWALIASES
+
+I added a /usr/sbin/newaliases shell script for compliance
+with the Debian Policy (Section "Mail transport, delivery and user agents").
+Please note that the default location for source alias file(s)
+is /etc/courier/aliases. The script reads /etc/aliases instead.
+
+#TODO
+
+ -- Ondřej Surý <ondrej@debian.org>, Sun,  2 Aug 2015 21:09:33 +0200

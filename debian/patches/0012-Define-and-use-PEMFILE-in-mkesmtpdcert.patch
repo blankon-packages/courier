@@ -1,0 +1,99 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+ Markus Wanner <markus@bluegap.ch>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Define and use PEMFILE in mkesmtpdcert
+Last-Update: 2017-09-12
+
+---
+ courier/module.esmtp/configure.ac    |  6 ++++
+ courier/module.esmtp/mkesmtpdcert.in | 58 ++++++++++++++++++++----------------
+ libs/imap/mkdhparams.in              |  4 +--
+ 3 files changed, 40 insertions(+), 28 deletions(-)
+
+--- a/courier/module.esmtp/configure.ac
++++ b/courier/module.esmtp/configure.ac
+@@ -283,6 +283,12 @@
+ eval "datadir=$datadir"
+ eval "localstatedir=$localstatedir"
+ 
++AC_ARG_WITH(certsdir, [ --with-certsdir Directory where certs are created ],
++certsdir="$withval", certsdir="$datadir")
++
++AC_SUBST(certsdir)
++
++
+ mydatadir="$datadir"
+ AC_SUBST(mydatadir)   # Quell automake warning
+ 
+--- a/courier/module.esmtp/mkesmtpdcert.in
++++ b/courier/module.esmtp/mkesmtpdcert.in
+@@ -8,10 +8,12 @@
+ # ESMTP STARTTLS.  Normally this script would get called by an automatic
+ # package installation routine.
+ 
++CERTNAME=$(basename $0 | sed -e 's/^mk//;s/cert$//')
++
+ PEMFILE="$1"
+ 
+ if [ -z "$PEMFILE" ]; then
+-	PEMFILE=@mydatadir@/esmtpd.pem
++	PEMFILE=@certsdir@/$CERTNAME.pem
+ fi
+ 
+ if test "@ssllib@" = "openssl"
+@@ -40,34 +42,28 @@
+ BITS="$BITS"
+ set -e
+ 
++install -b -m 600 -o "@mailuser@" /dev/null "$PEMFILE"
++
+ if test "@ssllib@" = "openssl"
+ then
+-	cp /dev/null "$PEMFILE"
+-	chmod 600 "$PEMFILE"
+-	chown @mailuser@ "$PEMFILE"
+ 	dd if=@RANDOMV@ of="$PEMFILE".rand count=1 2>/dev/null
+ 	@OPENSSL@ req -new -x509 -days 365 -nodes \
+-		  -config @sysconfdir@/esmtpd.cnf -out "$PEMFILE" -keyout "$PEMFILE" || cleanup
++	          -config "@sysconfdir@/$CERTNAME.cnf" -out "$PEMFILE" -keyout "$PEMFILE" || cleanup
+ 	@OPENSSL@ dhparam -2 -rand "$PEMFILE".rand 512 >>"$PEMFILE" || cleanup
+ 	@OPENSSL@ x509 -subject -dates -fingerprint -noout -in "$PEMFILE" || cleanup
+-	rm -f @mydatadir@/esmtpd.rand
++	rm -f "$PEMFILE".rand
+ else
+ 	if test "$BITS" = ""
+ 	then
+ 		BITS="high"
+ 	fi
+ 
+-	cp /dev/null "$PEMFILE".key
+-	chmod 600 "$PEMFILE".key
+-	cp /dev/null "$PEMFILE".cert
+-	chmod 600 "$PEMFILE".cert
++	install -b -m 600 -o "@mailuser@" /dev/null "$PEMFILE".key
++	install -v -m 600 -o "@mailuser@" /dev/null "$PEMFILE".cert
+ 
+ 	@CERTTOOL@ --generate-privkey --sec-param=$BITS --outfile "$PEMFILE".key || cleanup
+-	@CERTTOOL@ --generate-self-signed --load-privkey "$PEMFILE".key --outfile "$PEMFILE".cert --template @sysconfdir@/esmtpd.cnf || cleanup
++	@CERTTOOL@ --generate-self-signed --load-privkey "$PEMFILE".key --outfile "$PEMFILE".cert --template "@sysconfdir@/$CERTNAME.cnf" || cleanup
+ 
+-	cp /dev/null "$PEMFILE".pem
+-	chmod 600 "$PEMFILE".pem
+-	chown @mailuser@ "$PEMFILE".pem
+ 	cat "$PEMFILE".key "$PEMFILE".cert >"$PEMFILE"
+ 	rm -f "$PEMFILE".key "$PEMFILE".cert
+ fi
+--- a/libs/imap/mkdhparams.in
++++ b/libs/imap/mkdhparams.in
+@@ -34,10 +34,8 @@
+ 
+ set -e
+ 
+-umask 077
+-cp /dev/null $TLS_DHPARAMS.tmp
++install -b -m 0600 -o "@mailuser@" /dev/null $TLS_DHPARAMS.tmp
+ umask 022
+-chown @mailuser@ $TLS_DHPARAMS.tmp
+ 
+ BITS="$DH_BITS"
+ if test "@ssllib@" = "openssl"

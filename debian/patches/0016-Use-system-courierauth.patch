@@ -1,0 +1,26 @@
+From: "Stefan Hornburg (Racke)" <racke@linuxia.de>
+Date: Thu, 31 Dec 2015 12:04:08 +0100
+Subject: Use system courierauth
+
+---
+ libs/maildrop/configure | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/libs/maildrop/configure b/libs/maildrop/configure
+index fcea8cc..3f6a30d 100755
+--- a/libs/maildrop/configure
++++ b/libs/maildrop/configure
+@@ -17064,13 +17064,6 @@ fi
+ done
+ 
+ 
+-# When we're a part of the Courier build, we let Courier do the authlib stuff
+-
+-if test -d ${srcdir}/../../courier
+-then
+-	COURIERAUTHCONFIG=""
+-fi
+-
+ # Check whether --enable-authlib was given.
+ if test "${enable_authlib+set}" = set; then :
+   enableval=$enable_authlib;

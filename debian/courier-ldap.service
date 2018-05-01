@@ -1,0 +1,13 @@
+[Unit]
+Description=Courier LDAP Daemon
+Requires=courier-authdaemon.service
+After=courier-authdaemon.service
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/courierldapaliasd start
+ExecStop=/usr/sbin/courierldapaliasd stop
+PIDFile=/run/courier/ldapaliasd.pid
+
+[Install]
+WantedBy=multi-user.target

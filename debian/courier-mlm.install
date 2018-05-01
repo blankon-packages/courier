@@ -1,0 +1,8 @@
+etc/courier/webmlmrc
+usr/bin/couriermlm
+usr/bin/webmlmd
+usr/bin/webmlmd.rc
+usr/lib/courier/courier/webmail/webmlm
+usr/lib/courier/couriermlm
+usr/share/man/man1/couriermlm.1
+usr/share/man/man1/webmlmd.1

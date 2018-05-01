@@ -1,0 +1,362 @@
+# Czech translation of courier templates
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: courier 0.53.2-3\n"
+"Report-Msgid-Bugs-To: courier@packages.debian.org\n"
+"POT-Creation-Date: 2017-08-10 00:25+0200\n"
+"PO-Revision-Date: 2009-05-18 13:54+0200\n"
+"Last-Translator: Martin Sin <martin.sin@zshk.cz>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid "Create directories for web-based administration?"
+msgstr "Vytvořit adresáře pro webovou administraci?"
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"Courier uses several configuration files in /etc/courier. Some of these "
+"files can be replaced by a subdirectory whose contents are concatenated and "
+"treated as a single, consolidated, configuration file."
+msgstr ""
+"V adresáři /etc/courier jsou uloženy různé konfigurační soubory. Některé "
+"konfigurační soubory mohou být nahrazeny podadresáři, v nichž jsou všechny "
+"soubory sloučeny dle potřeby do jednoho společného konfiguračního souboru."
+
+#. Type: boolean
+#. Description
+#: ../courier-base.templates:2001
+msgid ""
+"The web-based administration provided by the courier-webadmin package relies "
+"on configuration directories instead of configuration files.  If you agree, "
+"any directories needed for the web-based administration tool will be created "
+"unless there is already a plain file in place."
+msgstr ""
+"Webové administrační rozhraní v balíčku courier-webadmin používá místo "
+"konfiguračních souborů adresáře. Jestliže budete souhlasit, pak budou "
+"vytvořeny všechny adresáře potřebné pro webový administrační nástroj, ledaže "
+"by tam již byly textové soubory."
+
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid "Path to Maildir directory:"
+msgstr "Cesta do adresáře Maildir:"
+
+#. Type: string
+#. Description
+#: ../courier-base.templates:3001
+msgid ""
+"Please give the relative path name from each user's home directory to the "
+"Maildir directory where the Courier servers store and access the user's "
+"email. Please refer to the maildir.courier(5) manual page if you are "
+"unfamiliar with the mail storage format used by Courier."
+msgstr ""
+"Zadejte prosím relativní cesta z každého domovského adresáře kteréhokoliv "
+"uživatele do adresáře Maildir, kde služba Courier uchovává a zpřístupňuje "
+"uživatelské emaily. Jestliže vám nic neříká formát uložení používaný "
+"Courierem, pak se ještě podívejte na manuálovou stránku maildir.courier(5)."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid "Obsolete setting of MAILDIR"
+msgstr "Zastaralé nastavení MAILDIR"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:4001
+msgid ""
+"The name of the Maildir directory is now recognized through the variable "
+"MAILDIRPATH in Courier configuration files. The MAILDIR setting in /etc/"
+"default/courier is therefore obsolete and will be not recognized."
+msgstr ""
+"Jméno adresáře Maildir je nyní určováno pomocí proměnné MAILDIRPATH "
+"nastavené v konfiguračních souborech Courier. Nastavení MILDIR v /etc/"
+"default/courier zastaralo a není automaticky rozpoznáno."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid "SSL certificate required"
+msgstr "Je vyžadován SSL certifikát"
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"POP and IMAP over SSL requires a valid, signed, X.509 certificate. During "
+"the installation of courier-pop or courier-imap, a self-signed X.509 "
+"certificate will be generated if necessary."
+msgstr ""
+"POP a IMAP přes SSL vyžaduje platný, podepsaný certifikát X.509. Během "
+"instalace courier-pop resp. courier-imap bude podle potřeby vytvořen sebou "
+"podepsaný certifikát X.509."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:5001
+msgid ""
+"For production use, the X.509 certificate must be signed by a recognized "
+"certificate authority, in order for mail clients to accept the certificate. "
+"The default location for this certificate is /etc/courier/pop3d.pem or /etc/"
+"courier/imapd.pem."
+msgstr ""
+"Pro pracovní používání musí být certifikát X.509 vybrán známou "
+"certifikovanou službou, jinak ho nebudou moci emailoví klienti přijímat. "
+"Implicitní nastavení pro tento certifikát je /etc/courier/pop3d.pem resp. /"
+"etc/courier/imapd.pem."
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid "Courier MTA under courier user"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The Courier MTA packaging has been extensively rewritten and major changes "
+"had been done to the default setup of Courier MTA."
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+"The default user and group for Courier MTA has been changed to courier:"
+"courier.  The package tries hard to make all files belong to correct user:"
+"group and the permissions on those files are correct, but if you have a non-"
+"default setup, you will have to make sure that:"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../courier-base.templates:6001
+msgid ""
+" + All file owners and file in /etc/courier and /var/lib/courier\n"
+"   are correctly set.\n"
+" + MAILUSER and MAILGROUP settings in /etc/courier/esmtpd is set to\n"
+"   correct user and group, both has to be set to `courier'."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid "Default domain:"
+msgstr "Implicitní doména:"
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:2001
+msgid ""
+"Please specify a valid email domain. Most header rewriting functions will "
+"append this domain to all email addresses which do not specify a domain, "
+"such as local accounts."
+msgstr ""
+"Zadejte prosím platný název emailové domény. Většina funkcí přepisujících "
+"hlavičky bude přidávat tuto doménu ke všem emailovým adresám, které jí "
+"nebudou mít specifikovánu, mezi ně patří např. lokální účty uživatelů."
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid "\"From\" header for delivery notifications:"
+msgstr "Hlavička \"From\" pro oznámení o doručení:"
+
+#. Type: string
+#. Description
+#: ../courier-mta.templates:3001
+msgid ""
+"Please specify a valid value for the \"From\" header for mail delivery "
+"notifications. These notifications cannot be sent without that setting."
+msgstr ""
+"Prosím určete platnou hodnotu pro hlavičku \"From\" nutnou pro oznámení o "
+"doručení. Bez tohoto nastavení nebude možno posílat tato oznámení."
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid "Activate CGI program?"
+msgstr "Aktivovat CGI program?"
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"To allow courier-webadmin to work out of the box, the CGI program /usr/lib/"
+"courier/courier/webmail/webadmin needs to be installed as /usr/lib/cgi-bin/"
+"courierwebadmin with the SUID bit set."
+msgstr ""
+"Pro práci courier-webadmin nad rámec možností, potřebujete zkopírovat CGI "
+"program z /usr/lib/courier/courier/webmail/webadmin do /usr/lib/cgi-bin/"
+"courierwebadmin a nastavit SUID bit."
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"This may have serious security implications, because courierwebadmin runs as "
+"root. Moreover, that solution is not guaranteed to work, depending on the "
+"web server software and its configuration."
+msgstr ""
+"To může mít vážné bezpečnostní následky, protože courierwebadmin pak běží s "
+"právy uživatele root. Kromě toho, toto řešení nemusí v závislosti na "
+"nastavení webového serveru vůbec fungovat."
+
+#. Type: boolean
+#. Description
+#: ../courier-webadmin.templates:2001
+msgid ""
+"If you choose this option and the web server setup is policy-compliant, you "
+"can access the administration frontend through http://localhost/cgi-bin/"
+"courierwebadmin."
+msgstr ""
+"Jestliže budete souhlasit a vaše nastavení serveru je shodné s bezpečnostní "
+"politikou Debianu, pak můžete přistoupit k administrátorskému rozhraní přes "
+"http://localhost/cgi-bin/courierwebadmin."
+
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid "Password for Courier administration:"
+msgstr "Heslo pro administraci Courier:"
+
+#. Type: password
+#. Description
+#: ../courier-webadmin.templates:3001
+msgid ""
+"A password is needed to protect access to the Courier administration web "
+"interface. Please choose one now."
+msgstr ""
+"Heslo se používá k ochraně přístupu k administračnímu webovému rozhraní "
+"Courier. Nastavte ho prosím."
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "local"
+msgstr "místní"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "net"
+msgstr "síť"
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:2001
+msgid "disabled"
+msgstr "vypnuto"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid "Calendaring mode:"
+msgstr "Mód kalendáře:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Please specify if you would like to enable calendaring in 'local' mode, "
+"enable groupware or 'net' mode or disable it. The courier-pcp package is "
+"required to use the groupware mode."
+msgstr ""
+"Určete prosím, zda chcete povolit kalendář v místním módu (zvolte místní), "
+"skupinovém módu (zvolte síť) nebo nepovolit (zvolte vypnuto). Pro používání "
+"skupinového módu potřebujete nainstalovat balíček courier-pcp."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"Local mode adds very little overhead over a disabled calendaring mode. On "
+"the other hand, groupware mode is less resources-friendly and requires a "
+"separate daemon process to be run."
+msgstr ""
+"místní mód je o trochu náročnější na systém než jeho úplné vypnutí. Na "
+"druhou stranu, skupinový mód využívá zdroje rozumně a vyžaduje spuštění "
+"samostatného procesu."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:2002
+msgid ""
+"For more information, please refer to /usr/share/doc/sqwebmail/PCP.html."
+msgstr "Pro více informací si přečtěte /usr/share/doc/sqwebmail/PCP.html."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid "Ispell dictionary:"
+msgstr "Slovník Ispell:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:3001
+msgid ""
+"SqWebMail allows you to spellcheck your emails. Please select an appropriate "
+"dictionary for ispell."
+msgstr ""
+"SqWebMail umožňuje kontrolu pravopisu vašich emailů. Vyberte si prosím "
+"odpovídající slovník pro ispell."
+
+#. Type: select
+#. Choices
+#: ../sqwebmail.templates:4001
+msgid "symlink, copy, custom"
+msgstr "symbolický odkaz, kopírovat, uživatelská"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid "Installation method for HTML documents and images:"
+msgstr "Instalační metoda dokumentů HTML a obrázků:"
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The HTML documents and images in /usr/share/sqwebmail can be made accessible "
+"at /var/www/sqwebmail via a symbolic link; or by being copied directly into "
+"a directory there; or not at all."
+msgstr ""
+"K dokumentům HTML a obrázkům umístěným  v /usr/share/sqwebmail je možno "
+"přistupovat pomocí symbolického odkazu /var/www/sqwebmail; nebo je přímo "
+"nakopírovat do tohoto adresáře; nebo nedělat nic."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"The 'copy' option is recommended for security reasons. However, if "
+"'FollowSymLinks' or 'SymLinksIfOwnerMatch' are already enabled in Apache "
+"configuration, the first option can be considered. The last option needs "
+"manual actions to configure the web server."
+msgstr ""
+"Volba 'kopírovat' se doporučuje především z bezpečnostních důvodů. "
+"Samozřejmě, pokud je v konfiguračních souborech Apache povolena volba "
+"'FollowSymLinks' nebo 'SymLinksIfOwnerMatch', pak můžete zvolit první "
+"možnost. Poslední možnost vyžaduje ruční zásah a konfiguraci ze strany "
+"uživatele."
+
+#. Type: select
+#. Description
+#: ../sqwebmail.templates:4002
+msgid ""
+"Please note that /var/www/sqwebmail will be removed if this package is "
+"purged unless the 'custom' option is chosen."
+msgstr ""
+"Uvědomte si prosím, že adresář /var/www/sqwebmail bude smazán při odstranění "
+"balíčku, ledaže byste zvolili možnost 'vlastní'."

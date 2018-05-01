@@ -1,0 +1,26 @@
+=head1 NAME
+
+addcr - converts 0x0a to 0x0d 0x0a
+
+=head1 SYNOPSIS
+
+addcr
+
+=head1 DESCRIPTION
+
+B<addcr> converts all rest-of-the-world newlines to windows-style newlines. Data
+is expected on standard input and returned on standard output. If windows-style 
+newlines already exist, nothing is changed. 
+
+B<addcr> is used inside the Courier Mail Server but it might also be useful for 
+interactive use. 
+
+=head1 SEE ALSO
+
+recode(1)
+
+=head1 AUTHOR
+
+This manual page was written by Willi Mann <willi@wm1.at>
+for the Debian GNU/Linux system.
+

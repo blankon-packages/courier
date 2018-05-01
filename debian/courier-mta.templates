@@ -1,0 +1,21 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# debian-l10n-english@lists.debian.org for advice.
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
+Template: courier-mta/defaultdomain
+Type: string
+_Description: Default domain:
+ Please specify a valid email domain. Most header rewriting functions will
+ append this domain to all email addresses which do not specify a domain,
+ such as local accounts.
+
+Template: courier-mta/dsnfrom
+Type: string
+_Description: "From" header for delivery notifications:
+ Please specify a valid value for the "From" header for mail delivery
+ notifications. These notifications cannot be sent without that setting.

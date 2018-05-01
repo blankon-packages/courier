@@ -1,0 +1,16 @@
+=head1 NAME
+
+courier-config - displays build configuration of the Courier Mail Server
+
+=head1 SYNOPSIS
+
+courier-config
+
+=head1 DESCRIPTION
+
+B<courier-config> displays build configuration of the Courier Mail Server.
+
+=head1 AUTHOR
+
+This manual page was written by Stefan Hornburg (Racke) <racke@linuxia.de>
+for the Debian GNU/Linux system.
